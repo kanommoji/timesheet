@@ -1,0 +1,662 @@
+{
+	"info": {
+		"_postman_id": "4893e1ae-72df-4ce8-a8be-5e464138714d",
+		"name": "TimesheetSuccess",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add income item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"year\":\"{{year}}\",\n\t\"month\":\"{{month}}\",\n\t\"member_id\":\"{{member_id}}\",\n\t\"incomes\":[{\n\t\t\"day\":{{day}},\n\t\t\"start_time_am\":\"{{start_time_am}}\",\n\t\t\"end_time_am\":\"{{end_time_am}}\",\n\t\t\"start_time_pm\":\"{{start_time_pm}}\",\n\t\t\"end_time_pm\":\"{{end_time_pm}}\",\n\t\t\"overtime\":{{overtime}},\n\t\t\"coaching_customer_charging\":{{coaching_customer_charging}},\n\t\t\"coaching_payment_rate\":{{coaching_payment_rate}},\n\t\t\"training_wage\":{{training_wage}},\n\t\t\"other_wage\":{{other_wage}},\n\t\t\"company\":\"{{company}}\",\n\t\t\"description\":\"{{description}}\"}]\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/addIncomeItem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addIncomeItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Calculate payment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"member_id\":\"{{member_id}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/calculatePayment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"calculatePayment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show summary timesheet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e0ce5fb-1695-497e-ac13-7677bd7ee93c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Member ID should be \"+data[\"timesheets\"][0][\"member_id\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.member_id.timesheets[0]).to.eql(data[\"timesheets\"][0][\"member_id\"]);",
+							"});",
+							"",
+							"pm.test(\"Member thai name should be \"+data[\"timesheets\"][0][\"member_name_th\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.member_name_th.timesheets[0]).to.eql(data[\"timesheets\"][0][\"member_name_th\"]);",
+							"});",
+							"",
+							"pm.test(\"Year should be \"+data[\"timesheets\"][0][\"year\"], function () {",
+							"    pm.expect(jsonData.response_transaction_timesheet.year.timesheets[0]).to.eql(data[\"timesheets\"][0][\"year\"]);",
+							"});",
+							"",
+							"pm.test(\"Month should be \"+data[\"timesheets\"][0][\"month\"], function () {",
+							"    pm.expect(jsonData.response_transaction_timesheet.month.timesheets[0]).to.eql(data[\"timesheets\"][0][\"month\"]);",
+							"});",
+							"",
+							"pm.test(\"Company should be \"+data[\"timesheets\"][0][\"company\"], function () {",
+							"    pm.expect(jsonData.response_transaction_timesheet.company.timesheets[0]).to.eql(data[\"timesheets\"][0][\"company\"]);",
+							"});",
+							"",
+							"pm.test(\"Coaching should be \"+data[\"timesheets\"][0][\"coaching\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].coaching).to.eql(data[\"timesheets\"][0][\"coaching\"]);",
+							"});",
+							"",
+							"pm.test(\"Training should be \"+data[\"timesheets\"][0][\"training\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].training).to.eql(data[\"timesheets\"][0][\"training\"]);",
+							"});",
+							"",
+							"pm.test(\"Other should be \"+data[\"timesheets\"][0][\"other\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].other).to.eql(data[\"timesheets\"][0][\"other\"]);",
+							"});",
+							"",
+							"pm.test(\"Total income should be \"+data[\"timesheets\"][0][\"total_income\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].total_income).to.eql(data[\"timesheets\"][0][\"total_income\"]);",
+							"});",
+							"",
+							"pm.test(\"Salary should be \"+data[\"timesheets\"][0][\"salary\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].salary).to.eql(data[\"timesheets\"][0][\"salary\"]);",
+							"});",
+							"",
+							"pm.test(\"Income tax 1 should be \"+data[\"timesheets\"][0][\"income_tax_1\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].income_tax_1).to.eql(data[\"timesheets\"][0][\"income_tax_1\"]);",
+							"});",
+							"",
+							"pm.test(\"Social security should be \"+data[\"timesheets\"][0][\"social_security\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].social_security).to.eql(data[\"timesheets\"][0][\"social_security\"]);",
+							"});",
+							"",
+							"pm.test(\"Net salary should be \"+data[\"timesheets\"][0][\"net_salary\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].net_salary).to.eql(data[\"timesheets\"][0][\"net_salary\"]);",
+							"});",
+							"",
+							"pm.test(\"Wage should be \"+data[\"timesheets\"][0][\"wage\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].wage).to.eql(data[\"timesheets\"][0][\"wage\"]);",
+							"});",
+							"",
+							"pm.test(\"Income tax 53 percentage should be \"+data[\"timesheets\"][0][\"income_tax_53_percentage\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].income_tax_53_percentage).to.eql(data[\"timesheets\"][0][\"income_tax_53_percentage\"]);",
+							"});",
+							"",
+							"pm.test(\"Income tax 53 should be \"+data[\"timesheets\"][0][\"income_tax_53\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].income_tax_53).to.eql(data[\"timesheets\"][0][\"income_tax_53\"]);",
+							"});",
+							"",
+							"pm.test(\"Net wage should be \"+data[\"timesheets\"][0][\"net_wage\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].net_wage).to.eql(data[\"timesheets\"][0][\"net_wage\"]);",
+							"});",
+							"",
+							"pm.test(\"Net transfer should be \"+data[\"timesheets\"][0][\"net_transfer\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].net_transfer).to.eql(data[\"timesheets\"][0][\"net_transfer\"]);",
+							"});",
+							"",
+							"pm.test(\"Status checking transfer should be \"+data[\"timesheets\"][0][\"status_checking_transfer\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].status_checking_transfer).to.eql(data[\"timesheets\"][0][\"status_checking_transfer\"]);",
+							"});",
+							"",
+							"pm.test(\"Date transfer should be \"+data[\"timesheets\"][0][\"date_transfer\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].date_transfer).to.eql(data[\"timesheets\"][0][\"date_transfer\"]);",
+							"});",
+							"",
+							"pm.test(\"Comment should be \"+data[\"timesheets\"][0][\"comment\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[0].comment).to.eql(data[\"timesheets\"][0][\"comment\"]);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"pm.test(\"Member ID should be \"+data[\"timesheets\"][1][\"member_id\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.member_id.timesheets[1]).to.eql(data[\"timesheets\"][1][\"member_id\"]);",
+							"});",
+							"",
+							"pm.test(\"Member thai name should be \"+data[\"timesheets\"][1][\"member_name_th\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.member_name_th.timesheets[1]).to.eql(data[\"timesheets\"][1][\"member_name_th\"]);",
+							"});",
+							"",
+							"pm.test(\"Year should be \"+data[\"timesheets\"][1][\"year\"], function () {",
+							"    pm.expect(jsonData.response_transaction_timesheet.year.timesheets[1]).to.eql(data[\"timesheets\"][1][\"year\"]);",
+							"});",
+							"",
+							"pm.test(\"Month should be \"+data[\"timesheets\"][1][\"month\"], function () {",
+							"    pm.expect(jsonData.response_transaction_timesheet.month.timesheets[1]).to.eql(data[\"timesheets\"][1][\"month\"]);",
+							"});",
+							"",
+							"pm.test(\"Company should be \"+data[\"timesheets\"][1][\"company\"], function () {",
+							"    pm.expect(jsonData.response_transaction_timesheet.company.timesheets[1]).to.eql(data[\"timesheets\"][1][\"company\"]);",
+							"});",
+							"",
+							"pm.test(\"Coaching should be \"+data[\"timesheets\"][1][\"coaching\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].coaching).to.eql(data[\"timesheets\"][1][\"coaching\"]);",
+							"});",
+							"",
+							"pm.test(\"Training should be \"+data[\"timesheets\"][1][\"training\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].training).to.eql(data[\"timesheets\"][1][\"training\"]);",
+							"});",
+							"",
+							"pm.test(\"Other should be \"+data[\"timesheets\"][1][\"other\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].other).to.eql(data[\"timesheets\"][1][\"other\"]);",
+							"});",
+							"",
+							"pm.test(\"Total income should be \"+data[\"timesheets\"][1][\"total_income\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].total_income).to.eql(data[\"timesheets\"][1][\"total_income\"]);",
+							"});",
+							"",
+							"pm.test(\"Salary should be \"+data[\"timesheets\"][1][\"salary\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].salary).to.eql(data[\"timesheets\"][1][\"salary\"]);",
+							"});",
+							"",
+							"pm.test(\"Income tax 1 should be \"+data[\"timesheets\"][1][\"income_tax_1\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].income_tax_1).to.eql(data[\"timesheets\"][1][\"income_tax_1\"]);",
+							"});",
+							"",
+							"pm.test(\"Social security should be \"+data[\"timesheets\"][1][\"social_security\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].social_security).to.eql(data[\"timesheets\"][1][\"social_security\"]);",
+							"});",
+							"",
+							"pm.test(\"Net salary should be \"+data[\"timesheets\"][1][\"net_salary\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].net_salary).to.eql(data[\"timesheets\"][1][\"net_salary\"]);",
+							"});",
+							"",
+							"pm.test(\"Wage should be \"+data[\"timesheets\"][1][\"wage\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].wage).to.eql(data[\"timesheets\"][1][\"wage\"]);",
+							"});",
+							"",
+							"pm.test(\"Income tax 53 percentage should be \"+data[\"timesheets\"][1][\"income_tax_53_percentage\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].income_tax_53_percentage).to.eql(data[\"timesheets\"][1][\"income_tax_53_percentage\"]);",
+							"});",
+							"",
+							"pm.test(\"Income tax 53 should be \"+data[\"timesheets\"][1][\"income_tax_53\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].income_tax_53).to.eql(data[\"timesheets\"][1][\"income_tax_53\"]);",
+							"});",
+							"",
+							"pm.test(\"Net wage should be \"+data[\"timesheets\"][1][\"net_wage\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].net_wage).to.eql(data[\"timesheets\"][1][\"net_wage\"]);",
+							"});",
+							"",
+							"pm.test(\"Net transfer should be \"+data[\"timesheets\"][1][\"net_transfer\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].net_transfer).to.eql(data[\"timesheets\"][1][\"net_transfer\"]);",
+							"});",
+							"",
+							"pm.test(\"Status checking transfer should be \"+data[\"timesheets\"][1][\"status_checking_transfer\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].status_checking_transfer).to.eql(data[\"timesheets\"][1][\"status_checking_transfer\"]);",
+							"});",
+							"",
+							"pm.test(\"Date transfer should be \"+data[\"timesheets\"][1][\"date_transfer\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].date_transfer).to.eql(data[\"timesheets\"][1][\"date_transfer\"]);",
+							"});",
+							"",
+							"pm.test(\"Comment should be \"+data[\"timesheets\"][1][\"comment\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_transaction_timesheet.timesheets[1].comment).to.eql(data[\"timesheets\"][1][\"comment\"]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"year\":\"{{year}}\",\n\t\"month\":\"{{month}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/showSummaryTimesheet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"showSummaryTimesheet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show timesheet by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Member english name should be \"+data[\"member_name_eng\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.member_name_eng).to.eql(data[\"member_name_eng\"]);",
+							"});",
+							"",
+							"pm.test(\"Email should be \"+data[\"email\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.email).to.eql(data[\"email\"]);",
+							"});",
+							"",
+							"pm.test(\"Overtime rate should be \"+data[\"overtime_rate\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.overtime_rate).to.eql(data[\"overtime_rate\"]);",
+							"});",
+							"",
+							"pm.test(\"Rate per day should be \"+data[\"rate_per_day\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.rate_per_day).to.eql(data[\"rate_per_day\"]);",
+							"});",
+							"",
+							"pm.test(\"Rate per hour should be \"+data[\"rate_per_hour\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.rate_per_hour).to.eql(data[\"rate_per_hour\"]);",
+							"});",
+							"",
+							"pm.test(\"Month should be \"+data[\"month\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.month).to.eql(data[\"month\"]);",
+							"});",
+							"",
+							"pm.test(\"Year should be \"+data[\"year\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.year).to.eql(data[\"year\"]);",
+							"});",
+							"",
+							"pm.test(\"Day should be \"+data[\"incomes\"][0][\"day\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].day).to.eql(data[\"incomes\"][0][\"day\"]);",
+							"});",
+							"",
+							"pm.test(\"Start time should be \"+data[\"incomes\"][0][\"start_time_am\"]+\"AM\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].start_time_am).to.eql(data[\"incomes\"][0][\"start_time_am\"]);",
+							"});",
+							"",
+							"pm.test(\"End time should be \"+data[\"incomes\"][0][\"end_time_am\"]+\"AM\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].end_time_am).to.eql(data[\"incomes\"][0][\"end_time_am\"]);",
+							"});",
+							"",
+							"pm.test(\"Start time should be \"+data[\"incomes\"][0][\"start_time_pm\"]+\"PM\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].start_time_pm).to.eql(data[\"incomes\"][0][\"start_time_pm\"]);",
+							"});",
+							"",
+							"pm.test(\"End time should be \"+data[\"incomes\"][0][\"end_time_pm\"]+\"PM\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].end_time_pm).to.eql(data[\"incomes\"][0][\"end_time_pm\"]);",
+							"});",
+							"",
+							"pm.test(\"Overtime should be \"+data[\"incomes\"][0][\"overtime\"]+\"hours\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].overtime).to.eql(data[\"incomes\"][0][\"overtime\"]);",
+							"});",
+							"",
+							"pm.test(\"Total hours should be \"+data[\"incomes\"][0][\"total_hours\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].total_hours).to.eql(data[\"incomes\"][0][\"total_hours\"]);",
+							"});",
+							"",
+							"pm.test(\"Coaching customer charging should be \"+data[\"incomes\"][0][\"coaching_customer_charging\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].coaching_customer_charging).to.eql(data[\"incomes\"][0][\"coaching_customer_charging\"]);",
+							"});",
+							"",
+							"pm.test(\"Coaching payment rate should be \"+data[\"incomes\"][0][\"coaching_payment_rate\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].coaching_payment_rate).to.eql(data[\"incomes\"][0][\"coaching_payment_rate\"]);",
+							"});",
+							"",
+							"pm.test(\"Training wage should be \"+data[\"incomes\"][0][\"training_wage\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].training_wage).to.eql(data[\"incomes\"][0][\"training_wage\"]);",
+							"});",
+							"",
+							"pm.test(\"Other wage should be \"+data[\"incomes\"][0][\"other_wage\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].other_wage).to.eql(data[\"incomes\"][0][\"other_wage\"]);",
+							"});",
+							"",
+							"pm.test(\"Company should be \"+data[\"incomes\"][0][\"company\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].company).to.eql(data[\"incomes\"][0][\"company\"]);",
+							"});",
+							"",
+							"pm.test(\"Description should be \"+data[\"incomes\"][0][\"description\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.incomes[0].description).to.eql(data[\"incomes\"][0][\"description\"]);",
+							"});",
+							"",
+							"pm.test(\"Total hours per month should be \"+data[\"total_hours_per_month\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.total_hours_per_month).to.eql(data[\"total_hours_per_month\"]);",
+							"});",
+							"",
+							"pm.test(\"Total coaching customer charging should be \"+data[\"total_coaching_customer_charging\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.total_coaching_customer_charging).to.eql(data[\"total_coaching_customer_charging\"]);",
+							"});",
+							"",
+							"pm.test(\"Total coaching payment rate should be \"+data[\"total_coaching_payment_rate\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.total_coaching_payment_rate).to.eql(data[\"total_coaching_payment_rate\"]);",
+							"});",
+							"",
+							"pm.test(\"Total training wage should be \"+data[\"total_training_wage\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.total_training_wage).to.eql(data[\"total_training_wage\"]);",
+							"});",
+							"",
+							"pm.test(\"Total other wage should be \"+data[\"total_other_wage\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.total_other_wage).to.eql(data[\"total_other_wage\"]);",
+							"});",
+							"",
+							"pm.test(\"Total payment wage should be \"+data[\"total_payment_wage\"], function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.response_member_timesheet.total_payment_wage).to.eql(data[\"total_payment_wage\"]);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"year\":\"{{year}}\",\n\t\"month\":\"{{month}}\",\n\t\"member_id\":\"{{member_id}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/showTimesheetByID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"showTimesheetByID"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update status checking transfer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"year\":\"{{year}}\",\n\t\"month\":\"{{month}}\",\n\t\"member_id\":\"{{member_id}}\",\n\t\"status_checking_transfer\":\"{{status_checking_transfer}}\",\n\t\"company\":\"{{company}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/updateStatusCheckingTransfer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"updateStatusCheckingTransfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete income item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"year\":\"{{year}}\",\n\t\"month\":\"{{month}}\",\n\t\"member_id\":\"{{member_id}}\",\n\t\"day\":{{day}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/deleteIncomeItem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"deleteIncomeItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update member details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"member_id\":\"{{member_id}}\",\n\t\"member_name_th\":\"{{member_name_th}}\",\n\t\"member_name_eng\":\"{{member_name_eng}}\",\n\t\"email\":\"{{email}}\",\n\t\"rate_per_day\":{{rate_per_day}},\n\t\"rate_per_hour\":{{rate_per_hour}},\n\t\"overtime_rate\":{{overtime_rate}},\n\t\"companies\":[{\n\t\t\"company\":\"{{company}}\",\n\t\t\"salary\":{{salary}},\n\t\t\"income_tax_1\":{{income_tax_1}},\n\t\t\"social_security\":{{social_security}},\n\t\t\"income_tax_53_percentage\":{{income_tax_53_percentage}},\n\t\t\"travel_expense\":{{travel_expense}},\n\t\t\"status\":\"{{status}}\"\n\t}]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/updateMemberDetails",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"updateMemberDetails"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
