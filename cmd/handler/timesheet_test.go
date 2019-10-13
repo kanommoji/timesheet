@@ -15,7 +15,7 @@ import (
 )
 
 func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *testing.T) {
-	expected := `[{"member_id":"001","member_name_th":"ประธาน ด่านสกุลเจริญกิจ","month":12,"year":2018,"company":"Siam Chamnankit","coaching":85000,"training":30000,"other":40000,"total_incomes":155000,"salary":80000,"income_tax_1":5000,"social_security":0,"net_salary":75000,"wage":75000,"income_tax_53_percentage":10,"income_tax_53":7500,"net_wage":67500,"net_transfer":142500,"status_checking_transfer":"รอการตรวจสอบ","date_transfer":"","comment":""},{"member_id":"001","member_name_th":"ประธาน ด่านสกุลเจริญกิจ","month":12,"year":2018,"company":"Shuhari","coaching":0,"training":40000,"other":0,"total_incomes":40000,"salary":0,"income_tax_1":0,"social_security":0,"net_salary":0,"wage":40000,"income_tax_53_percentage":10,"income_tax_53":4000,"net_wage":36000,"net_transfer":36000,"status_checking_transfer":"รอการตรวจสอบ","date_transfer":"","comment":""}]`
+	expected := `[{"member_id":"001","member_name_th":"ประธาน ด่านสกุลเจริญกิจ","month":12,"year":2018,"company":"siam_chamnankit","coaching":85000,"training":30000,"other":40000,"total_incomes":155000,"salary":80000,"income_tax_1":5000,"social_security":0,"net_salary":75000,"wage":75000,"income_tax_53_percentage":10,"income_tax_53":7500,"net_wage":67500,"net_transfer":142500,"status_checking_transfer":"รอการตรวจสอบ","date_transfer":"","comment":""},{"member_id":"001","member_name_th":"ประธาน ด่านสกุลเจริญกิจ","month":12,"year":2018,"company":"shuhari","coaching":0,"training":40000,"other":0,"total_incomes":40000,"salary":0,"income_tax_1":0,"social_security":0,"net_salary":0,"wage":40000,"income_tax_53_percentage":10,"income_tax_53":4000,"net_wage":36000,"net_transfer":36000,"status_checking_transfer":"รอการตรวจสอบ","date_transfer":"","comment":""}]`
 	date := Date{
 		Year:  2018,
 		Month: 12,
@@ -31,7 +31,7 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 			MemberNameTH:           "ประธาน ด่านสกุลเจริญกิจ",
 			Month:                  12,
 			Year:                   2018,
-			Company:                "Siam Chamnankit",
+			Company:                "siam_chamnankit",
 			Coaching:               85000.00,
 			Training:               30000.00,
 			Other:                  40000.00,
@@ -53,7 +53,7 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 			MemberNameTH:           "ประธาน ด่านสกุลเจริญกิจ",
 			Month:                  12,
 			Year:                   2018,
-			Company:                "Shuhari",
+			Company:                "shuhari",
 			Coaching:               0.00,
 			Training:               40000.00,
 			Other:                  0.00,
