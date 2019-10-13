@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PAYMENTS</title>
+  <link rel="stylesheet" href="/css/timesheet.css">
+</head>
+<script src="js/timesheet.js"></script>
+<script src="js/jquery-3.4.1.min.js"></script>
+<body>
+  <h1>DATE</h1>
+    Year <input id="year" type="number" value="2018">
+    Month <input id="month" type="number" value="12">
+    <input type="submit" value="ยืนยัน" onclick="showSummary()"/><br><br>
+  
+  <table border="1" style="width:100%">
+    <tr>
+      <th rowspan="3">ลำดับที่</th>
+      <th rowspan="3">พนักงาน</th>
+      <th colspan="4">รายได้</th>
+      <th colspan="4"></th>
+      <th colspan="5">รายรับก้อนเงินค่าจ้าง หัก ณ ที่จ่าย ภ.ง.ด. 53</th>
+      <th rowspan="3">สถานะการตรวจสอบ</th>
+      <th rowspan="3">วันที่โอนเงิน</th>
+      <th rowspan="3">หมายเหตุ</th>
+      </tr> 
+      <tr>
+      <td>Coaching</td>
+      <td>Training</td>
+      <td>Other</td>
+      <td>รวม</td>
+      <td>เงินเดือน</td>
+      <td>หัก ณ ที่จ่าย ภ.ง.ด.1</td>
+      <td>หัก ประกันสังคม</td>
+      <td>ยอดสุทธิเงินเดือน</td>
+      <td>เงินค่าจ้าง</td>
+      <td>หัก ณ ที่จ่าย ภ.ง.ด.53</td>
+      <td>หัก ณ ที่จ่าย ภ.ง.ด.53</td>
+      <td>ยอดสุทธิค่าจ้าง</td>
+      <td>ยอดโอนเงินสุทธิ</td>
+      </tr>
+      <tr>
+      <td id="total_coaching_siam_chamnankit">฿ </td>
+      <td id="total_traning_siam_chamnankit">฿ </td>
+      <td id="total_other_siam_chamnankit">฿ </td>
+      <td id="total_incomes_siam_chamnankit">฿ </td>
+      <td id="total_salary_siam_chamnankit">฿ </td>
+      <td id="total_income_tax_1_siam_chamnankit">฿ </td>
+      <td id="total_social_security_siam_chamnankit">฿ </td>
+      <td id="total_net_salary_siam_chamnankit">฿ </td>
+      <td id="total_wage_siam_chamnankit">฿ </td>
+      <td></td>
+      <td id="total_income_tax_53_siam_chamnankit">฿ </td>
+      <td id="total_net_wage_siam_chamnankit">฿ </td>
+      <td id="total_net_transfer_siam_chamnankit">฿ </td>
+      </tr>
+      <tbody id="table_siam_chamnankit"></tbody>
+  </table>
+  <table border="1" style="width:100%">
+    <tr>
+      <th rowspan="3">ลำดับที่</th>
+      <th rowspan="3">พนักงาน</th>
+      <th colspan="4">รายได้</th>
+      <th colspan="4"></th>
+      <th colspan="5">รายรับก้อนเงินค่าจ้าง หัก ณ ที่จ่าย ภ.ง.ด. 53</th>
+      <th rowspan="3">สถานะการตรวจสอบ</th>
+      <th rowspan="3">วันที่โอนเงิน</th>
+      <th rowspan="3">หมายเหตุ</th>
+       </tr> 
+      <tr>
+      <td>Coaching</td>
+      <td>Training</td>
+      <td>Other</td>
+      <td>รวม</td>
+      <td>เงินเดือน</td>
+      <td>หัก ณ ที่จ่าย ภ.ง.ด.1</td>
+      <td>หัก ประกันสังคม</td>
+      <td>ยอดสุทธิเงินเดือน</td>
+      <td>เงินค่าจ้าง</td>
+      <td>หัก ณ ที่จ่าย ภ.ง.ด.53</td>
+      <td>หัก ณ ที่จ่าย ภ.ง.ด.53</td>
+      <td>ยอดสุทธิค่าจ้าง</td>
+      <td>ยอดโอนเงินสุทธิ</td>
+      </tr>
+      <tr>
+      <td id="total_coaching_shuhari">฿ </td>
+      <td id="total_traning_shuhari">฿ </td>
+      <td id="total_other_shuhari">฿ </td>
+      <td id="total_incomes_shuhari">฿ </td>
+      <td id="total_salary_shuhari">฿ </td>
+      <td id="total_income_tax_1_shuhari">฿ </td>
+      <td id="total_social_security_shuhari">฿ </td>
+      <td id="total_net_salary_shuhari">฿ </td>
+      <td id="total_wage_shuhari">฿ </td>
+      <td></td>
+      <td id="total_income_tax_53_shuhari"> </td>
+      <td id="total_net_wage_shuhari">฿ </td>
+      <td id="total_net_transferShuhari">฿ </td>
+      </tr>
+      <tbody id="table_shuhari"></tbody>
+  </table>
+</body>
+</html>
