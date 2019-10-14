@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
+	"net/http"
 	"net/http/httptest"
 	"testing"
 	. "timesheet/cmd/handler"
@@ -86,4 +87,50 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 
 	assert.Equal(t, nil, err)
 	assert.Equal(t, expected, string(actual))
+}
+
+func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Should_Be_Status_200(t *testing.T) {
+	expectedStatus := http.StatusOK
+	expected := `{"year":2018,"month":12,"member_id":"001","incomes":[{"day":28,"start_time_am":"09:00:00","end_time_am":"12:00:00","start_time_pm":"13:00:00","end_time_pm":"18:00:00","overtime":0,"total_hours":8,"coaching_customer_charging":15000,"coaching_payment_rate":10000,"training_wage":0,"other_wage":0,"company":"siam_chamnankit","description":"[KBTG] 2 Days Agile Project Management"}]}`
+	requestIncome := RequestIncome{
+		Year:     2018,
+		Month:    12,
+		MemberID: "001",
+		Incomes: []Incomes{
+			Incomes{
+				Day:                      28,
+				StartTimeAM:              "09:00:00",
+				EndTimeAM:                "12:00:00",
+				StartTimePM:              "13:00:00",
+				EndTimePM:                "18:00:00",
+				Overtime:                 0,
+				TotalHours:               8,
+				CoachingCustomerCharging: 15000,
+				CoachingPaymentRate:      10000,
+				TrainingWage:             0,
+				OtherWage:                0,
+				Company:                  "siam_chamnankit",
+				Description:              "[KBTG] 2 Days Agile Project Management",
+			},
+		},
+	}
+	jsonRequest, _ := json.Marshal(requestIncome)
+	request := httptest.NewRequest("POST", "/addIncomeItem", bytes.NewBuffer(jsonRequest))
+	writer := httptest.NewRecorder()
+
+	mockIncomeRepository := new(mockapi.MockIncomeRepository)
+	mockIncomeRepository.On("UpdateIncomeByID", 2018, 12, "001").Return(nil)
+
+	api := TimesheetAPI{
+		Income: mockIncomeRepository,
+	}
+
+	testRoute := gin.Default()
+	testRoute.POST("/addIncomeItem", api.UpdateIncomeHandler)
+	testRoute.ServeHTTP(writer, request)
+
+	response := writer.Result()
+
+	assert.Equal(t, expectedStatus, response.StatusCode)
+	assert.Equal(t, expected, string(jsonRequest))
 }
