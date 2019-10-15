@@ -6,6 +6,7 @@ import (
 
 type TimesheetRepositoryGateways interface {
 	GetSummary(year, month int) ([]TransactionTimesheet, error)
+	UpdateIncomeByID(year, month int, memberID string, income []Incomes) bool
 }
 
 type TimesheetRepository struct {
@@ -52,4 +53,16 @@ func (repository TimesheetRepository) GetSummary(year, month int) ([]Transaction
 	}
 
 	return transactionTimesheetList, nil
+}
+
+func (repository TimesheetRepository) UpdateIncomeByID(year, month int, memberID string, income []Incomes) bool {
+	statement, err := repository.DBConnection.Prepare(`INSERT INTO incomes (member_id, month, year, day, start_time_am, end_time_am, start_time_pm, end_time_pm, overtime, total_hours, coaching_customer_charging, coaching_payment_rate, training_wage, other_wage, company, description) VALUES ( ? , ? , ?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? )`)
+	if err != nil {
+		return false
+	}
+	_, err = statement.Exec(memberID, month, year, income[0].Day, income[0].StartTimeAM, income[0].EndTimeAM, income[0].StartTimePM, income[0].EndTimePM, income[0].Overtime, income[0].TotalHours, income[0].CoachingCustomerCharging, income[0].CoachingPaymentRate, income[0].TrainingWage, income[0].OtherWage, income[0].Company, income[0].Description)
+	if err != nil {
+		return false
+	}
+	return true
 }
