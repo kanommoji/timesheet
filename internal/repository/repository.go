@@ -7,6 +7,7 @@ import (
 
 type TimesheetRepositoryGateways interface {
 	GetSummary(year, month int) ([]model.TransactionTimesheet, error)
+	UpdateIncomeByID(year, month int, memberID string) error
 }
 
 type TimesheetRepository struct {
