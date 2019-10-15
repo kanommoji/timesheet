@@ -1,15 +1,30 @@
 package main
 
 import (
+	"database/sql"
+	"log"
 	"net/http"
 	"timesheet/cmd/handler"
+	"timesheet/internal/database"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	router := gin.Default()
-	var api handler.TimesheetAPI
+
+	dBConnection, err := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
+	if err != nil {
+		log.Fatal("Cannot connect database", err.Error())
+	}
+	dataMapper := database.DataMapperMariaDB{
+		DBConnection: dBConnection,
+	}
+
+	api := handler.TimesheetAPI{
+		DataMapperMariaDB: dataMapper,
+	}
+
 	router.POST("/showSummaryTimesheet", api.GetSummaryHandler)
 	router.POST("/addIncomeItem", api.UpdateIncomeHandler)
 	router.StaticFS("/", http.Dir("ui"))
