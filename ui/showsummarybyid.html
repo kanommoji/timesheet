@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title id="title_name"></title>
+  <link rel="stylesheet" href="/css/timesheet.css">
+</head>
+<script src="js/timesheet.js"></script>
+<script src="js/jquery-3.4.1.min.js"></script>
+<body>
+    <form action="/addIncomeItem" method="POST">
+        <input type="number" value="day">
+        <input type="time" value="start_time_am">
+        <input type="time" value="end_time_am">
+        <input type="time" value="start_time_pm">
+        <input type="time" value="end_time_pm">
+        <input type="number" value="overtime">
+        <input type="number" value="total_hours">
+        <input type="number" value="coaching_payment_rate">
+        <input type="number" value="training_wage">
+        <input type="number" value="other_wage">
+        <select name="company">
+            <option value="siam_chamnankit">Siam Chamnankit</option>
+            <option value="shuhari">Shuhari</option>
+        </select>
+        <input type="text" value="description">
+        <input type="submit" value="ยืนยัน">
+    </form>
+</body>
+</html>

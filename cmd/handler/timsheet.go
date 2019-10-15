@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"database/sql"
 	"net/http"
 	"timesheet/internal/timesheet"
 
@@ -22,6 +23,7 @@ type RequestIncome struct {
 type TimesheetAPI struct {
 	TimesheetRepository timesheet.TimesheetRepositoryGateways
 	Income              timesheet.IncomeGateways
+	DBConnection        *sql.DB
 }
 
 func (api TimesheetAPI) GetSummaryHandler(context *gin.Context) {
