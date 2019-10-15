@@ -75,7 +75,7 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 	})
 
 	api := TimesheetAPI{
-		Timesheet: mockTimesheet,
+		TimesheetRepository: mockTimesheet,
 	}
 
 	testRoute := gin.Default()

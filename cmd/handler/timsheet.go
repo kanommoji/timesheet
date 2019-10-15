@@ -2,7 +2,6 @@ package handler
 
 import (
 	"net/http"
-	"timesheet/internal/database"
 	"timesheet/internal/timesheet"
 
 	"github.com/gin-gonic/gin"
@@ -21,8 +20,8 @@ type RequestIncome struct {
 }
 
 type TimesheetAPI struct {
-	Timesheet         timesheet.TimesheetGateways
-	DataMapperMariaDB database.DataMapperMariaDB
+	Timesheet           timesheet.TimesheetGateways
+	TimesheetRepository timesheet.TimesheetRepositoryGateways
 }
 
 func (api TimesheetAPI) GetSummaryHandler(context *gin.Context) {
@@ -77,7 +76,7 @@ func (api TimesheetAPI) GetSummaryHandler(context *gin.Context) {
 		},
 	}
 
-	// := api.Timesheet.GetSummary(date.Year, date.Month)
+	// transactionTimesheet := api.TimesheetRepository.GetSummary(date.Year, date.Month)
 
 	context.JSON(http.StatusOK, transactionTimesheet)
 }

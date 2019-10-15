@@ -1,7 +1,12 @@
 package timesheet
 
-import "timesheet/internal/database"
+type TimesheetRepositoryGateways interface {
+	GetSummary(year, month int) []TransactionTimesheet
+}
 
-type TimesheetRepositoryMariaDB struct {
-	DataMapper database.DataMapperMariaDB
+type Timesheet struct {
+}
+
+func (timesheet Timesheet) GetSummary(year, month int) []TransactionTimesheet {
+	return []TransactionTimesheet{}
 }
