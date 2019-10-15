@@ -1,6 +1,7 @@
 package timesheet
 
 type TransactionTimesheet struct {
+	ID                     int     `json:"id"`
 	MemberID               string  `json:"member_id"`
 	MemberNameTH           string  `json:"member_name_th"`
 	Month                  int     `json:"month"`

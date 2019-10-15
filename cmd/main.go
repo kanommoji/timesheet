@@ -5,8 +5,10 @@ import (
 	"log"
 	"net/http"
 	"timesheet/cmd/handler"
+	"timesheet/internal/timesheet"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
@@ -15,8 +17,12 @@ func main() {
 	if err != nil {
 		log.Fatal("Cannot connect database", err.Error())
 	}
+	defer database.Close()
+
 	api := handler.TimesheetAPI{
-		DBConnection: database,
+		TimesheetRepository: timesheet.TimesheetRepository{
+			DBConnection: database,
+		},
 	}
 	router.POST("/showSummaryTimesheet", api.GetSummaryHandler)
 	router.POST("/addIncomeItem", api.UpdateIncomeHandler)
