@@ -22,7 +22,6 @@ type RequestIncome struct {
 
 type TimesheetAPI struct {
 	Timesheet         timesheet.TimesheetGateways
-	Income            timesheet.IncomeGateways
 	DataMapperMariaDB database.DataMapperMariaDB
 }
 
