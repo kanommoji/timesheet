@@ -38,8 +38,8 @@
 									"    pm.expect(jsonData[0].month).to.eql(12);",
 									"});",
 									"",
-									"pm.test(\"Company should be Siam Chamnankit\", function () {",
-									"    pm.expect(jsonData[0].company).to.eql(\"Siam Chamnankit\");",
+									"pm.test(\"Company should be siam_chamnankit\", function () {",
+									"    pm.expect(jsonData[0].company).to.eql(\"siam_chamnankit\");",
 									"});",
 									"",
 									"pm.test(\"Coaching should be 75000\", function () {",
@@ -124,8 +124,8 @@
 									"    pm.expect(jsonData[1].month).to.eql(12);",
 									"});",
 									"",
-									"pm.test(\"Company should be Shuhari\", function () {",
-									"    pm.expect(jsonData[1].company).to.eql(\"Shuhari\");",
+									"pm.test(\"Company should be shuhari\", function () {",
+									"    pm.expect(jsonData[1].company).to.eql(\"shuhari\");",
 									"});",
 									"",
 									"pm.test(\"Coaching should be 0\", function () {",
@@ -210,7 +210,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/showSummaryTimesheet",
@@ -254,7 +254,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\",\n\t\"member_id\":\"001\",\n\t\"incomes\":[{\n\t\t\"day\":28,\n\t\t\"start_time_am\":\"09:00:00\",\n\t\t\"end_time_am\":\"12:00:00\",\n\t\t\"start_time_pm\":\"13:00:00\",\n\t\t\"end_time_pm\":\"18:00:00\",\n\t\t\"overtime\":0,\n\t\t\"total_hours\":8,\n\t\t\"coaching_customer_charging\":15000,\n\t\t\"coaching_payment_rate\":10000,\n\t\t\"training_wage\":0,\n\t\t\"other_wage\":0,\n\t\t\"company\":\"Siam Chamnankit\",\n\t\t\"description\":\"[KBTG] 2 Days Agile Project Management\"}]\n}\n"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"001\",\n\t\"incomes\":[{\n\t\t\"day\":28,\n\t\t\"start_time_am\":\"09:00:00\",\n\t\t\"end_time_am\":\"12:00:00\",\n\t\t\"start_time_pm\":\"13:00:00\",\n\t\t\"end_time_pm\":\"18:00:00\",\n\t\t\"overtime\":0,\n\t\t\"total_hours\":8,\n\t\t\"coaching_customer_charging\":15000,\n\t\t\"coaching_payment_rate\":10000,\n\t\t\"training_wage\":0,\n\t\t\"other_wage\":0,\n\t\t\"company\":\"siam_chamnankit\",\n\t\t\"description\":\"[KBTG] 2 Days Agile Project Management\"}]\n}\n"
 						},
 						"url": {
 							"raw": "http://localhost:8080/addIncomeItem",
@@ -344,8 +344,8 @@
 									"    pm.expect(jsonData[0].month).to.eql(12);",
 									"});",
 									"",
-									"pm.test(\"Company should be Siam Chamnankit\", function () {",
-									"    pm.expect(jsonData[0].company).to.eql(\"Siam Chamnankit\");",
+									"pm.test(\"Company should be siam_chamnankit\", function () {",
+									"    pm.expect(jsonData[0].company).to.eql(\"siam_chamnankit\");",
 									"});",
 									"",
 									"pm.test(\"Coaching should be 85000\", function () {",
@@ -430,8 +430,8 @@
 									"    pm.expect(jsonData[1].month).to.eql(12);",
 									"});",
 									"",
-									"pm.test(\"Company should be Shuhari\", function () {",
-									"    pm.expect(jsonData[1].company).to.eql(\"Shuhari\");",
+									"pm.test(\"Company should be shuhari\", function () {",
+									"    pm.expect(jsonData[1].company).to.eql(\"shuhari\");",
 									"});",
 									"",
 									"pm.test(\"Coaching should be 0\", function () {",
@@ -516,7 +516,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/showSummaryTimesheet",
@@ -568,8 +568,8 @@
 									"    pm.expect(jsonData[0].month).to.eql(\"12\");",
 									"});",
 									"",
-									"pm.test(\"Company should be Shuhari\", function () {",
-									"    pm.expect(jsonData[0].company).to.eql(\"Shuhari\");",
+									"pm.test(\"Company should be shuhari\", function () {",
+									"    pm.expect(jsonData[0].company).to.eql(\"shuhari\");",
 									"});",
 									"",
 									"pm.test(\"Coaching should be 0\", function () {",
@@ -654,7 +654,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/showSummaryTimesheet",
@@ -698,7 +698,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\",\n\t\"member_id\":\"002\",\n\t\"incomes\":[{\n\t\t\"day\":28,\n\t\t\"start_time_am\":\"09:00:00\",\n\t\t\"end_time_am\":\"12:00:00\",\n\t\t\"start_time_pm\":\"13:00:00\",\n\t\t\"end_time_pm\":\"18:00:00\",\n\t\t\"overtime\":0,\n\t\t\"total_hours\":8,\n\t\t\"coaching_customer_charging\":0,\n\t\t\"coaching_payment_rate\":0,\n\t\t\"training_wage\":0,\n\t\t\"other_wage\":0,\n\t\t\"company\":\"Shuhari\",\n\t\t\"description\":\"work at TN\"}]\n}\n"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"002\",\n\t\"incomes\":[{\n\t\t\"day\":28,\n\t\t\"start_time_am\":\"09:00:00\",\n\t\t\"end_time_am\":\"12:00:00\",\n\t\t\"start_time_pm\":\"13:00:00\",\n\t\t\"end_time_pm\":\"18:00:00\",\n\t\t\"overtime\":0,\n\t\t\"total_hours\":8,\n\t\t\"coaching_customer_charging\":0,\n\t\t\"coaching_payment_rate\":0,\n\t\t\"training_wage\":0,\n\t\t\"other_wage\":0,\n\t\t\"company\":\"shuhari\",\n\t\t\"description\":\"work at TN\"}]\n}\n"
 						},
 						"url": {
 							"raw": "http://localhost:8080/addIncomeItem",
@@ -788,8 +788,8 @@
 									"});",
 									"});",
 									"",
-									"pm.test(\"Company should be Shuhari\", function () {",
-									"    pm.expect(jsonData[0].company).to.eql(\"Shuhari\");",
+									"pm.test(\"Company should be shuhari\", function () {",
+									"    pm.expect(jsonData[0].company).to.eql(\"shuhari\");",
 									"});",
 									"",
 									"pm.test(\"Coaching should be 0\", function () {",
@@ -874,7 +874,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/showSummaryTimesheet",
@@ -978,7 +978,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\",\n\t\"member_id\":\"003\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"003\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/showTimesheetByID",
@@ -1022,7 +1022,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\",\n\t\"member_id\":\"003\",\n\t\"incomes\":[{\n\t\t\"day\":18,\n\t\t\"start_time_am\":\"09:00:00\",\n\t\t\"end_time_am\":\"12:00:00\",\n\t\t\"start_time_pm\":\"13:00:00\",\n\t\t\"end_time_pm\":\"18:00:00\",\n\t\t\"overtime\":0,\n\t\t\"total_hours\":8,\n\t\t\"coaching_customer_charging\":0,\n\t\t\"coaching_payment_rate\":0,\n\t\t\"training_wage\":10000,\n\t\t\"other_wage\":0,\n\t\t\"company\":\"Siam Chamnankit\",\n\t\t\"description\":\"TDD with JAVA\"}]\n}\n"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"003\",\n\t\"incomes\":[{\n\t\t\"day\":18,\n\t\t\"start_time_am\":\"09:00:00\",\n\t\t\"end_time_am\":\"12:00:00\",\n\t\t\"start_time_pm\":\"13:00:00\",\n\t\t\"end_time_pm\":\"18:00:00\",\n\t\t\"overtime\":0,\n\t\t\"total_hours\":8,\n\t\t\"coaching_customer_charging\":0,\n\t\t\"coaching_payment_rate\":0,\n\t\t\"training_wage\":10000,\n\t\t\"other_wage\":0,\n\t\t\"company\":\"siam_chamnankit\",\n\t\t\"description\":\"TDD with JAVA\"}]\n}\n"
 						},
 						"url": {
 							"raw": "http://localhost:8080/addIncomeItem",
@@ -1168,8 +1168,8 @@
 									"    pm.expect(jsonData.incomes[0].other_wage).to.eql(0);",
 									"});",
 									"",
-									"pm.test(\"Company should be Siam Chamnankit\", function () {",
-									"    pm.expect(jsonData.incomes[0].company).to.eql(\"Siam Chamnankit\");",
+									"pm.test(\"Company should be siam_chamnankit\", function () {",
+									"    pm.expect(jsonData.incomes[0].company).to.eql(\"siam_chamnankit\");",
 									"});",
 									"",
 									"pm.test(\"Description should be TDD with JAVA\", function () {",
@@ -1219,7 +1219,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\",\n\t\"member_id\":\"003\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"003\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/showTimesheetByID",
@@ -1271,8 +1271,8 @@
 									"    pm.expect(jsonData[0].month).to.eql(\"12\");",
 									"});",
 									"",
-									"pm.test(\"Company should be Siam Chamnankit\", function () {",
-									"    pm.expect(jsonData[0].company).to.eql(\"Siam Chamnankit\");",
+									"pm.test(\"Company should be siam_chamnankit\", function () {",
+									"    pm.expect(jsonData[0].company).to.eql(\"siam_chamnankit\");",
 									"});",
 									"",
 									"pm.test(\"Coaching should be 50000\", function () {",
@@ -1357,7 +1357,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/showSummaryTimesheet",
@@ -1401,7 +1401,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\",\n\t\"member_id\":\"004\",\n\t\"status_checking_transfer\":\"โอนเงินเรียบร้อย\",\n\t\"company\":\"Siam Chamnankit\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"004\",\n\t\"status_checking_transfer\":\"โอนเงินเรียบร้อย\",\n\t\"company\":\"siam_chamnankit\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/updateStatusCheckingTransfer",
@@ -1447,8 +1447,8 @@
 									"    pm.expect(jsonData[0].month).to.eql(\"12\");",
 									"});",
 									"",
-									"pm.test(\"Company should be Siam Chamnankit\", function () {",
-									"    pm.expect(jsonData[0].company).to.eql(\"Siam Chamnankit\");",
+									"pm.test(\"Company should be siam_chamnankit\", function () {",
+									"    pm.expect(jsonData[0].company).to.eql(\"siam_chamnankit\");",
 									"});",
 									"",
 									"pm.test(\"Coaching should be 50000\", function () {",
@@ -1533,7 +1533,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/showSummaryTimesheet",
@@ -1637,7 +1637,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\",\n\t\"member_id\":\"005\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"005\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/showTimesheetByID",
@@ -1681,7 +1681,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\",\n\t\"member_id\":\"005\",\n\t\"day\":15\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"005\",\n\t\"day\":15\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/deleteIncomeItem",
@@ -1782,7 +1782,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\",\n\t\"member_id\":\"005\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"005\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/showTimesheetByID",
@@ -1862,7 +1862,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\",\n\t\"member_id\":\"006\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"006\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/showTimesheetByID",
@@ -1906,7 +1906,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"member_id\":\"006\",\n\t\"member_name_th\":\"ภาณุมาศ แสนโท\",\n\t\"member_name_eng\":\"Panumars Seanto\",\n\t\"email\":\"panumars@scrum123.com\",\n\t\"rate_per_day\":15000,\n\t\"rate_per_hour\":1875,\n\t\"overtime_rate\":0,\n\t\"companies\":[{\n\t\t\"company\":\"Shuhari\",\n\t\t\"salary\":25000,\n\t\t\"income_tax_1\":0,\n\t\t\"social_security\":750,\n\t\t\"income_tax_53_percentage\":5,\n\t\t\"travel_expense\":1500,\n\t\t\"status\":\"Salary\"\n\t}]\n}"
+							"raw": "{\n\t\"member_id\":\"006\",\n\t\"member_name_th\":\"ภาณุมาศ แสนโท\",\n\t\"member_name_eng\":\"Panumars Seanto\",\n\t\"email\":\"panumars@scrum123.com\",\n\t\"rate_per_day\":15000,\n\t\"rate_per_hour\":1875,\n\t\"overtime_rate\":0,\n\t\"companies\":[{\n\t\t\"company\":\"shuhari\",\n\t\t\"salary\":25000,\n\t\t\"income_tax_1\":0,\n\t\t\"social_security\":750,\n\t\t\"income_tax_53_percentage\":5,\n\t\t\"travel_expense\":1500,\n\t\t\"status\":\"Salary\"\n\t}]\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/updateMemberDetails",
@@ -1980,7 +1980,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"year\":\"2018\",\n\t\"month\":\"12\",\n\t\"member_id\":\"006\"\n}"
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"006\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/showTimesheetByID",
