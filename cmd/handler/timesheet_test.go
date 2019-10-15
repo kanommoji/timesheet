@@ -7,12 +7,14 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 	. "timesheet/cmd/handler"
 	"timesheet/cmd/mockapi"
 	"timesheet/internal/model"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
 )
 
 func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *testing.T) {
@@ -25,7 +27,7 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 	request := httptest.NewRequest("POST", "/showSummaryTimesheet", bytes.NewBuffer(jsonRequest))
 	writer := httptest.NewRecorder()
 
-	mockTimesheet := new(mockapi.MockTimesheet)
+	mockTimesheet := new(mockapi.MockRepository)
 	mockTimesheet.On("GetSummary", 2018, 12).Return([]model.TransactionTimesheet{
 		{
 			ID:                     1,
@@ -94,21 +96,26 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Should_Be_Status_200(t *testing.T) {
 	expectedStatus := http.StatusOK
 	expected := `{"year":2018,"month":12,"member_id":"001","incomes":[{"day":28,"start_time_am":"09:00:00","end_time_am":"12:00:00","start_time_pm":"13:00:00","end_time_pm":"18:00:00","overtime":0,"total_hours":8,"coaching_customer_charging":15000,"coaching_payment_rate":10000,"training_wage":0,"other_wage":0,"company":"siam_chamnankit","description":"[KBTG] 2 Days Agile Project Management"}]}`
-	requestIncome := RequestIncome{
+	startTimeAM, _ := time.Parse("15:04:05", "09:00:00")
+	endTimeAM, _ := time.Parse("15:04:05", "12:00:00")
+	startTimePM, _ := time.Parse("15:04:05", "13:00:00")
+	endTimePM, _ := time.Parse("15:04:05", "18:00:00")
+	totalHours, _ := time.Parse("15:04:05", "8:00:00")
+	requestIncome := IncomeRequest{
 		Year:     2018,
 		Month:    12,
 		MemberID: "001",
 		Incomes: []model.Incomes{
 			{
 				Day:                      28,
-				StartTimeAM:              "09:00:00",
-				EndTimeAM:                "12:00:00",
-				StartTimePM:              "13:00:00",
-				EndTimePM:                "18:00:00",
+				StartTimeAM:              startTimeAM,
+				EndTimeAM:                endTimeAM,
+				StartTimePM:              startTimePM,
+				EndTimePM:                endTimePM,
 				Overtime:                 0,
-				TotalHours:               8,
-				CoachingCustomerCharging: 15000,
-				CoachingPaymentRate:      10000,
+				TotalHours:               totalHours,
+				CoachingCustomerCharging: 15000.00,
+				CoachingPaymentRate:      10000.00,
 				TrainingWage:             0,
 				OtherWage:                0,
 				Company:                  "siam_chamnankit",
@@ -120,7 +127,7 @@ func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Shoul
 	request := httptest.NewRequest("POST", "/addIncomeItem", bytes.NewBuffer(jsonRequest))
 	writer := httptest.NewRecorder()
 
-	mockTimesheet := new(mockapi.MockTimesheet)
+	mockTimesheet := new(mockapi.MockRepository)
 	mockTimesheet.On("UpdateIncomeByID", 2018, 12, "001").Return(nil)
 
 	api := TimesheetAPI{
@@ -135,4 +142,141 @@ func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Shoul
 
 	assert.Equal(t, expectedStatus, response.StatusCode)
 	assert.Equal(t, expected, string(jsonRequest))
+}
+
+func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_Be_200(t *testing.T) {
+	expectedStatus := http.StatusOK
+	calculatePaymentRequest := CalculatePaymentRequest{
+		MemberID: "001",
+		Year:     2018,
+		Month:    12,
+	}
+	jsonRequest, _ := json.Marshal(calculatePaymentRequest)
+	request := httptest.NewRequest("POST", "/calculatePayment", bytes.NewBuffer(jsonRequest))
+	writer := httptest.NewRecorder()
+
+	mockRepository := new(mockapi.MockRepository)
+	startTimeAM, _ := time.Parse("15:04:05", "09:00:00")
+	endTimeAM, _ := time.Parse("15:04:05", "12:00:00")
+	startTimePM, _ := time.Parse("15:04:05", "13:00:00")
+	endTimePM, _ := time.Parse("15:04:05", "18:00:00")
+	totalHours, _ := time.Parse("15:04:05", "8:00:00")
+	mockRepository.On("GetIncomes", "001", 2018, 12).Return([]model.Incomes{
+		{
+			Day:                      28,
+			StartTimeAM:              startTimeAM,
+			EndTimeAM:                endTimeAM,
+			StartTimePM:              startTimePM,
+			EndTimePM:                endTimePM,
+			Overtime:                 0,
+			TotalHours:               totalHours,
+			CoachingCustomerCharging: 15000.00,
+			CoachingPaymentRate:      10000.00,
+			TrainingWage:             0,
+			OtherWage:                0,
+			Company:                  "siam_chamnankit",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+	})
+
+	mockTimesheet := new(mockapi.MockTimesheet)
+	mockTimesheet.On("CalculatePayment", mock.Anything).Return(model.Payment{
+		TotalHours:                    totalHours,
+		TotalCoachingCustomerCharging: 15000.00,
+		TotalCoachingPaymentRate:      10000.00,
+		TotalTrainigWage:              0.00,
+		TotalOtherWage:                0.00,
+		PaymentWage:                   10000.00,
+	})
+
+	mockRepository.On("UpdateTimesheet").Return(nil)
+
+	mockMember := new(mockapi.MockMember)
+	mockMember.On("GetMemberByID", "001").Return([]model.Member{
+		{
+			MemberID:              "001",
+			Company:               "siam_chamnankit",
+			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+			MemberNameENG:         "Prathan Dansakulcharoenkit",
+			Email:                 "prathan@scrum123.com",
+			OvertimeRate:          0.00,
+			RatePerDay:            15000.00,
+			RatePerHour:           1875.00,
+			Salary:                80000.00,
+			IncomeTax1:            5000.00,
+			SocialSecurity:        0.00,
+			IncomeTax53Percentage: 10,
+			Status:                "",
+			TravelExpense:         0.00,
+		}, {
+			MemberID:              "001",
+			Company:               "shuhari",
+			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+			MemberNameENG:         "Prathan Dansakulcharoenkit",
+			Email:                 "prathan@scrum123.com",
+			OvertimeRate:          0.00,
+			RatePerDay:            15000.00,
+			RatePerHour:           1875.00,
+			Salary:                0.00,
+			IncomeTax1:            0.00,
+			SocialSecurity:        0.00,
+			IncomeTax53Percentage: 10,
+			Status:                "",
+			TravelExpense:         0.00,
+		},
+	})
+
+	mockTimesheet.On("CalculatePaymentSummary", mock.Anything, mock.Anything).Return([]model.TransactionTimesheet{
+		{
+			MemberID:              "001",
+			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+			Month:                 12,
+			Year:                  2018,
+			Company:               "siam_chamnankit",
+			Coaching:              85000.00,
+			Training:              30000.00,
+			Other:                 40000.00,
+			TotalIncomes:          155000.00,
+			Salary:                80000.00,
+			IncomeTax1:            5000.00,
+			SocialSecurity:        0.00,
+			NetSalary:             75000.00,
+			Wage:                  75000.00,
+			IncomeTax53Percentage: 10,
+			IncomeTax53:           7500.00,
+			NetWage:               67500.00,
+			NetTransfer:           142500.00,
+		}, {
+			MemberID:              "001",
+			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+			Month:                 12,
+			Year:                  2018,
+			Company:               "shuhari",
+			Coaching:              0.00,
+			Training:              40000.00,
+			Other:                 0.00,
+			TotalIncomes:          40000.00,
+			Salary:                0.00,
+			IncomeTax1:            0.00,
+			SocialSecurity:        0.00,
+			NetSalary:             0.00,
+			Wage:                  40000.00,
+			IncomeTax53Percentage: 10,
+			IncomeTax53:           4000.00,
+			NetWage:               36000.00,
+			NetTransfer:           36000.00,
+		},
+	})
+
+	mockRepository.On("UpdateTransaction", mock.Anything).Return(nil)
+
+	api := TimesheetAPI{}
+
+	testRoute := gin.Default()
+	testRoute.POST("/calculatePayment", api.CalculatePaymentHandler)
+	testRoute.ServeHTTP(writer, request)
+
+	actual := writer.Result()
+
+	assert.Equal(t, expectedStatus, actual.StatusCode)
 }
