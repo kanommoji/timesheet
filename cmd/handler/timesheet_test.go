@@ -120,11 +120,11 @@ func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Shoul
 	request := httptest.NewRequest("POST", "/addIncomeItem", bytes.NewBuffer(jsonRequest))
 	writer := httptest.NewRecorder()
 
-	mockIncomeRepository := new(mockapi.MockIncomeRepository)
-	mockIncomeRepository.On("UpdateIncomeByID", 2018, 12, "001").Return(nil)
+	mockTimesheet := new(mockapi.MockTimesheet)
+	mockTimesheet.On("UpdateIncomeByID", 2018, 12, "001").Return(nil)
 
 	api := TimesheetAPI{
-		Income: mockIncomeRepository,
+		Timesheet: mockTimesheet,
 	}
 
 	testRoute := gin.Default()
