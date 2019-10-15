@@ -96,8 +96,8 @@ func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Shoul
 		Year:     2018,
 		Month:    12,
 		MemberID: "001",
-		Incomes: []Incomes{
-			Incomes{
+		Incomes: []timesheet.Incomes{
+			{
 				Day:                      28,
 				StartTimeAM:              "09:00:00",
 				EndTimeAM:                "12:00:00",

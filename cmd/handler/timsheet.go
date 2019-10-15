@@ -14,26 +14,10 @@ type Date struct {
 }
 
 type RequestIncome struct {
-	Year     int       `json:"year"`
-	Month    int       `json:"month"`
-	MemberID string    `json:"member_id"`
-	Incomes  []Incomes `json:"incomes"`
-}
-
-type Incomes struct {
-	Day                      int    `json:"day"`
-	StartTimeAM              string `json:"start_time_am"`
-	EndTimeAM                string `json:"end_time_am"`
-	StartTimePM              string `json:"start_time_pm"`
-	EndTimePM                string `json:"end_time_pm"`
-	Overtime                 int    `json:"overtime"`
-	TotalHours               int    `json:"total_hours"`
-	CoachingCustomerCharging int    `json:"coaching_customer_charging"`
-	CoachingPaymentRate      int    `json:"coaching_payment_rate"`
-	TrainingWage             int    `json:"training_wage"`
-	OtherWage                int    `json:"other_wage"`
-	Company                  string `json:"company"`
-	Description              string `json:"description"`
+	Year     int                 `json:"year"`
+	Month    int                 `json:"month"`
+	MemberID string              `json:"member_id"`
+	Incomes  []timesheet.Incomes `json:"incomes"`
 }
 
 type TimesheetAPI struct {
