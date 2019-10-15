@@ -20,11 +20,21 @@ func Test_CalculateNetSalary_Input_Salary_80000_IncomeTax1_5000_SocialSecurity_0
 
 func Test_CalculateNetWage_Input_IncomeTax53Percentage_10_PaymentWage_155000_Salary_80000_Should_Be_67500(t *testing.T) {
 	expected := 67500.00
-	incomeTax53Percentag := 10
+	incomeTax53Percentage := 10
 	salary := 80000.00
 	paymentWage := 155000.00
 
-	actual := CalculateNetWage(incomeTax53Percentag, paymentWage, salary)
+	actual := CalculateNetWage(incomeTax53Percentage, paymentWage, salary)
+
+	assert.Equal(t, expected, actual)
+}
+
+func Test_CalculateIncomeTax53_Input_IncomeTax53Percentage_10_Wage_40000_Should_Be_4000(t *testing.T) {
+	expected := 4000.00
+	incomeTax53Percentage := 10
+	wage := 40000.00
+
+	actual := CalculateIncomeTax53(wage, incomeTax53Percentage)
 
 	assert.Equal(t, expected, actual)
 }
