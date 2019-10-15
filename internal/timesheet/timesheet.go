@@ -31,3 +31,7 @@ func CalculateWage(paymentWage, salary float64, status string) float64 {
 func CalculateIncomeTax53(wage float64, incomeTax53Percentag int) float64 {
 	return wage * (float64(incomeTax53Percentag) / 100)
 }
+
+func CalculateNetTransfe(netSalary, netWage float64) float64 {
+	return netSalary + netWage
+}
