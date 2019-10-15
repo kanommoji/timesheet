@@ -51,11 +51,11 @@ func Test_CalculateWage_Input_PaymentWage_155000_Salary_80000_Should_Be_750000(t
 	assert.Equal(t, expected, actual)
 }
 
-func Test_CalculateWage_Input_PaymentWage_155000_Salary_80000_Status_Salary_Should_Be_800000(t *testing.T) {
-	expected := 80000.00
+func Test_CalculateWage_Input_PaymentWage_155000_Salary_80000_Status_Salary_Should_Be_155000(t *testing.T) {
+	expected := 155000.00
 	paymentWage := 155000.00
 	salary := 80000.00
-	status := "Salary"
+	status := "salary"
 
 	actual := CalculateWage(paymentWage, salary, status)
 
