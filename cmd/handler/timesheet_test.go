@@ -121,7 +121,23 @@ func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Shoul
 	writer := httptest.NewRecorder()
 
 	mockTimesheet := new(mockapi.MockTimesheet)
-	mockTimesheet.On("UpdateIncomeByID", 2018, 12, "001").Return(nil)
+	mockTimesheet.On("UpdateIncomeByID", 2018, 12, "001", []timesheet.Incomes{
+		{
+			Day:                      28,
+			StartTimeAM:              "09:00:00",
+			EndTimeAM:                "12:00:00",
+			StartTimePM:              "13:00:00",
+			EndTimePM:                "18:00:00",
+			Overtime:                 0,
+			TotalHours:               8,
+			CoachingCustomerCharging: 15000,
+			CoachingPaymentRate:      10000,
+			TrainingWage:             0,
+			OtherWage:                0,
+			Company:                  "siam_chamnankit",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+	}).Return(true)
 
 	api := TimesheetAPI{
 		Timesheet: mockTimesheet,
