@@ -9,7 +9,7 @@ import (
 	"testing"
 	. "timesheet/cmd/handler"
 	"timesheet/cmd/mockapi"
-	"timesheet/internal/timesheet"
+	"timesheet/internal/model"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -26,7 +26,7 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 	writer := httptest.NewRecorder()
 
 	mockTimesheet := new(mockapi.MockTimesheet)
-	mockTimesheet.On("GetSummary", 2018, 12).Return([]timesheet.TransactionTimesheet{
+	mockTimesheet.On("GetSummary", 2018, 12).Return([]model.TransactionTimesheet{
 		{
 			ID:                     1,
 			MemberID:               "001",
@@ -98,7 +98,7 @@ func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Shoul
 		Year:     2018,
 		Month:    12,
 		MemberID: "001",
-		Incomes: []timesheet.Incomes{
+		Incomes: []model.Incomes{
 			{
 				Day:                      28,
 				StartTimeAM:              "09:00:00",

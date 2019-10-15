@@ -2,6 +2,8 @@ package handler
 
 import (
 	"net/http"
+	"timesheet/internal/model"
+	"timesheet/internal/repository"
 	"timesheet/internal/timesheet"
 
 	"github.com/gin-gonic/gin"
@@ -13,15 +15,15 @@ type Date struct {
 }
 
 type RequestIncome struct {
-	Year     int                 `json:"year"`
-	Month    int                 `json:"month"`
-	MemberID string              `json:"member_id"`
-	Incomes  []timesheet.Incomes `json:"incomes"`
+	Year     int             `json:"year"`
+	Month    int             `json:"month"`
+	MemberID string          `json:"member_id"`
+	Incomes  []model.Incomes `json:"incomes"`
 }
 
 type TimesheetAPI struct {
 	Timesheet           timesheet.TimesheetGateways
-	TimesheetRepository timesheet.TimesheetRepositoryGateways
+	TimesheetRepository repository.TimesheetRepositoryGateways
 }
 
 func (api TimesheetAPI) GetSummaryHandler(context *gin.Context) {

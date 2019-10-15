@@ -1,9 +1,10 @@
-package timesheet_test
+package repository_test
 
 import (
 	"database/sql"
 	"testing"
-	"timesheet/internal/timesheet"
+	"timesheet/internal/model"
+	"timesheet/internal/repository"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -11,7 +12,7 @@ import (
 )
 
 func Test_GetSummary_Input_Year_2018_Month_17_Should_Be_TransactionTimesheet(t *testing.T) {
-	expected := []timesheet.TransactionTimesheet{
+	expected := []model.TransactionTimesheet{
 		{
 			ID:                     1,
 			MemberID:               "001",
@@ -37,12 +38,12 @@ func Test_GetSummary_Input_Year_2018_Month_17_Should_Be_TransactionTimesheet(t *
 			Comment:                "",
 		},
 	}
-	dBConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
-	defer dBConnection.Close()
+	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
+	defer databaseConnection.Close()
 	year := 2017
 	month := 12
-	repository := timesheet.TimesheetRepository{
-		DBConnection: dBConnection,
+	repository := repository.TimesheetRepository{
+		DatabaseConnection: databaseConnection,
 	}
 
 	actual, err := repository.GetSummary(year, month)

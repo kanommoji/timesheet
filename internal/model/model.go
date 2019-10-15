@@ -1,4 +1,4 @@
-package timesheet
+package model
 
 type TransactionTimesheet struct {
 	ID                     int     `json:"id"`

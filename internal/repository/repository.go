@@ -1,21 +1,22 @@
-package timesheet
+package repository
 
 import (
 	"database/sql"
+	"timesheet/internal/model"
 )
 
 type TimesheetRepositoryGateways interface {
-	GetSummary(year, month int) ([]TransactionTimesheet, error)
+	GetSummary(year, month int) ([]model.TransactionTimesheet, error)
 }
 
 type TimesheetRepository struct {
-	DBConnection *sql.DB
+	DatabaseConnection *sql.DB
 }
 
-func (repository TimesheetRepository) GetSummary(year, month int) ([]TransactionTimesheet, error) {
-	var transactionTimesheetList []TransactionTimesheet
-	var transactionTimesheet TransactionTimesheet
-	statement, err := repository.DBConnection.Prepare(`SELECT * FROM timesheet.transactions WHERE year = ? AND month = ?`)
+func (repository TimesheetRepository) GetSummary(year, month int) ([]model.TransactionTimesheet, error) {
+	var transactionTimesheetList []model.TransactionTimesheet
+	var transactionTimesheet model.TransactionTimesheet
+	statement, err := repository.DatabaseConnection.Prepare(`SELECT * FROM timesheet.transactions WHERE year = ? AND month = ?`)
 	if err != nil {
 		return transactionTimesheetList, err
 	}
