@@ -1,4 +1,4 @@
-package timesheet
+package model
 
 import "time"
 
@@ -34,11 +34,37 @@ type Incomes struct {
 	StartTimePM              time.Time `json:"start_time_pm"`
 	EndTimePM                time.Time `json:"end_time_pm"`
 	Overtime                 int       `json:"overtime"`
-	TotalHours               int       `json:"total_hours"`
+	TotalHours               time.Time `json:"total_hours"`
 	CoachingCustomerCharging int       `json:"coaching_customer_charging"`
 	CoachingPaymentRate      int       `json:"coaching_payment_rate"`
 	TrainingWage             int       `json:"training_wage"`
 	OtherWage                int       `json:"other_wage"`
 	Company                  string    `json:"company"`
 	Description              string    `json:"description"`
+}
+
+type Payment struct {
+	TotalHours                    time.Time
+	TotalCoachingCustomerCharging float64
+	TotalCoachingPaymentRate      float64
+	TotalTrainigWage              float64
+	TotalOtherWage                float64
+	PaymentWage                   float64
+}
+
+type Member struct {
+	MemberID              string  `json:"member_id"`
+	Company               string  `json:"company"`
+	MemberNameTH          string  `json:"member_name_th"`
+	MemberNameENG         string  `json:"member_name_eng"`
+	Email                 string  `json:"email"`
+	OvertimeRate          float64 `json:"overtime_rate"`
+	RatePerDay            float64 `json:"rate_per_day"`
+	RatePerHour           float64 `json:"rate_per_hour"`
+	Salary                float64 `json:"salary"`
+	IncomeTax1            float64 `json:"income_tax_1"`
+	SocialSecurity        float64 `json:"social_security"`
+	IncomeTax53Percentage int     `json:"income_tax_53_percentage"`
+	Status                string  `json:"status"`
+	TravelExpense         float64 `json:"travel_expense"`
 }
