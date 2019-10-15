@@ -15,7 +15,7 @@ func (mock MockTimesheet) GetSummary(year, month int) ([]timesheet.TransactionTi
 	return argument.Get(0).([]timesheet.TransactionTimesheet), argument.Error(1)
 }
 
-func (mock MockTimesheet) UpdateIncomeByID(year, month int, memberID string) error {
+func (mock MockTimesheet) UpdateIncomeByID(year, month int, memberID string, income []timesheet.Incomes) bool {
 	argument := mock.Called(year, month, memberID)
-	return argument.Error(0)
+	return argument.Bool(0)
 }
