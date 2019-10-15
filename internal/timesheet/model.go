@@ -1,5 +1,7 @@
 package timesheet
 
+import "time"
+
 type TransactionTimesheet struct {
 	ID                     int     `json:"id"`
 	MemberID               string  `json:"member_id"`
@@ -26,17 +28,17 @@ type TransactionTimesheet struct {
 }
 
 type Incomes struct {
-	Day                      int    `json:"day"`
-	StartTimeAM              string `json:"start_time_am"`
-	EndTimeAM                string `json:"end_time_am"`
-	StartTimePM              string `json:"start_time_pm"`
-	EndTimePM                string `json:"end_time_pm"`
-	Overtime                 int    `json:"overtime"`
-	TotalHours               int    `json:"total_hours"`
-	CoachingCustomerCharging int    `json:"coaching_customer_charging"`
-	CoachingPaymentRate      int    `json:"coaching_payment_rate"`
-	TrainingWage             int    `json:"training_wage"`
-	OtherWage                int    `json:"other_wage"`
-	Company                  string `json:"company"`
-	Description              string `json:"description"`
+	Day                      int       `json:"day"`
+	StartTimeAM              time.Time `json:"start_time_am"`
+	EndTimeAM                time.Time `json:"end_time_am"`
+	StartTimePM              time.Time `json:"start_time_pm"`
+	EndTimePM                time.Time `json:"end_time_pm"`
+	Overtime                 int       `json:"overtime"`
+	TotalHours               int       `json:"total_hours"`
+	CoachingCustomerCharging int       `json:"coaching_customer_charging"`
+	CoachingPaymentRate      int       `json:"coaching_payment_rate"`
+	TrainingWage             int       `json:"training_wage"`
+	OtherWage                int       `json:"other_wage"`
+	Company                  string    `json:"company"`
+	Description              string    `json:"description"`
 }
