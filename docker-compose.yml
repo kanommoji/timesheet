@@ -10,7 +10,7 @@ services:
 
   my-mariadb:
     container_name: my-mariadb
-    image: mariadb:10.4
+    image: mariadb:10.4.7
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: localhost
