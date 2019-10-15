@@ -22,7 +22,6 @@ type RequestIncome struct {
 type TimesheetAPI struct {
 	Timesheet           timesheet.TimesheetGateways
 	TimesheetRepository timesheet.TimesheetRepositoryGateways
-	Income              timesheet.IncomeGateways
 }
 
 func (api TimesheetAPI) GetSummaryHandler(context *gin.Context) {
