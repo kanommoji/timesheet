@@ -61,3 +61,13 @@ func Test_CalculateWage_Input_PaymentWage_155000_Salary_80000_Status_Salary_Shou
 
 	assert.Equal(t, expected, actual)
 }
+
+func Test_CalculateNetTransfer_Input_NetSalary_75000_NetWage_67500_Should_Be_142500(t *testing.T) {
+	expected := 142500.00
+	netSalary := 75000.00
+	netWage := 67500.00
+
+	actual := CalculateNetTransfe(netSalary, netWage)
+
+	assert.Equal(t, expected, actual)
+}
