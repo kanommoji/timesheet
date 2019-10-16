@@ -7,7 +7,7 @@ import (
 
 type TimesheetRepositoryGateways interface {
 	GetSummary(year, month int) ([]model.TransactionTimesheet, error)
-	UpdateIncomeByID(year, month int, memberID string, income []model.Incomes) error
+	UpdateIncomeByID(year, month int, memberID string, income model.Incomes) error
 }
 
 type TimesheetRepository struct {
@@ -56,12 +56,12 @@ func (repository TimesheetRepository) GetSummary(year, month int) ([]model.Trans
 	return transactionTimesheetList, nil
 }
 
-func (repository TimesheetRepository) UpdateIncomeByID(year, month int, memberID string, income []model.Incomes) error {
+func (repository TimesheetRepository) UpdateIncomeByID(year, month int, memberID string, income model.Incomes) error {
 	statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO incomes (member_id, month, year, day, start_time_am, end_time_am, start_time_pm, end_time_pm, overtime, total_hours, coaching_customer_charging, coaching_payment_rate, training_wage, other_wage, company, description) VALUES ( ? , ? , ?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? )`)
 	if err != nil {
 		return err
 	}
-	_, err = statement.Exec(memberID, month, year, income[0].Day, income[0].StartTimeAM, income[0].EndTimeAM, income[0].StartTimePM, income[0].EndTimePM, income[0].Overtime, income[0].TotalHours, income[0].CoachingCustomerCharging, income[0].CoachingPaymentRate, income[0].TrainingWage, income[0].OtherWage, income[0].Company, income[0].Description)
+	_, err = statement.Exec(memberID, month, year, income.Day, income.StartTimeAM, income.EndTimeAM, income.StartTimePM, income.EndTimePM, income.Overtime, income.TotalHours, income.CoachingCustomerCharging, income.CoachingPaymentRate, income.TrainingWage, income.OtherWage, income.Company, income.Description)
 	if err != nil {
 		return err
 	}
