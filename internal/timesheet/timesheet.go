@@ -2,6 +2,11 @@ package timesheet
 
 import "timesheet/internal/model"
 
+const (
+	SiamChamnankitCompany = "siam_chamnankit"
+	ShuhariCompany        = "shuhari"
+)
+
 type TimesheetGateways interface {
 }
 
@@ -75,18 +80,18 @@ func CalculateNetTransfer(netSalary, netWage float64) float64 {
 
 func CalculateTotalCoachingCustomerCharging(incomes []model.Incomes, company string) float64 {
 	totalCoachingCustomerCharging := 0
-	if company == "siam_chamnankit" {
-		for i := range incomes {
-			if incomes[i].Company == "siam_chamnankit" {
-				totalCoachingCustomerCharging += incomes[i].CoachingCustomerCharging
+	if company == SiamChamnankitCompany {
+		for index := range incomes {
+			if incomes[index].Company == SiamChamnankitCompany {
+				totalCoachingCustomerCharging += incomes[index].CoachingCustomerCharging
 			}
 		}
 		return float64(totalCoachingCustomerCharging)
 	}
-	if company == "shuhari" {
-		for i := range incomes {
-			if incomes[i].Company == "shuhari" {
-				totalCoachingCustomerCharging += incomes[i].CoachingCustomerCharging
+	if company == ShuhariCompany {
+		for index := range incomes {
+			if incomes[index].Company == ShuhariCompany {
+				totalCoachingCustomerCharging += incomes[index].CoachingCustomerCharging
 			}
 		}
 		return float64(totalCoachingCustomerCharging)
@@ -96,18 +101,18 @@ func CalculateTotalCoachingCustomerCharging(incomes []model.Incomes, company str
 
 func CalculateTotalOtherWage(incomes []model.Incomes, company string, travelExpense float64) float64 {
 	totalOtherWage := 0
-	if company == "siam_chamnankit" {
-		for i := range incomes {
-			if incomes[i].Company == "siam_chamnankit" {
-				totalOtherWage += incomes[i].OtherWage
+	if company == SiamChamnankitCompany {
+		for index := range incomes {
+			if incomes[index].Company == SiamChamnankitCompany {
+				totalOtherWage += incomes[index].OtherWage
 			}
 		}
 		return float64(totalOtherWage) + travelExpense
 	}
-	if company == "shuhari" {
-		for i := range incomes {
-			if incomes[i].Company == "shuhari" {
-				totalOtherWage += incomes[i].OtherWage
+	if company == ShuhariCompany {
+		for index := range incomes {
+			if incomes[index].Company == ShuhariCompany {
+				totalOtherWage += incomes[index].OtherWage
 			}
 		}
 		return float64(totalOtherWage) + travelExpense
@@ -117,18 +122,18 @@ func CalculateTotalOtherWage(incomes []model.Incomes, company string, travelExpe
 
 func CalculateTotalCoachingPaymentRate(incomes []model.Incomes, company string) float64 {
 	totalCoachingPaymentRate := 0
-	if company == "siam_chamnankit" {
-		for i := range incomes {
-			if incomes[i].Company == "siam_chamnankit" {
-				totalCoachingPaymentRate += incomes[i].CoachingPaymentRate
+	if company == SiamChamnankitCompany {
+		for index := range incomes {
+			if incomes[index].Company == SiamChamnankitCompany {
+				totalCoachingPaymentRate += incomes[index].CoachingPaymentRate
 			}
 		}
 		return float64(totalCoachingPaymentRate)
 	}
-	if company == "shuhari" {
-		for i := range incomes {
-			if incomes[i].Company == "shuhari" {
-				totalCoachingPaymentRate += incomes[i].CoachingPaymentRate
+	if company == ShuhariCompany {
+		for index := range incomes {
+			if incomes[index].Company == ShuhariCompany {
+				totalCoachingPaymentRate += incomes[index].CoachingPaymentRate
 			}
 		}
 		return float64(totalCoachingPaymentRate)
@@ -138,20 +143,21 @@ func CalculateTotalCoachingPaymentRate(incomes []model.Incomes, company string) 
 
 func CalculateTotalTrainingWage(incomes []model.Incomes, company string) float64 {
 	totalCoachingTrainingWage := 0
-	if company == "siam_chamnankit" {
-		for i := range incomes {
-			if incomes[i].Company == "siam_chamnankit" {
-				totalCoachingTrainingWage += incomes[i].TrainingWage
+	if company == SiamChamnankitCompany {
+		for index := range incomes {
+			if incomes[index].Company == SiamChamnankitCompany {
+				totalCoachingTrainingWage += incomes[index].TrainingWage
 			}
 		}
 		return float64(totalCoachingTrainingWage)
 	}
-
-	for i := range incomes {
-		if incomes[i].Company == "shuhari" {
-			totalCoachingTrainingWage += incomes[i].TrainingWage
+	if company == ShuhariCompany {
+		for index := range incomes {
+			if incomes[index].Company == ShuhariCompany {
+				totalCoachingTrainingWage += incomes[index].TrainingWage
+			}
 		}
+		return float64(totalCoachingTrainingWage)
 	}
-	return float64(totalCoachingTrainingWage)
-
+	return 0
 }
