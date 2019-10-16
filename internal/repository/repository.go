@@ -68,6 +68,36 @@ func (repository TimesheetRepository) UpdateIncomeByID(year, month int, memberID
 	return nil
 }
 
-func (repository TimesheetRepository) GetMemberByID(memberID string) []model.Member {
-
+func (repository TimesheetRepository) GetMemberByID(memberID string) ([]model.Member, error) {
+	var memberList []model.Member
+	var member model.Member
+	statement, err := repository.DatabaseConnection.Prepare(`SELECT * FROM timesheet.members WHERE member_id = ?`)
+	if err != nil {
+		return memberList, err
+	}
+	row, err := statement.Query(memberID)
+	if err != nil {
+		return memberList, err
+	}
+	for row.Next() {
+		err = row.Scan(
+			&member.ID,
+			&member.MemberID,
+			&member.Company,
+			&member.MemberNameTH,
+			&member.MemberNameENG,
+			&member.Email,
+			&member.OvertimeRate,
+			&member.RatePerDay,
+			&member.RatePerHour,
+			&member.Salary,
+			&member.IncomeTax1,
+			&member.IncomeTax53Percentage,
+			&member.SocialSecurity,
+			&member.Status,
+			&member.TravelExpense,
+		)
+		memberList = append(memberList, member)
+	}
+	return memberList, nil
 }

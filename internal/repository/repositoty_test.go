@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 	"timesheet/internal/model"
-	"timesheet/internal/repository"
+	. "timesheet/internal/repository"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -43,7 +43,7 @@ func Test_GetSummary_Input_Year_2018_Month_17_Should_Be_TransactionTimesheet(t *
 	defer databaseConnection.Close()
 	year := 2017
 	month := 12
-	repository := repository.TimesheetRepository{
+	repository := TimesheetRepository{
 		DatabaseConnection: databaseConnection,
 	}
 
@@ -83,7 +83,7 @@ func Test_UpdateIncomeByID_Input_Year_2018_Month_12_MemberID_001_Income_Should_B
 	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
 	defer databaseConnection.Close()
 
-	repository := repository.TimesheetRepository{
+	repository := TimesheetRepository{
 		DatabaseConnection: databaseConnection,
 	}
 
@@ -95,6 +95,7 @@ func Test_UpdateIncomeByID_Input_Year_2018_Month_12_MemberID_001_Income_Should_B
 func Test_GetMemberByID_Input_MemberID_001_Should_Be_Member(t *testing.T) {
 	expected := []model.Member{
 		{
+			ID:                    1,
 			MemberID:              "001",
 			Company:               "siam_chamnankit",
 			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
@@ -111,6 +112,7 @@ func Test_GetMemberByID_Input_MemberID_001_Should_Be_Member(t *testing.T) {
 			TravelExpense:         0.00,
 		},
 		{
+			ID:                    2,
 			MemberID:              "001",
 			Company:               "shuhari",
 			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
@@ -130,11 +132,12 @@ func Test_GetMemberByID_Input_MemberID_001_Should_Be_Member(t *testing.T) {
 	memberID := "001"
 	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
 	defer databaseConnection.Close()
-	repository := repository.TimesheetRepository{
+	repository := TimesheetRepository{
 		DatabaseConnection: databaseConnection,
 	}
 
-	actual := repository.GetMemberByID(memberID)
+	actual, err := repository.GetMemberByID(memberID)
 
+	assert.Equal(t, nil, err)
 	assert.Equal(t, expected, actual)
 }

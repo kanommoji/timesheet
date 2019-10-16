@@ -53,6 +53,7 @@ type Payment struct {
 }
 
 type Member struct {
+	ID                    int     `json:"id"`
 	MemberID              string  `json:"member_id"`
 	Company               string  `json:"company"`
 	MemberNameTH          string  `json:"member_name_th"`
