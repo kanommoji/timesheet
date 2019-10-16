@@ -20,7 +20,7 @@ func main() {
 	defer databaseConnection.Close()
 
 	api := handler.TimesheetAPI{
-		TimesheetRepository: &repository.TimesheetRepository{
+		TimesheetRepository: repository.TimesheetRepository{
 			DatabaseConnection: databaseConnection,
 		},
 	}

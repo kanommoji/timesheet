@@ -91,3 +91,50 @@ func Test_UpdateIncomeByID_Input_Year_2018_Month_12_MemberID_001_Income_Should_B
 
 	assert.Equal(t, nil, err)
 }
+
+func Test_GetMemberByID_Input_MemberID_001_Should_Be_Member(t *testing.T) {
+	expected := []model.Member{
+		{
+			MemberID:              "001",
+			Company:               "siam_chamnankit",
+			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+			MemberNameENG:         "Prathan Dansakulcharoenkit",
+			Email:                 "prathan@scrum123.com",
+			OvertimeRate:          0.00,
+			RatePerDay:            15000.00,
+			RatePerHour:           1875.00,
+			Salary:                80000.00,
+			IncomeTax1:            5000.00,
+			SocialSecurity:        0.00,
+			IncomeTax53Percentage: 10,
+			Status:                "",
+			TravelExpense:         0.00,
+		},
+		{
+			MemberID:              "001",
+			Company:               "shuhari",
+			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+			MemberNameENG:         "Prathan Dansakulcharoenkit",
+			Email:                 "prathan@scrum123.com",
+			OvertimeRate:          0.00,
+			RatePerDay:            15000.00,
+			RatePerHour:           1875.00,
+			Salary:                0.00,
+			IncomeTax1:            0.00,
+			SocialSecurity:        0.00,
+			IncomeTax53Percentage: 10,
+			Status:                "",
+			TravelExpense:         0.00,
+		},
+	}
+	memberID := "001"
+	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
+	defer databaseConnection.Close()
+	repository := repository.TimesheetRepository{
+		DatabaseConnection: databaseConnection,
+	}
+
+	actual := repository.GetMemberByID(memberID)
+
+	assert.Equal(t, expected, actual)
+}

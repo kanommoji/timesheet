@@ -67,3 +67,7 @@ func (repository TimesheetRepository) UpdateIncomeByID(year, month int, memberID
 	}
 	return nil
 }
+
+func (repository TimesheetRepository) GetMemberByID(memberID string) []model.Member {
+
+}
