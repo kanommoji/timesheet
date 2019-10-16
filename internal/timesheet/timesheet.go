@@ -87,3 +87,24 @@ func CalculateIncomeTax53(wage float64, incomeTax53Percentag int) float64 {
 func CalculateNetTransfer(netSalary, netWage float64) float64 {
 	return netSalary + netWage
 }
+
+func CalculateTotalCoachingCustomerCharging(incomes []model.Incomes, company string) float64 {
+	totalCoachingCustomerCharging := 0
+	if company == "siam_chamnankit" {
+		for i := range incomes {
+			if incomes[i].Company == "siam_chamnankit" {
+				totalCoachingCustomerCharging += incomes[i].CoachingCustomerCharging
+			}
+		}
+		return float64(totalCoachingCustomerCharging)
+	}
+	if company == "shuhari" {
+		for i := range incomes {
+			if incomes[i].Company == "shuhari" {
+				totalCoachingCustomerCharging += incomes[i].CoachingCustomerCharging
+			}
+		}
+		return float64(totalCoachingCustomerCharging)
+	}
+	return 0
+}
