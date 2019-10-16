@@ -150,3 +150,24 @@ func CalculateTotalCoachingPaymentRate(incomes []model.Incomes, company string) 
 	}
 	return 0
 }
+
+func CalculateTotalTrainingWage(incomes []model.Incomes, company string) float64 {
+	totalCoachingTrainingWage := 0
+	if company == "siam_chamnankit" {
+		for i := range incomes {
+			if incomes[i].Company == "siam_chamnankit" {
+				totalCoachingTrainingWage += incomes[i].TrainingWage
+			}
+		}
+		return float64(totalCoachingTrainingWage)
+	}
+	if company == "shuhari" {
+		for i := range incomes {
+			if incomes[i].Company == "shuhari" {
+				totalCoachingTrainingWage += incomes[i].TrainingWage
+			}
+		}
+		return float64(totalCoachingTrainingWage)
+	}
+	return 0
+}
