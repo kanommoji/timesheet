@@ -103,31 +103,7 @@ func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Shoul
 		Year:     2018,
 		Month:    12,
 		MemberID: "001",
-		Incomes: []model.Incomes{
-			{
-				Day:                      28,
-				StartTimeAM:              startTimeAM,
-				EndTimeAM:                endTimeAM,
-				StartTimePM:              startTimePM,
-				EndTimePM:                endTimePM,
-				Overtime:                 0,
-				TotalHours:               totalHours,
-				CoachingCustomerCharging: 15000.00,
-				CoachingPaymentRate:      10000.00,
-				TrainingWage:             0,
-				OtherWage:                0,
-				Company:                  "siam_chamnankit",
-				Description:              "[KBTG] 2 Days Agile Project Management",
-			},
-		},
-	}
-	jsonRequest, _ := json.Marshal(requestIncome)
-	request := httptest.NewRequest("POST", "/addIncomeItem", bytes.NewBuffer(jsonRequest))
-	writer := httptest.NewRecorder()
-
-	mockTimesheet := new(mockapi.MockRepository)
-	mockTimesheet.On("UpdateIncomeByID", 2018, 12, "001", []model.Incomes{
-		{
+		Incomes: model.Incomes{
 			Day:                      28,
 			StartTimeAM:              startTimeAM,
 			EndTimeAM:                endTimeAM,
@@ -135,14 +111,34 @@ func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Shoul
 			EndTimePM:                endTimePM,
 			Overtime:                 0,
 			TotalHours:               totalHours,
-			CoachingCustomerCharging: 15000,
-			CoachingPaymentRate:      10000,
+			CoachingCustomerCharging: 15000.00,
+			CoachingPaymentRate:      10000.00,
 			TrainingWage:             0,
 			OtherWage:                0,
 			Company:                  "siam_chamnankit",
 			Description:              "[KBTG] 2 Days Agile Project Management",
 		},
-	}).Return(true)
+	}
+	jsonRequest, _ := json.Marshal(requestIncome)
+	request := httptest.NewRequest("POST", "/addIncomeItem", bytes.NewBuffer(jsonRequest))
+	writer := httptest.NewRecorder()
+
+	mockTimesheet := new(mockapi.MockRepository)
+	mockTimesheet.On("UpdateIncomeByID", 2018, 12, "001", model.Incomes{
+		Day:                      28,
+		StartTimeAM:              startTimeAM,
+		EndTimeAM:                endTimeAM,
+		StartTimePM:              startTimePM,
+		EndTimePM:                endTimePM,
+		Overtime:                 0,
+		TotalHours:               totalHours,
+		CoachingCustomerCharging: 15000.00,
+		CoachingPaymentRate:      10000.00,
+		TrainingWage:             0,
+		OtherWage:                0,
+		Company:                  "siam_chamnankit",
+		Description:              "[KBTG] 2 Days Agile Project Management",
+	}).Return(nil)
 
 	api := TimesheetAPI{
 		Timesheet: mockTimesheet,
