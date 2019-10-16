@@ -231,7 +231,7 @@ CREATE TABLE `transactions` (
   `net_wage` float DEFAULT NULL,
   `net_transfer` float DEFAULT NULL,
   `status_checking_transfer` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `date_transfer` date DEFAULT NULL,
+  `date_transfer` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `comment` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
