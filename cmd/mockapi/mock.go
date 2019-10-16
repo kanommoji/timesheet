@@ -15,7 +15,7 @@ func (mock MockRepository) GetSummary(year, month int) ([]model.TransactionTimes
 	return argument.Get(0).([]model.TransactionTimesheet), argument.Error(1)
 }
 
-func (mock MockRepository) UpdateIncomeByID(year, month int, memberID string, income []model.Incomes) error {
+func (mock MockRepository) UpdateIncomeByID(year, month int, memberID string, income model.Incomes) error {
 	argument := mock.Called(year, month, memberID, income)
 	return argument.Error(0)
 }

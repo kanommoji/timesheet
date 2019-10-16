@@ -21,10 +21,10 @@ type CalculatePaymentRequest struct {
 }
 
 type IncomeRequest struct {
-	Year     int             `json:"year"`
-	Month    int             `json:"month"`
-	MemberID string          `json:"member_id"`
-	Incomes  []model.Incomes `json:"incomes"`
+	Year     int           `json:"year"`
+	Month    int           `json:"month"`
+	MemberID string        `json:"member_id"`
+	Incomes  model.Incomes `json:"incomes"`
 }
 
 type TimesheetAPI struct {
@@ -46,7 +46,7 @@ func (api TimesheetAPI) UpdateIncomeHandler(context *gin.Context) {
 	var requestIncome IncomeRequest
 	context.ShouldBindJSON(&requestIncome)
 
-	context.JSON(http.StatusOK, "")
+	context.JSON(http.StatusOK, nil)
 }
 
 func (api TimesheetAPI) CalculatePaymentHandler(context *gin.Context) {
