@@ -13,7 +13,7 @@ func (timesheet Timesheet) CalculatePaymentSummary(member []model.Member, income
 	for _, member := range member {
 		coachingPaymentRate := CalculateTotalCoachingPaymentRate(incomes, member.Company)
 		trainingWage := CalculateTotalTrainingWage(incomes, member.Company)
-		otherWage := CalculateTotalOtherWage(incomes, member.Company)
+		otherWage := CalculateTotalOtherWage(incomes, member.Company, member.TravelExpense)
 		paymentWage := CalculateTotalPaymentWage(coachingPaymentRate, trainingWage, otherWage)
 		netSalary := CalculateNetSalary(member.Salary, member.IncomeTax1, member.SocialSecurity)
 		wage := CalculateWage(paymentWage, member.Salary, member.Status)
@@ -94,7 +94,7 @@ func CalculateTotalCoachingCustomerCharging(incomes []model.Incomes, company str
 	return 0
 }
 
-func CalculateTotalOtherWage(incomes []model.Incomes, company string) float64 {
+func CalculateTotalOtherWage(incomes []model.Incomes, company string, travelExpense float64) float64 {
 	totalOtherWage := 0
 	if company == "siam_chamnankit" {
 		for i := range incomes {
@@ -102,7 +102,7 @@ func CalculateTotalOtherWage(incomes []model.Incomes, company string) float64 {
 				totalOtherWage += incomes[i].OtherWage
 			}
 		}
-		return float64(totalOtherWage)
+		return float64(totalOtherWage) + travelExpense
 	}
 	if company == "shuhari" {
 		for i := range incomes {
@@ -110,7 +110,7 @@ func CalculateTotalOtherWage(incomes []model.Incomes, company string) float64 {
 				totalOtherWage += incomes[i].OtherWage
 			}
 		}
-		return float64(totalOtherWage)
+		return float64(totalOtherWage) + travelExpense
 	}
 	return 0
 }
