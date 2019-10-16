@@ -59,11 +59,11 @@ func (repository TimesheetRepository) GetSummary(year, month int) ([]model.Trans
 }
 
 func (repository TimesheetRepository) UpdateIncomeByID(year, month int, memberID string, income model.Incomes) error {
-	statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO incomes (member_id, month, year, day, start_time_am, end_time_am, start_time_pm, end_time_pm, overtime, total_hours, coaching_customer_charging, coaching_payment_rate, training_wage, other_wage, company, description) VALUES ( ? , ? , ?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? )`)
+	statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO incomes (member_id, month, year, day, start_time_am_hours, start_time_am_minutes, start_time_am_seconds, end_time_am_hours, end_time_am_minutes, end_time_am_seconds, start_time_pm_hours, start_time_pm_minutes, start_time_pm_seconds, end_time_pm_hours, end_time_pm_minutes, end_time_pm_seconds, overtime, total_hours_hours, total_hours_minutes, total_hours_seconds, coaching_customer_charging, coaching_payment_rate, training_wage, other_wage, company, description) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? )`)
 	if err != nil {
 		return err
 	}
-	_, err = statement.Exec(memberID, month, year, income.Day, income.StartTimeAM, income.EndTimeAM, income.StartTimePM, income.EndTimePM, income.Overtime, income.TotalHours, income.CoachingCustomerCharging, income.CoachingPaymentRate, income.TrainingWage, income.OtherWage, income.Company, income.Description)
+	_, err = statement.Exec(memberID, month, year, income.Day, income.StartTimeAMHours, income.StartTimeAMMinutes, income.StartTimeAMSeconds, income.EndTimeAMHours, income.EndTimeAMMinutes, income.EndTimeAMSeconds, income.StartTimePMHours, income.StartTimePMMinutes, income.StartTimePMSeconds, income.EndTimePMHours, income.EndTimePMMinutes, income.EndTimePMSeconds, income.Overtime, income.TotalHoursHours, income.TotalHoursMinutes, income.TotalHoursSeconds, income.CoachingCustomerCharging, income.CoachingPaymentRate, income.TrainingWage, income.OtherWage, income.Company, income.Description)
 	if err != nil {
 		return err
 	}

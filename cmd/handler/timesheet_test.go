@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"time"
 	. "timesheet/cmd/handler"
 	"timesheet/cmd/mockapi"
 	"timesheet/internal/model"
@@ -94,23 +93,28 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 
 func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Should_Be_Status_200(t *testing.T) {
 	expectedStatus := http.StatusOK
-	startTimeAM, _ := time.Parse("15:04:05", "09:00:00")
-	endTimeAM, _ := time.Parse("15:04:05", "12:00:00")
-	startTimePM, _ := time.Parse("15:04:05", "13:00:00")
-	endTimePM, _ := time.Parse("15:04:05", "18:00:00")
-	totalHours, _ := time.Parse("15:04:05", "8:00:00")
 	requestIncome := IncomeRequest{
 		Year:     2018,
 		Month:    12,
 		MemberID: "001",
 		Incomes: model.Incomes{
 			Day:                      28,
-			StartTimeAM:              startTimeAM,
-			EndTimeAM:                endTimeAM,
-			StartTimePM:              startTimePM,
-			EndTimePM:                endTimePM,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
 			Overtime:                 0,
-			TotalHours:               totalHours,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
 			CoachingCustomerCharging: 15000.00,
 			CoachingPaymentRate:      10000.00,
 			TrainingWage:             0.00,
@@ -126,12 +130,22 @@ func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Shoul
 	mockTimesheet := new(mockapi.MockRepository)
 	mockTimesheet.On("UpdateIncomeByID", 2018, 12, "001", model.Incomes{
 		Day:                      28,
-		StartTimeAM:              startTimeAM,
-		EndTimeAM:                endTimeAM,
-		StartTimePM:              startTimePM,
-		EndTimePM:                endTimePM,
+		StartTimeAMHours:         9,
+		StartTimeAMMinutes:       0,
+		StartTimeAMSeconds:       0,
+		EndTimeAMHours:           12,
+		EndTimeAMMinutes:         0,
+		EndTimeAMSeconds:         0,
+		StartTimePMHours:         13,
+		StartTimePMMinutes:       0,
+		StartTimePMSeconds:       0,
+		EndTimePMHours:           18,
+		EndTimePMMinutes:         0,
+		EndTimePMSeconds:         0,
 		Overtime:                 0,
-		TotalHours:               totalHours,
+		TotalHoursHours:          8,
+		TotalHoursMinutes:        0,
+		TotalHoursSeconds:        0,
 		CoachingCustomerCharging: 15000.00,
 		CoachingPaymentRate:      10000.00,
 		TrainingWage:             0.00,
@@ -165,20 +179,25 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 	writer := httptest.NewRecorder()
 
 	mockRepository := new(mockapi.MockRepository)
-	startTimeAM, _ := time.Parse("15:04:05", "09:00:00")
-	endTimeAM, _ := time.Parse("15:04:05", "12:00:00")
-	startTimePM, _ := time.Parse("15:04:05", "13:00:00")
-	endTimePM, _ := time.Parse("15:04:05", "18:00:00")
-	totalHours, _ := time.Parse("15:04:05", "8:00:00")
 	mockRepository.On("GetIncomes", "001", 2018, 12).Return([]model.Incomes{
 		{
 			Day:                      28,
-			StartTimeAM:              startTimeAM,
-			EndTimeAM:                endTimeAM,
-			StartTimePM:              startTimePM,
-			EndTimePM:                endTimePM,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
 			Overtime:                 0,
-			TotalHours:               totalHours,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
 			CoachingCustomerCharging: 15000.00,
 			CoachingPaymentRate:      10000.00,
 			TrainingWage:             0.00,
@@ -190,7 +209,9 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 
 	mockTimesheet := new(mockapi.MockTimesheet)
 	mockTimesheet.On("CalculatePayment", mock.Anything).Return(model.Payment{
-		TotalHours:                    totalHours,
+		TotalHoursHours:               8,
+		TotalHoursMinutes:             0,
+		TotalHoursSeconds:             0,
 		TotalCoachingCustomerCharging: 15000.00,
 		TotalCoachingPaymentRate:      10000.00,
 		TotalTrainigWage:              0.00,
