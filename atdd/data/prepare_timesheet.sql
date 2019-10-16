@@ -1,8 +1,8 @@
--- MariaDB dump 10.17  Distrib 10.4.8-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.17  Distrib 10.4.7-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: timesheet
 -- ------------------------------------------------------
--- Server version	10.4.8-MariaDB-1:10.4.8+maria~bionic
+-- Server version	10.4.7-MariaDB-1:10.4.7+maria~bionic
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,12 +28,22 @@ CREATE TABLE `incomes` (
   `month` int(11) DEFAULT NULL,
   `year` int(11) DEFAULT NULL,
   `day` int(11) DEFAULT NULL,
-  `start_time_am` time DEFAULT NULL,
-  `end_time_am` time DEFAULT NULL,
-  `start_time_pm` time DEFAULT NULL,
-  `end_time_pm` time DEFAULT NULL,
+  `start_time_am_hours` int(11) DEFAULT NULL,
+  `start_time_am_minutes` int(11) DEFAULT NULL,
+  `start_time_am_seconds` int(11) DEFAULT NULL,
+  `end_time_am_hours` int(11) DEFAULT NULL,
+  `end_time_am_minutes` int(11) DEFAULT NULL,
+  `end_time_am_seconds` int(11) DEFAULT NULL,
+  `start_time_pm_hours` int(11) DEFAULT NULL,
+  `start_time_pm_minutes` int(11) DEFAULT NULL,
+  `start_time_pm_seconds` int(11) DEFAULT NULL,
+  `end_time_pm_hours` int(11) DEFAULT NULL,
+  `end_time_pm_minutes` int(11) DEFAULT NULL,
+  `end_time_pm_seconds` int(11) DEFAULT NULL,
   `overtime` int(11) DEFAULT NULL,
-  `total_hours` time DEFAULT NULL,
+  `total_hours_hours` int(11) DEFAULT NULL,
+  `total_hours_minutes` int(11) DEFAULT NULL,
+  `total_hours_seconds` int(11) DEFAULT NULL,
   `coaching_customer_charging` float DEFAULT NULL,
   `coaching_payment_rate` float DEFAULT NULL,
   `training_wage` float DEFAULT NULL,
@@ -41,7 +51,7 @@ CREATE TABLE `incomes` (
   `company` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,65 +60,65 @@ CREATE TABLE `incomes` (
 
 LOCK TABLES `incomes` WRITE;
 /*!40000 ALTER TABLE `incomes` DISABLE KEYS */;
-INSERT INTO `incomes` VALUES (1,'001',12,2018,3,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',15000,10000,0,0,'siam_chamnankit','KBTG Coaching'),
-(2,'001',12,2018,4,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,10000,'siam_chamnankit','siam_chamnankit and SHR operation'),
-(3,'001',12,2018,6,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'shuhari','[IMC]GSB: Agile Project Mgmt'),
-(4,'001',12,2018,7,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'shuhari','[IMC]GSB: Agile Project Mgmt'),
-(5,'001',12,2018,11,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'siam_chamnankit','[PTT-GC] 2 Days Agile Project Management'),
-(6,'001',12,2018,12,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'siam_chamnankit','[PTT-GC] 2 Days Agile Project Management'),
-(7,'001',12,2018,13,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'shuhari','[IMC]GSB: Agile Project Mgmt'),
-(8,'001',12,2018,14,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'shuhari','[IMC]GSB: Agile Project Mgmt'),
-(9,'001',12,2018,15,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,10000,'siam_chamnankit','Meeting siam_chamnankit'),
-(10,'001',12,2018,16,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'siam_chamnankit','Day 1 of 6 days Agile for Software Development - Fujitsu'),
-(11,'001',12,2018,17,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,10000,0,0,'siam_chamnankit','KBTG Coaching'),
-(12,'001',12,2018,18,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,10000,'siam_chamnankit','Meeting with SW Park team + Meeting with Mobilfe on Bank Agent Platform'),
-(13,'001',12,2018,19,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,10000,0,0,'siam_chamnankit','[KBTG] 3 Days Agile Testing in Action'),
-(14,'001',12,2018,20,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,10000,0,0,'siam_chamnankit','[KBTG] 3 Days Agile Testing in Action'),
-(15,'001',12,2018,21,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,10000,0,0,'siam_chamnankit','[KBTG] 3 Days Agile Testing in Action'),
-(16,'001',12,2018,24,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,15000,0,0,'siam_chamnankit','TDEM - Coaching and feedback Fujitsu'),
-(17,'001',12,2018,26,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,10000,'siam_chamnankit','Meeting with Mobilfe on Bank Agent Platform + Meeting with Fujitsu MD'),
-(18,'001',12,2018,27,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,10000,0,0,'siam_chamnankit','[KBTG] 2 Days Agile Project Management'),
-(19,'002',12,2018,11,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at siam_chamnankit Dojo'),
-(20,'002',12,2018,12,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at siam_chamnankit Dojo'),
-(21,'002',12,2018,13,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(22,'002',12,2018,14,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(23,'002',12,2018,15,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,5000,'shuhari','ประชุมสรุปประจำปี 2018'),
-(24,'002',12,2018,17,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(25,'002',12,2018,18,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(26,'002',12,2018,19,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(27,'002',12,2018,20,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(28,'002',12,2018,21,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(29,'002',12,2018,24,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(30,'002',12,2018,25,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(31,'002',12,2018,26,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(32,'002',12,2018,27,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(33,'003',12,2018,1,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,15000,0,'siam_chamnankit','Technical Excellence at Khonkean'),
-(34,'003',12,2018,2,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,15000,0,'siam_chamnankit','Technical Excellence at Khonkean'),
-(35,'003',12,2018,4,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'siam_chamnankit','KBTG'),
-(36,'003',12,2018,6,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'siam_chamnankit','TDD with JAVA'),
-(37,'003',12,2018,7,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'siam_chamnankit','TDD with JAVA'),
-(38,'003',12,2018,11,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'siam_chamnankit','KBTG'),
-(39,'003',12,2018,12,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'siam_chamnankit','KBTG'),
-(40,'003',12,2018,13,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'siam_chamnankit','Docker and Kubernetes'),
-(41,'003',12,2018,14,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'siam_chamnankit','Docker and Kubernetes'),
-(42,'003',12,2018,17,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,10000,0,'siam_chamnankit','TDD with JAVA'),
-(43,'005',12,2018,11,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at siam_chamnankit Dojo'),
-(44,'005',12,2018,12,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at siam_chamnankit Dojo'),
-(45,'005',12,2018,13,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(46,'005',12,2018,14,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(47,'005',12,2018,15,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,5000,'shuhari','ประชุมสรุปประจำปี 2018'),
-(48,'005',12,2018,17,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(49,'005',12,2018,18,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(50,'005',12,2018,19,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(51,'005',12,2018,20,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(52,'005',12,2018,21,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(53,'005',12,2018,24,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(54,'005',12,2018,25,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(55,'005',12,2018,26,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(56,'005',12,2018,27,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(57,'005',12,2018,28,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(58,'006',12,2018,11,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN'),
-(59,'006',12,2018,12,'09:00:00','12:00:00','13:00:00','18:00:00',0,'08:00:00',0,0,0,0,'shuhari','work at TN');
+INSERT INTO `incomes` VALUES (1,'001',12,2018,3,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,15000,10000,0,0,'siam_chamnankit','KBTG Coaching'),
+(2,'001',12,2018,4,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,10000,'siam_chamnankit','siam_chamnankit and SHR operation'),
+(3,'001',12,2018,6,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'shuhari','[IMC]GSB: Agile Project Mgmt'),
+(4,'001',12,2018,7,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'shuhari','[IMC]GSB: Agile Project Mgmt'),
+(5,'001',12,2018,11,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'siam_chamnankit','[PTT-GC] 2 Days Agile Project Management'),
+(6,'001',12,2018,12,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'siam_chamnankit','[PTT-GC] 2 Days Agile Project Management'),
+(7,'001',12,2018,13,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'shuhari','[IMC]GSB: Agile Project Mgmt'),
+(8,'001',12,2018,14,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'shuhari','[IMC]GSB: Agile Project Mgmt'),
+(9,'001',12,2018,15,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,10000,'siam_chamnankit','Meeting siam_chamnankit'),
+(10,'001',12,2018,16,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'siam_chamnankit','Day 1 of 6 days Agile for Software Development - Fujitsu'),
+(11,'001',12,2018,17,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,10000,0,0,'siam_chamnankit','KBTG Coaching'),
+(12,'001',12,2018,18,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,10000,'siam_chamnankit','Meeting with SW Park team + Meeting with Mobilfe on Bank Agent Platform'),
+(13,'001',12,2018,19,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,10000,0,0,'siam_chamnankit','[KBTG] 3 Days Agile Testing in Action'),
+(14,'001',12,2018,20,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,10000,0,0,'siam_chamnankit','[KBTG] 3 Days Agile Testing in Action'),
+(15,'001',12,2018,21,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,10000,0,0,'siam_chamnankit','[KBTG] 3 Days Agile Testing in Action'),
+(16,'001',12,2018,24,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,15000,0,0,'siam_chamnankit','TDEM - Coaching and feedback Fujitsu'),
+(17,'001',12,2018,26,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,10000,'siam_chamnankit','Meeting with Mobilfe on Bank Agent Platform + Meeting with Fujitsu MD'),
+(18,'001',12,2018,27,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,10000,0,0,'siam_chamnankit','[KBTG] 2 Days Agile Project Management'),
+(19,'002',12,2018,11,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at siam_chamnankit Dojo'),
+(20,'002',12,2018,12,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at siam_chamnankit Dojo'),
+(21,'002',12,2018,13,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(22,'002',12,2018,14,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(23,'002',12,2018,15,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,5000,'shuhari','ประชุมสรุปประจำปี 2018'),
+(24,'002',12,2018,17,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(25,'002',12,2018,18,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(26,'002',12,2018,19,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(27,'002',12,2018,20,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(28,'002',12,2018,21,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(29,'002',12,2018,24,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(30,'002',12,2018,25,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(31,'002',12,2018,26,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(32,'002',12,2018,27,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(33,'003',12,2018,1,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,15000,0,'siam_chamnankit','Technical Excellence at Khonkean'),
+(34,'003',12,2018,2,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,15000,0,'siam_chamnankit','Technical Excellence at Khonkean'),
+(35,'003',12,2018,4,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'siam_chamnankit','KBTG'),
+(36,'003',12,2018,6,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'siam_chamnankit','TDD with JAVA'),
+(37,'003',12,2018,7,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'siam_chamnankit','TDD with JAVA'),
+(38,'003',12,2018,11,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'siam_chamnankit','KBTG'),
+(39,'003',12,2018,12,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'siam_chamnankit','KBTG'),
+(40,'003',12,2018,13,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'siam_chamnankit','Docker and Kubernetes'),
+(41,'003',12,2018,14,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'siam_chamnankit','Docker and Kubernetes'),
+(42,'003',12,2018,17,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,10000,0,'siam_chamnankit','TDD with JAVA'),
+(43,'005',12,2018,11,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at siam_chamnankit Dojo'),
+(44,'005',12,2018,12,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at siam_chamnankit Dojo'),
+(45,'005',12,2018,13,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(46,'005',12,2018,14,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(47,'005',12,2018,15,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,5000,'shuhari','ประชุมสรุปประจำปี 2018'),
+(48,'005',12,2018,17,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(49,'005',12,2018,18,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(50,'005',12,2018,19,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(51,'005',12,2018,20,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(52,'005',12,2018,21,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(53,'005',12,2018,24,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(54,'005',12,2018,25,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(55,'005',12,2018,26,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(56,'005',12,2018,27,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(57,'005',12,2018,28,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(58,'006',12,2018,11,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN'),
+(59,'006',12,2018,12,9,0,0,12,0,0,13,0,0,18,0,0,0,8,0,0,0,0,0,0,'shuhari','work at TN');
 /*!40000 ALTER TABLE `incomes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +180,9 @@ CREATE TABLE `timesheets` (
   `member_id` varchar(3) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `month` int(11) DEFAULT NULL,
   `year` int(11) DEFAULT NULL,
-  `total_hours` time DEFAULT NULL,
+  `total_hours_hours` int(11) DEFAULT NULL,
+  `total_hours_minutes` int(11) DEFAULT NULL,
+  `total_hours_seconds` int(11) DEFAULT NULL,
   `total_coaching_customer_charging` float DEFAULT NULL,
   `total_coaching_payment_rate` float DEFAULT NULL,
   `total_training_wage` float DEFAULT NULL,
@@ -186,8 +198,8 @@ CREATE TABLE `timesheets` (
 
 LOCK TABLES `timesheets` WRITE;
 /*!40000 ALTER TABLE `timesheets` DISABLE KEYS */;
-INSERT INTO `timesheets` VALUES (1,'003201712','003',12,2017,'88:00:00',0,0,120000,0,120000),
-(2,'006201812','006',12,2018,'00:00:00',0,0,0,0,0);
+INSERT INTO `timesheets` VALUES (1,'003201712','003',12,2017,88,0,0,0,0,120000,0,120000),
+(2,'006201812','006',12,2018,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `timesheets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -245,4 +257,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-12 15:26:57
+-- Dump completed on 2019-10-16  9:09:38
