@@ -317,7 +317,7 @@ func Test_CalculateTotalCoachingCustomerCharging_Input_Incomes_Company_SiamChamn
 	assert.Equal(t, expected, actual)
 }
 
-func Test_CalculateTotalOtherWage_Input_Incomes_Company_Shuhari_Should_Be_45000(t *testing.T) {
+func Test_CalculateTotalOtherWage_Input_Incomes_Company_Shuhari_TravelExpense_0_Should_Be_45000(t *testing.T) {
 	expected := 45000.00
 	member := model.Member{
 		MemberID:              "001",
@@ -413,7 +413,7 @@ func Test_CalculateTotalOtherWage_Input_Incomes_Company_Shuhari_Should_Be_45000(
 		},
 	}
 
-	actual := CalculateTotalOtherWage(incomes, member.Company)
+	actual := CalculateTotalOtherWage(incomes, member.Company, member.TravelExpense)
 
 	assert.Equal(t, expected, actual)
 }
