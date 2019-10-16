@@ -11,9 +11,9 @@ type Timesheet struct {
 func (timesheet Timesheet) CalculatePaymentSummary(member []model.Member, incomes []model.Incomes) []model.TransactionTimesheet {
 	var transactionTimesheetList []model.TransactionTimesheet
 	for _, member := range member {
-		coachingPaymentRate := CalculateCoachingPaymentRate(incomes, member.Company)
-		trainingWage := CalculateTrainingWage(incomes, member.Company)
-		otherWage := CalculateOtherWage(incomes, member.Company)
+		coachingPaymentRate := CalculateTotalCoachingPaymentRate(incomes, member.Company)
+		trainingWage := CalculateTotalTrainingWage(incomes, member.Company)
+		otherWage := CalculateTotalOtherWage(incomes, member.Company)
 		paymentWage := CalculateTotalPaymentWage(coachingPaymentRate, trainingWage, otherWage)
 		netSalary := CalculateNetSalary(member.Salary, member.IncomeTax1, member.SocialSecurity)
 		wage := CalculateWage(paymentWage, member.Salary, member.Status)
@@ -42,21 +42,6 @@ func (timesheet Timesheet) CalculatePaymentSummary(member []model.Member, income
 	}
 
 	return transactionTimesheetList
-}
-
-func CalculateCoachingPaymentRate(incomes []model.Incomes, company string) float64 {
-	return 0.00
-}
-
-func CalculateTrainingWage(incomes []model.Incomes, company string) float64 {
-	if company == "shuhari" {
-		return 20000.00
-	}
-	return 155000.00
-}
-
-func CalculateOtherWage(incomes []model.Incomes, company string) float64 {
-	return 0.00
 }
 
 func CalculateTotalPaymentWage(coachingPaymentRate, trainingWage, otherWage float64) float64 {
@@ -161,13 +146,12 @@ func CalculateTotalTrainingWage(incomes []model.Incomes, company string) float64
 		}
 		return float64(totalCoachingTrainingWage)
 	}
-	if company == "shuhari" {
-		for i := range incomes {
-			if incomes[i].Company == "shuhari" {
-				totalCoachingTrainingWage += incomes[i].TrainingWage
-			}
+
+	for i := range incomes {
+		if incomes[i].Company == "shuhari" {
+			totalCoachingTrainingWage += incomes[i].TrainingWage
 		}
-		return float64(totalCoachingTrainingWage)
 	}
-	return 0
+	return float64(totalCoachingTrainingWage)
+
 }
