@@ -108,3 +108,24 @@ func CalculateTotalCoachingCustomerCharging(incomes []model.Incomes, company str
 	}
 	return 0
 }
+
+func CalculateTotalOtherWage(incomes []model.Incomes, company string) float64 {
+	totalOtherWage := 0
+	if company == "siam_chamnankit" {
+		for i := range incomes {
+			if incomes[i].Company == "siam_chamnankit" {
+				totalOtherWage += incomes[i].OtherWage
+			}
+		}
+		return float64(totalOtherWage)
+	}
+	if company == "shuhari" {
+		for i := range incomes {
+			if incomes[i].Company == "shuhari" {
+				totalOtherWage += incomes[i].OtherWage
+			}
+		}
+		return float64(totalOtherWage)
+	}
+	return 0
+}
