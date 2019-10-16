@@ -43,7 +43,3 @@ func (mock MockTimesheet) CalculatePaymentSummary(member model.Member, incomes [
 	argument := mock.Called(member)
 	return argument.Get(0).([]model.TransactionTimesheet)
 }
-
-type MockMember struct {
-	mock.Mock
-}

@@ -221,7 +221,7 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 
 	mockRepository.On("UpdateTimesheet").Return(nil)
 
-	mockMember := new(mockapi.MockMember)
+	mockMember := new(mockapi.MockRepository)
 	mockMember.On("GetMemberByID", "001").Return([]model.Member{
 		{
 			MemberID:              "001",

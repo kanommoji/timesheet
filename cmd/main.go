@@ -28,5 +28,5 @@ func main() {
 	router.POST("/showSummaryTimesheet", api.GetSummaryHandler)
 	router.POST("/addIncomeItem", api.UpdateIncomeHandler)
 	router.StaticFS("/", http.Dir("ui"))
-	router.Run()
+	log.Fatal(router.Run())
 }

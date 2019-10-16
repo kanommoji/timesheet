@@ -44,7 +44,10 @@ func (api TimesheetAPI) GetSummaryHandler(context *gin.Context) {
 
 func (api TimesheetAPI) UpdateIncomeHandler(context *gin.Context) {
 	var requestIncome IncomeRequest
-	context.ShouldBindJSON(&requestIncome)
+	err := context.ShouldBindJSON(&requestIncome)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
 
 	context.JSON(http.StatusOK, nil)
 }
