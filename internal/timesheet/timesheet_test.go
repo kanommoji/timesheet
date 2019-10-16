@@ -115,7 +115,7 @@ func Test_CalculatePaymentSummary_Input_Member_MemberID_001_Should_Be_Transactio
 			CoachingPaymentRate:      0.00,
 			TrainingWage:             20000.00,
 			OtherWage:                0.00,
-			Company:                  "siam_chamnankit",
+			Company:                  "shuhari",
 			Description:              "[KBTG] 2 Days Agile Project Management",
 		},
 	}
