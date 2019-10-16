@@ -190,3 +190,14 @@ func Test_CalculateNetTransfer_Input_NetSalary_75000_NetWage_67500_Should_Be_142
 
 	assert.Equal(t, expected, actual)
 }
+
+func Test_CalculateTotalPaymentWage_CoachingPaymentRate_85000_TrainingWage_70000_OtherWage_40000_Should_Be_195000(t *testing.T) {
+	expected := 195000.00
+	coachingPaymentRate := 85000.00
+	trainingWage := 70000.00
+	otherWage := 40000.00
+
+	actual := CalculateTotalPaymentWage(coachingPaymentRate, trainingWage, otherWage)
+
+	assert.Equal(t, expected, actual)
+}

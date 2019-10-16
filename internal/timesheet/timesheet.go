@@ -60,10 +60,7 @@ func CalculateOtherWage(incomes []model.Incomes, company string) float64 {
 }
 
 func CalculateTotalPaymentWage(coachingPaymentRate, trainingWage, otherWage float64) float64 {
-	if trainingWage == 20000.00 {
-		return 20000.00
-	}
-	return 155000.00
+	return coachingPaymentRate + trainingWage + otherWage
 }
 
 func CalculateNetSalary(salary, incomeTax1, socialSecurity float64) float64 {
