@@ -69,7 +69,7 @@ func Test_UpdateIncomeByID_Input_Year_2018_Month_12_MemberID_001_Income_Should_B
 		EndTimeAM:                endTimeAM,
 		StartTimePM:              startTimePM,
 		EndTimePM:                endTimePM,
-		Overtime:                 0.00,
+		Overtime:                 0,
 		TotalHours:               totalHours,
 		CoachingCustomerCharging: 15000.00,
 		CoachingPaymentRate:      10000.00,
