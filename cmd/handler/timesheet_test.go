@@ -27,8 +27,8 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 	request := httptest.NewRequest("POST", "/showSummaryTimesheet", bytes.NewBuffer(jsonRequest))
 	writer := httptest.NewRecorder()
 
-	mockTimesheet := new(mockapi.MockRepository)
-	mockTimesheet.On("GetSummary", 2018, 12).Return([]model.TransactionTimesheet{
+	mockRepository := new(mockapi.MockRepository)
+	mockRepository.On("GetSummary", 2018, 12).Return([]model.TransactionTimesheet{
 		{
 			ID:                     1,
 			MemberID:               "001",
@@ -79,9 +79,8 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 	}, nil)
 
 	api := TimesheetAPI{
-		TimesheetRepository: mockTimesheet,
+		TimesheetRepository: mockRepository,
 	}
-
 	testRoute := gin.Default()
 	testRoute.POST("/showSummaryTimesheet", api.GetSummaryHandler)
 	testRoute.ServeHTTP(writer, request)
@@ -95,7 +94,6 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 
 func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Should_Be_Status_200(t *testing.T) {
 	expectedStatus := http.StatusOK
-	expected := `{"year":2018,"month":12,"member_id":"001","incomes":[{"day":28,"start_time_am":"0000-01-01T09:00:00Z","end_time_am":"0000-01-01T12:00:00Z","start_time_pm":"0000-01-01T13:00:00Z","end_time_pm":"0000-01-01T18:00:00Z","overtime":0,"total_hours":"0000-01-01T08:00:00Z","coaching_customer_charging":15000,"coaching_payment_rate":10000,"training_wage":0,"other_wage":0,"company":"siam_chamnankit","description":"[KBTG] 2 Days Agile Project Management"}]}`
 	startTimeAM, _ := time.Parse("15:04:05", "09:00:00")
 	endTimeAM, _ := time.Parse("15:04:05", "12:00:00")
 	startTimePM, _ := time.Parse("15:04:05", "13:00:00")
@@ -157,7 +155,6 @@ func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Shoul
 	response := writer.Result()
 
 	assert.Equal(t, expectedStatus, response.StatusCode)
-	assert.Equal(t, expected, string(jsonRequest))
 }
 
 func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_Be_200(t *testing.T) {
