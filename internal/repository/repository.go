@@ -8,6 +8,8 @@ import (
 type TimesheetRepositoryGateways interface {
 	GetSummary(year, month int) ([]model.TransactionTimesheet, error)
 	UpdateIncomeByID(year, month int, memberID string, income []model.Incomes) error
+	GetMemberByID(memberID string) ([]model.Member, error)
+	GetIncomes(memberID string, year, month int) ([]model.Incomes, error)
 }
 
 type TimesheetRepository struct {
@@ -100,4 +102,50 @@ func (repository TimesheetRepository) GetMemberByID(memberID string) ([]model.Me
 		memberList = append(memberList, member)
 	}
 	return memberList, nil
+}
+
+func (repository TimesheetRepository) GetIncomes(memberID string, year, month int) ([]model.Incomes, error) {
+	var incomeList []model.Incomes
+	var income model.Incomes
+	statement, err := repository.DatabaseConnection.Prepare(`SELECT * FROM timesheet.incomes WHERE member_id = ? AND year = ? AND month = ?`)
+	if err != nil {
+		return incomeList, err
+	}
+	row, err := statement.Query(memberID, year, month)
+	if err != nil {
+		return incomeList, err
+	}
+	for row.Next() {
+		err = row.Scan(
+			&income.ID,
+			&income.MemberID,
+			&income.Month,
+			&income.Year,
+			&income.Day,
+			&income.StartTimeAMHours,
+			&income.StartTimeAMMinutes,
+			&income.StartTimeAMSeconds,
+			&income.EndTimeAMHours,
+			&income.EndTimeAMMinutes,
+			&income.EndTimeAMSeconds,
+			&income.StartTimePMHours,
+			&income.StartTimePMMinutes,
+			&income.StartTimePMSeconds,
+			&income.EndTimePMHours,
+			&income.EndTimePMMinutes,
+			&income.EndTimePMSeconds,
+			&income.Overtime,
+			&income.TotalHoursSeconds,
+			&income.TotalHoursMinutes,
+			&income.TotalHoursHours,
+			&income.CoachingCustomerCharging,
+			&income.CoachingPaymentRate,
+			&income.TrainingWage,
+			&income.OtherWage,
+			&income.Company,
+			&income.Description,
+		)
+		incomeList = append(incomeList, income)
+	}
+	return incomeList, nil
 }

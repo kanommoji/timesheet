@@ -1,7 +1,5 @@
 package model
 
-import "time"
-
 type TransactionTimesheet struct {
 	ID                     int     `json:"id"`
 	MemberID               string  `json:"member_id"`
@@ -28,23 +26,39 @@ type TransactionTimesheet struct {
 }
 
 type Incomes struct {
-	Day                      int       `json:"day"`
-	StartTimeAM              time.Time `json:"start_time_am"`
-	EndTimeAM                time.Time `json:"end_time_am"`
-	StartTimePM              time.Time `json:"start_time_pm"`
-	EndTimePM                time.Time `json:"end_time_pm"`
-	Overtime                 int       `json:"overtime"`
-	TotalHours               time.Time `json:"total_hours"`
-	CoachingCustomerCharging int       `json:"coaching_customer_charging"`
-	CoachingPaymentRate      int       `json:"coaching_payment_rate"`
-	TrainingWage             int       `json:"training_wage"`
-	OtherWage                int       `json:"other_wage"`
-	Company                  string    `json:"company"`
-	Description              string    `json:"description"`
+	ID                       int    `json:"id"`
+	MemberID                 string `json:"member_id"`
+	Month                    int    `json:"month"`
+	Year                     int    `json:"year"`
+	Day                      int    `json:"day"`
+	StartTimeAMHours         int    `json:"start_time_am_hours"`
+	StartTimeAMMinutes       int    `json:"start_time_am_minutes"`
+	StartTimeAMSeconds       int    `json:"start_time_am_seconds"`
+	EndTimeAMHours           int    `json:"end_time_am_hours"`
+	EndTimeAMMinutes         int    `json:"end_time_am_minutes"`
+	EndTimeAMSeconds         int    `json:"end_time_am_seconds"`
+	StartTimePMHours         int    `json:"start_time_pm_hours"`
+	StartTimePMMinutes       int    `json:"start_time_pm_minutes"`
+	StartTimePMSeconds       int    `json:"start_time_pm_seconds"`
+	EndTimePMHours           int    `json:"end_time_pm_hours"`
+	EndTimePMMinutes         int    `json:"end_time_pm_minutes"`
+	EndTimePMSeconds         int    `json:"end_time_pm_seconds"`
+	Overtime                 int    `json:"overtime"`
+	TotalHoursHours          int    `json:"total_hours_hours"`
+	TotalHoursMinutes        int    `json:"total_hours_minutes"`
+	TotalHoursSeconds        int    `json:"total_hours_seconds"`
+	CoachingCustomerCharging int    `json:"coaching_customer_charging"`
+	CoachingPaymentRate      int    `json:"coaching_payment_rate"`
+	TrainingWage             int    `json:"training_wage"`
+	OtherWage                int    `json:"other_wage"`
+	Company                  string `json:"company"`
+	Description              string `json:"description"`
 }
 
 type Payment struct {
-	TotalHours                    time.Time
+	TotalHoursHours               int
+	TotalHoursMinutes             int
+	TotalHoursSeconds             int
 	TotalCoachingCustomerCharging float64
 	TotalCoachingPaymentRate      float64
 	TotalTrainigWage              float64

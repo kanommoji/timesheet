@@ -34,10 +34,11 @@ type TimesheetAPI struct {
 
 func (api TimesheetAPI) GetSummaryHandler(context *gin.Context) {
 	var date Date
-	context.ShouldBindJSON(&date)
-
+	err := context.ShouldBindJSON(&date)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
 	transactionTimesheet, _ := api.TimesheetRepository.GetSummary(date.Year, date.Month)
-
 	context.JSON(http.StatusOK, transactionTimesheet)
 }
 

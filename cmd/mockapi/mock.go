@@ -20,9 +20,14 @@ func (mock MockRepository) UpdateIncomeByID(year, month int, memberID string, in
 	return argument.Error(0)
 }
 
-func (mock MockRepository) GetIncomes(memberID string, year, month int) []model.Incomes {
+func (mock MockRepository) GetIncomes(memberID string, year, month int) ([]model.Incomes, error) {
 	argument := mock.Called(memberID, year, month)
-	return argument.Get(0).([]model.Incomes)
+	return argument.Get(0).([]model.Incomes), argument.Error(1)
+}
+
+func (mock MockRepository) GetMemberByID(memberID string) ([]model.Member, error) {
+	argument := mock.Called(memberID)
+	return argument.Get(0).([]model.Member), argument.Error(1)
 }
 
 type MockTimesheet struct {
