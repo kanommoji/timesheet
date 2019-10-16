@@ -204,7 +204,22 @@ func Test_CalculateTotalPaymentWage_Input_CoachingPaymentRate_85000_TrainingWage
 
 func Test_CalculateTotalCoachingCustomerCharging_Input_Incomes_Company_SiamChamnankit_Should_Be_15000(t *testing.T) {
 	expected := 15000.00
-	company := "siam_chamnankit"
+	member := model.Member{
+		MemberID:              "001",
+		Company:               "siam_chamnankit",
+		MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+		MemberNameENG:         "Prathan Dansakulcharoenkit",
+		Email:                 "prathan@scrum123.com",
+		OvertimeRate:          0.00,
+		RatePerDay:            15000.00,
+		RatePerHour:           1875.00,
+		Salary:                80000.00,
+		IncomeTax1:            5000.00,
+		SocialSecurity:        0.00,
+		IncomeTax53Percentage: 10,
+		Status:                "",
+		TravelExpense:         0.00,
+	}
 	startTimeAM, _ := time.Parse("15:04:05", "09:00:00")
 	endTimeAM, _ := time.Parse("15:04:05", "12:00:00")
 	startTimePM, _ := time.Parse("15:04:05", "13:00:00")
@@ -258,14 +273,29 @@ func Test_CalculateTotalCoachingCustomerCharging_Input_Incomes_Company_SiamChamn
 		},
 	}
 
-	actual := CalculateTotalCoachingCustomerCharging(incomes, company)
+	actual := CalculateTotalCoachingCustomerCharging(incomes, member.Company)
 
 	assert.Equal(t, expected, actual)
 }
 
 func Test_CalculateTotalOtherWage_Input_Incomes_Company_Shuhari_Should_Be_45000(t *testing.T) {
 	expected := 45000.00
-	company := "shuhari"
+	member := model.Member{
+		MemberID:              "001",
+		Company:               "shuhari",
+		MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+		MemberNameENG:         "Prathan Dansakulcharoenkit",
+		Email:                 "prathan@scrum123.com",
+		OvertimeRate:          0.00,
+		RatePerDay:            15000.00,
+		RatePerHour:           1875.00,
+		Salary:                0.00,
+		IncomeTax1:            0.00,
+		SocialSecurity:        0.00,
+		IncomeTax53Percentage: 10,
+		Status:                "",
+		TravelExpense:         0.00,
+	}
 	startTimeAM, _ := time.Parse("15:04:05", "09:00:00")
 	endTimeAM, _ := time.Parse("15:04:05", "12:00:00")
 	startTimePM, _ := time.Parse("15:04:05", "13:00:00")
@@ -319,14 +349,29 @@ func Test_CalculateTotalOtherWage_Input_Incomes_Company_Shuhari_Should_Be_45000(
 		},
 	}
 
-	actual := CalculateTotalOtherWage(incomes, company)
+	actual := CalculateTotalOtherWage(incomes, member.Company)
 
 	assert.Equal(t, expected, actual)
 }
 
 func Test_CalculateTotalCoachingPaymentRate_Input_Incomes_Company_SiamChamnankit_Should_Be_10000(t *testing.T) {
 	expected := 10000.00
-	company := "siam_chamnankit"
+	member := model.Member{
+		MemberID:              "001",
+		Company:               "siam_chamnankit",
+		MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+		MemberNameENG:         "Prathan Dansakulcharoenkit",
+		Email:                 "prathan@scrum123.com",
+		OvertimeRate:          0.00,
+		RatePerDay:            15000.00,
+		RatePerHour:           1875.00,
+		Salary:                80000.00,
+		IncomeTax1:            5000.00,
+		SocialSecurity:        0.00,
+		IncomeTax53Percentage: 10,
+		Status:                "",
+		TravelExpense:         0.00,
+	}
 	startTimeAM, _ := time.Parse("15:04:05", "09:00:00")
 	endTimeAM, _ := time.Parse("15:04:05", "12:00:00")
 	startTimePM, _ := time.Parse("15:04:05", "13:00:00")
@@ -380,14 +425,29 @@ func Test_CalculateTotalCoachingPaymentRate_Input_Incomes_Company_SiamChamnankit
 		},
 	}
 
-	actual := CalculateTotalCoachingPaymentRate(incomes, company)
+	actual := CalculateTotalCoachingPaymentRate(incomes, member.Company)
 
 	assert.Equal(t, expected, actual)
 }
 
 func Test_CalculateTotalTrainingWage_Input_Incomes_Company_Shuhari_Should_Be_20000(t *testing.T) {
 	expected := 20000.00
-	company := "shuhari"
+	member := model.Member{
+		MemberID:              "001",
+		Company:               "shuhari",
+		MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+		MemberNameENG:         "Prathan Dansakulcharoenkit",
+		Email:                 "prathan@scrum123.com",
+		OvertimeRate:          0.00,
+		RatePerDay:            15000.00,
+		RatePerHour:           1875.00,
+		Salary:                0.00,
+		IncomeTax1:            0.00,
+		SocialSecurity:        0.00,
+		IncomeTax53Percentage: 10,
+		Status:                "",
+		TravelExpense:         0.00,
+	}
 	startTimeAM, _ := time.Parse("15:04:05", "09:00:00")
 	endTimeAM, _ := time.Parse("15:04:05", "12:00:00")
 	startTimePM, _ := time.Parse("15:04:05", "13:00:00")
@@ -441,7 +501,7 @@ func Test_CalculateTotalTrainingWage_Input_Incomes_Company_Shuhari_Should_Be_200
 		},
 	}
 
-	actual := CalculateTotalTrainingWage(incomes, company)
+	actual := CalculateTotalTrainingWage(incomes, member.Company)
 
 	assert.Equal(t, expected, actual)
 }
