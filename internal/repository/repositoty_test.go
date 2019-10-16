@@ -63,22 +63,20 @@ func Test_UpdateIncomeByID_Input_Year_2018_Month_12_MemberID_001_Income_Should_B
 	year := 2018
 	month := 12
 	memberID := "001"
-	incomes := []model.Incomes{
-		{
-			Day:                      28,
-			StartTimeAM:              startTimeAM,
-			EndTimeAM:                endTimeAM,
-			StartTimePM:              startTimePM,
-			EndTimePM:                endTimePM,
-			Overtime:                 0,
-			TotalHours:               totalHours,
-			CoachingCustomerCharging: 15000,
-			CoachingPaymentRate:      10000,
-			TrainingWage:             0,
-			OtherWage:                0,
-			Company:                  "siam_chamnankit",
-			Description:              "[KBTG] 2 Days Agile Project Management",
-		},
+	incomes := model.Incomes{
+		Day:                      28,
+		StartTimeAM:              startTimeAM,
+		EndTimeAM:                endTimeAM,
+		StartTimePM:              startTimePM,
+		EndTimePM:                endTimePM,
+		Overtime:                 0,
+		TotalHours:               totalHours,
+		CoachingCustomerCharging: 15000.00,
+		CoachingPaymentRate:      10000.00,
+		TrainingWage:             0,
+		OtherWage:                0,
+		Company:                  "siam_chamnankit",
+		Description:              "[KBTG] 2 Days Agile Project Management",
 	}
 	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
 	defer databaseConnection.Close()
