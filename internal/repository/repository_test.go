@@ -52,7 +52,7 @@ func Test_GetSummary_Input_Year_2018_Month_17_Should_Be_TransactionTimesheet(t *
 	assert.Equal(t, expected, actual)
 }
 
-func Test_UpdateIncomeByID_Input_Year_2018_Month_12_MemberID_001_Income_Should_Be_Error(t *testing.T) {
+func Test_UpdateIncomeByID_Input_Year_2018_Month_12_MemberID_001_Income_Should_Be_No_Error(t *testing.T) {
 	year := 2018
 	month := 12
 	memberID := "001"
@@ -206,7 +206,7 @@ func Test_GetIncomes_Input_MemberID_006_Year_2018_Month_12_Should_Be_Incomes_Day
 	memberID := "006"
 	month := 12
 	year := 2018
-	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet?parseTime=true")
+	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
 	defer databaseConnection.Close()
 	repository := TimesheetRepository{
 		DatabaseConnection: databaseConnection,
@@ -216,4 +216,41 @@ func Test_GetIncomes_Input_MemberID_006_Year_2018_Month_12_Should_Be_Incomes_Day
 
 	assert.Equal(t, nil, err)
 	assert.Equal(t, expected, actual)
+}
+
+func Test_UpdateTransactionTimsheet_Input_Transaction_MemberID_006_Should_Be_No_Error(t *testing.T) {
+	transactionTimesheet := []model.TransactionTimesheet{
+		{
+			MemberID:               "006",
+			MemberNameTH:           "ภาณุมาศ แสนโท",
+			Month:                  12,
+			Year:                   2018,
+			Company:                "shuhari",
+			Coaching:               0.00,
+			Training:               0.00,
+			Other:                  6500.00,
+			TotalIncomes:           6500.00,
+			Salary:                 25000.00,
+			IncomeTax1:             0.00,
+			SocialSecurity:         750.00,
+			NetSalary:              24250.00,
+			Wage:                   6500.00,
+			IncomeTax53Percentage:  5,
+			IncomeTax53:            325.00,
+			NetWage:                6175.00,
+			NetTransfer:            30425.00,
+			StatusCheckingTransfer: "รอการตรวจสอบ",
+			DateTransfer:           "",
+			Comment:                "",
+		},
+	}
+	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
+	defer databaseConnection.Close()
+	repository := TimesheetRepository{
+		DatabaseConnection: databaseConnection,
+	}
+
+	err := repository.UpdateTransactionTimsheet(transactionTimesheet)
+
+	assert.Equal(t, nil, err)
 }
