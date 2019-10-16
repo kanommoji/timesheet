@@ -3,7 +3,6 @@ package repository_test
 import (
 	"database/sql"
 	"testing"
-	"time"
 	"timesheet/internal/model"
 	. "timesheet/internal/repository"
 
@@ -54,28 +53,32 @@ func Test_GetSummary_Input_Year_2018_Month_17_Should_Be_TransactionTimesheet(t *
 }
 
 func Test_UpdateIncomeByID_Input_Year_2018_Month_12_MemberID_001_Income_Should_Be_Error(t *testing.T) {
-	startTimeAM, _ := time.Parse("15:04:05", "09:00:00")
-	endTimeAM, _ := time.Parse("15:04:05", "12:00:00")
-	startTimePM, _ := time.Parse("15:04:05", "13:00:00")
-	endTimePM, _ := time.Parse("15:04:05", "18:00:00")
-	totalHours, _ := time.Parse("15:04:05", "8:00:00")
-
 	year := 2018
 	month := 12
 	memberID := "001"
 	incomes := []model.Incomes{
 		{
 			Day:                      28,
-			StartTimeAM:              startTimeAM,
-			EndTimeAM:                endTimeAM,
-			StartTimePM:              startTimePM,
-			EndTimePM:                endTimePM,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
 			Overtime:                 0,
-			TotalHours:               totalHours,
-			CoachingCustomerCharging: 15000,
-			CoachingPaymentRate:      10000,
-			TrainingWage:             0,
-			OtherWage:                0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 15000.00,
+			CoachingPaymentRate:      10000.00,
+			TrainingWage:             0.00,
+			OtherWage:                0.00,
 			Company:                  "siam_chamnankit",
 			Description:              "[KBTG] 2 Days Agile Project Management",
 		},
@@ -137,6 +140,81 @@ func Test_GetMemberByID_Input_MemberID_001_Should_Be_Member(t *testing.T) {
 	}
 
 	actual, err := repository.GetMemberByID(memberID)
+
+	assert.Equal(t, nil, err)
+	assert.Equal(t, expected, actual)
+}
+
+func Test_GetIncomes_Input_MemberID_006_Year_2018_Month_12_Should_Be_Incomes_Day_11_And_12(t *testing.T) {
+	expected := []model.Incomes{
+		{
+			ID:                       58,
+			MemberID:                 "006",
+			Month:                    12,
+			Year:                     2018,
+			Day:                      11,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 0.00,
+			CoachingPaymentRate:      0.00,
+			TrainingWage:             0.00,
+			OtherWage:                0.00,
+			Company:                  "shuhari",
+			Description:              "work at TN",
+		}, {
+			ID:                       59,
+			MemberID:                 "006",
+			Month:                    12,
+			Year:                     2018,
+			Day:                      12,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 0.00,
+			CoachingPaymentRate:      0.00,
+			TrainingWage:             0.00,
+			OtherWage:                0.00,
+			Company:                  "shuhari",
+			Description:              "work at TN",
+		},
+	}
+	memberID := "006"
+	month := 12
+	year := 2018
+	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet?parseTime=true")
+	defer databaseConnection.Close()
+	repository := TimesheetRepository{
+		DatabaseConnection: databaseConnection,
+	}
+
+	actual, err := repository.GetIncomes(memberID, year, month)
 
 	assert.Equal(t, nil, err)
 	assert.Equal(t, expected, actual)
