@@ -256,10 +256,10 @@ func Test_UpdateTransactionTimsheet_Input_Transaction_MemberID_006_Should_Be_No_
 }
 
 func Test_CreateTimsheet_Input_Payment_MemberID_006_Should_Be_No_Error(t *testing.T) {
+	memberID := "006"
+	month := 2019
+	year := 12
 	timesheet := model.Payment{
-		MemberID:                      "006",
-		Month:                         2019,
-		Year:                          12,
 		TotalHoursHours:               120,
 		TotalHoursMinutes:             0,
 		TotalHoursSeconds:             0,
@@ -276,7 +276,7 @@ func Test_CreateTimsheet_Input_Payment_MemberID_006_Should_Be_No_Error(t *testin
 		DatabaseConnection: databaseConnection,
 	}
 
-	err := repository.CreateTimesheet(timesheet)
+	err := repository.CreateTimesheet(timesheet, memberID, year, month)
 
 	assert.Equal(t, nil, err)
 }
