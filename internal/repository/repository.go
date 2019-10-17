@@ -22,7 +22,7 @@ type TimesheetRepository struct {
 func (repository TimesheetRepository) GetSummary(year, month int) ([]model.TransactionTimesheet, error) {
 	var transactionTimesheetList []model.TransactionTimesheet
 	var transactionTimesheet model.TransactionTimesheet
-	statement, err := repository.DatabaseConnection.Prepare(`SELECT * FROM timesheet.transactions WHERE year = ? AND month = ?`)
+	statement, err := repository.DatabaseConnection.Prepare(`SELECT * FROM timesheet.transactions WHERE year = ? AND month = ? ORDER BY member_id ASC, company DESC`)
 	if err != nil {
 		return transactionTimesheetList, err
 	}
