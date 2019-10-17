@@ -11,14 +11,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_GetSummary_Input_Year_2019_Month_12_Should_Be_TransactionTimesheet(t *testing.T) {
+func Test_GetSummary_Input_Year_2017_Month_12_Should_Be_TransactionTimesheet(t *testing.T) {
 	expected := []model.TransactionTimesheet{
 		{
 			ID:                     1,
 			MemberID:               "001",
 			MemberNameTH:           "ประธาน ด่านสกุลเจริญกิจ",
 			Month:                  12,
-			Year:                   2019,
+			Year:                   2017,
 			Company:                "siam_chamnankit",
 			Coaching:               85000.00,
 			Training:               30000.00,
@@ -40,7 +40,7 @@ func Test_GetSummary_Input_Year_2019_Month_12_Should_Be_TransactionTimesheet(t *
 	}
 	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
 	defer databaseConnection.Close()
-	year := 2019
+	year := 2017
 	month := 12
 	repository := TimesheetRepository{
 		DatabaseConnection: databaseConnection,
@@ -52,8 +52,8 @@ func Test_GetSummary_Input_Year_2019_Month_12_Should_Be_TransactionTimesheet(t *
 	assert.Equal(t, expected, actual)
 }
 
-func Test_UpdateIncomeByID_Input_Year_2019_Month_12_MemberID_001_Income_Should_Be_No_Error(t *testing.T) {
-	year := 2019
+func Test_UpdateIncomeByID_Input_Year_2017_Month_12_MemberID_001_Income_Should_Be_No_Error(t *testing.T) {
+	year := 2017
 	month := 12
 	memberID := "001"
 	incomes := model.Incomes{
