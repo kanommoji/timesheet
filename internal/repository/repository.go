@@ -2,6 +2,7 @@ package repository
 
 import (
 	"database/sql"
+	"strconv"
 	"timesheet/internal/model"
 )
 
@@ -152,33 +153,67 @@ func (repository TimesheetRepository) GetIncomes(memberID string, year, month in
 }
 
 func (repository TimesheetRepository) CreateTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error {
-	for index := range transactionTimesheet {
-		statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO transactions (member_id, month, year, company, member_name_th, coaching, training, other, total_incomes, salary, income_tax_1, social_security, net_salary, wage, income_tax_53_percentage, income_tax_53, net_wage, net_transfer, status_checking_transfer, date_transfer, comment) VALUES ( ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? , ? )`)
+	for _, transactionTimesheet := range transactionTimesheet {
+		statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO transactions (id, member_id, month, year, company, member_name_th, coaching, training, other, total_incomes, salary, income_tax_1, social_security, net_salary, wage, income_tax_53_percentage, income_tax_53, net_wage, net_transfer, status_checking_transfer, date_transfer, comment) VALUES ( ? , ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? , ? )`)
 		if err != nil {
 			return err
 		}
+		transactionID := transactionTimesheet.MemberID + strconv.Itoa(transactionTimesheet.Year) + strconv.Itoa(transactionTimesheet.Month) + transactionTimesheet.Company
 		_, err = statement.Exec(
-			transactionTimesheet[index].MemberID,
-			transactionTimesheet[index].Month,
-			transactionTimesheet[index].Year,
-			transactionTimesheet[index].Company,
-			transactionTimesheet[index].MemberNameTH,
-			transactionTimesheet[index].Coaching,
-			transactionTimesheet[index].Training,
-			transactionTimesheet[index].Other,
-			transactionTimesheet[index].TotalIncomes,
-			transactionTimesheet[index].Salary,
-			transactionTimesheet[index].IncomeTax1,
-			transactionTimesheet[index].SocialSecurity,
-			transactionTimesheet[index].NetSalary,
-			transactionTimesheet[index].Wage,
-			transactionTimesheet[index].IncomeTax53Percentage,
-			transactionTimesheet[index].IncomeTax53,
-			transactionTimesheet[index].NetWage,
-			transactionTimesheet[index].NetTransfer,
-			transactionTimesheet[index].StatusCheckingTransfer,
-			transactionTimesheet[index].DateTransfer,
-			transactionTimesheet[index].Comment)
+			transactionID,
+			transactionTimesheet.MemberID,
+			transactionTimesheet.Month,
+			transactionTimesheet.Year,
+			transactionTimesheet.Company,
+			transactionTimesheet.MemberNameTH,
+			transactionTimesheet.Coaching,
+			transactionTimesheet.Training,
+			transactionTimesheet.Other,
+			transactionTimesheet.TotalIncomes,
+			transactionTimesheet.Salary,
+			transactionTimesheet.IncomeTax1,
+			transactionTimesheet.SocialSecurity,
+			transactionTimesheet.NetSalary,
+			transactionTimesheet.Wage,
+			transactionTimesheet.IncomeTax53Percentage,
+			transactionTimesheet.IncomeTax53,
+			transactionTimesheet.NetWage,
+			transactionTimesheet.NetTransfer,
+			transactionTimesheet.StatusCheckingTransfer,
+			transactionTimesheet.DateTransfer,
+			transactionTimesheet.Comment)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (repository TimesheetRepository) UpdateTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error {
+	for _, transactionTimesheet := range transactionTimesheet {
+		statement, err := repository.DatabaseConnection.Prepare(`UPDATE transactions SET coaching = ?, training = ?, other = ?, total_incomes = ?, salary = ?, income_tax_1 = ?, social_security = ?, net_salary = ?, wage = ?, income_tax_53_percentage = ?, income_tax_53 = ?, net_wage = ?, net_transfer = ?, status_checking_transfer = ?, date_transfer = ?, comment = ? WHERE id = ?`)
+		if err != nil {
+			return err
+		}
+		timesheetID := transactionTimesheet.MemberID + strconv.Itoa(transactionTimesheet.Year) + strconv.Itoa(transactionTimesheet.Month) + transactionTimesheet.Company
+		_, err = statement.Exec(
+			transactionTimesheet.Coaching,
+			transactionTimesheet.Training,
+			transactionTimesheet.Other,
+			transactionTimesheet.TotalIncomes,
+			transactionTimesheet.Salary,
+			transactionTimesheet.IncomeTax1,
+			transactionTimesheet.SocialSecurity,
+			transactionTimesheet.NetSalary,
+			transactionTimesheet.Wage,
+			transactionTimesheet.IncomeTax53Percentage,
+			transactionTimesheet.IncomeTax53,
+			transactionTimesheet.NetWage,
+			transactionTimesheet.NetTransfer,
+			transactionTimesheet.StatusCheckingTransfer,
+			transactionTimesheet.DateTransfer,
+			transactionTimesheet.Comment,
+			timesheetID)
 		if err != nil {
 			return err
 		}
