@@ -142,7 +142,7 @@ func Test_CalculatePaymentSummary_Input_Member_MemberID_001_Should_Be_Transactio
 
 func Test_CalculatePayment_Input_Income_CoachingCustomerCharging_15000_CoachingPaymentRate_10000_TrainigWage_20000_Should_Be_Payment(t *testing.T) {
 	expected := model.Payment{
-		TotalHoursHours:               8,
+		TotalHoursHours:               16,
 		TotalHoursMinutes:             0,
 		TotalHoursSeconds:             0,
 		TotalCoachingCustomerCharging: 15000.00,
@@ -206,6 +206,50 @@ func Test_CalculatePayment_Input_Income_CoachingCustomerCharging_15000_CoachingP
 	timesheet := Timesheet{}
 
 	actual := timesheet.CalculatePayment(incomes)
+
+	assert.Equal(t, expected, actual)
+}
+
+func Test_CalculateTotalHour_Input_Incomes_Should_Be_Time_18_0_0(t *testing.T) {
+	expected := model.Time{
+		Hours:   18,
+		Minutes: 0,
+		Seconds: 0,
+	}
+	incomes := []model.Incomes{
+		{
+			StartTimeAMHours:   9,
+			StartTimeAMMinutes: 0,
+			StartTimeAMSeconds: 0,
+			EndTimeAMHours:     12,
+			EndTimeAMMinutes:   0,
+			EndTimeAMSeconds:   0,
+			StartTimePMHours:   13,
+			StartTimePMMinutes: 0,
+			StartTimePMSeconds: 0,
+			EndTimePMHours:     18,
+			EndTimePMMinutes:   30,
+			EndTimePMSeconds:   0,
+			Overtime:           0,
+		},
+		{
+			StartTimeAMHours:   9,
+			StartTimeAMMinutes: 0,
+			StartTimeAMSeconds: 0,
+			EndTimeAMHours:     12,
+			EndTimeAMMinutes:   0,
+			EndTimeAMSeconds:   0,
+			StartTimePMHours:   13,
+			StartTimePMMinutes: 0,
+			StartTimePMSeconds: 0,
+			EndTimePMHours:     18,
+			EndTimePMMinutes:   30,
+			EndTimePMSeconds:   0,
+			Overtime:           1,
+		},
+	}
+
+	actual := CalculateTotalHour(incomes)
 
 	assert.Equal(t, expected, actual)
 }
