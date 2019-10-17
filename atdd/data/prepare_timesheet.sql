@@ -109,7 +109,7 @@ DROP TABLE IF EXISTS `timesheets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `timesheets` (
-  `id` varchar(45) NOT NULL,
+  `id` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `member_id` varchar(3) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `month` int(11) DEFAULT NULL,
   `year` int(11) DEFAULT NULL,
@@ -143,7 +143,7 @@ DROP TABLE IF EXISTS `transactions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transactions` (
-  `id` varchar(45) NOT NULL,
+  `id` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `member_id` varchar(3) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `month` int(11) DEFAULT NULL,
   `year` int(11) DEFAULT NULL,
@@ -175,7 +175,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
-INSERT INTO `transactions` VALUES ('001201712siam_chamnankit','001',12,2017,'siam_chamnankit','ประธาน ด่านสกุลเจริญกิจ',85000,30000,40000,155000,80000,5000,0,75000,75000,10,7500,67500,142500,'รอการตรวจสอบ',NULL,NULL),('001201812shuhari','001',12,2018,'shuhari','ประธาน ด่านสกุลเจริญกิจ',0,40000,0,40000,0,0,0,0,40000,10,4000,36000,36000,'รอการตรวจสอบ',NULL,NULL),('001201812siam_chamnankit','001',12,2018,'siam_chamnankit','ประธาน ด่านสกุลเจริญกิจ',75000,30000,40000,145000,80000,5000,0,75000,65000,10,6500,58500,133500,'รอการตรวจสอบ',NULL,NULL),('002201812shuhari','002',12,2018,'shuhari','นารีนารถ เนรัญชร',0,0,6500,6500,25000,0,750,24250,6500,5,325,6175,30425,'รอการตรวจสอบ',NULL,NULL),('004201718siam_chamnankit','004',12,2018,'siam_chamnankit','ธวัชชัย จงสุวรรณไพศาล',50000,70000,10000,130000,40000,5000,0,35000,90000,10,9000,81000,116000,'รอการตรวจสอบ',NULL,NULL),('006201912shuhari','006',12,2019,'shuhari','ภาณุมาศ แสนโท',0,0,6500,6500,25000,0,750,24250,6500,5,325,6175,30425,'รอการตรวจสอบ','','');
+INSERT INTO `transactions` VALUES ('001201712siam_chamnankit','001',12,2017,'siam_chamnankit','ประธาน ด่านสกุลเจริญกิจ',85000,30000,40000,155000,80000,5000,0,75000,75000,10,7500,67500,142500,'รอการตรวจสอบ',NULL,NULL),('001201812shuhari','001',12,2018,'shuhari','ประธาน ด่านสกุลเจริญกิจ',0,40000,0,40000,0,0,0,0,40000,10,4000,36000,36000,'รอการตรวจสอบ',NULL,NULL),('001201812siam_chamnankit','001',12,2018,'siam_chamnankit','ประธาน ด่านสกุลเจริญกิจ',75000,30000,0,145000,80000,5000,0,75000,65000,10,6500,58500,133500,'รอการตรวจสอบ',NULL,NULL),('001201912shuhari','001',12,2019,'shuhari','ประธาน ด่านสกุลเจริญกิจ',0,0,0,0,0,0,0,0,0,0,0,0,0,'รอการตรวจสอบ',NULL,NULL),('001201912siam_chamnankit','001',12,2019,'siam_chamnankit','ประธาน ด่านสกุลเจริญกิจ',0,0,0,0,0,0,0,0,0,0,0,0,0,'รอการตรวจสอบ',NULL,NULL),('002201812shuhari','002',12,2018,'shuhari','นารีนารถ เนรัญชร',0,0,6500,6500,25000,0,750,24250,6500,5,325,6175,30425,'รอการตรวจสอบ',NULL,NULL),('004201718siam_chamnankit','004',12,2018,'siam_chamnankit','ธวัชชัย จงสุวรรณไพศาล',50000,70000,10000,130000,40000,5000,0,35000,90000,10,9000,81000,116000,'รอการตรวจสอบ',NULL,NULL),('006201912shuhari','006',12,2019,'shuhari','ภาณุมาศ แสนโท',0,0,6500,6500,25000,0,750,24250,6500,5,325,6175,30425,'รอการตรวจสอบ','','');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -188,4 +188,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-17 10:12:55
+-- Dump completed on 2019-10-17 10:28:48
