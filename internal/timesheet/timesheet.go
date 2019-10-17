@@ -8,6 +8,8 @@ const (
 )
 
 type TimesheetGateways interface {
+	CalculatePaymentSummary(member []model.Member, incomes []model.Incomes) []model.TransactionTimesheet
+	CalculatePayment(incomes []model.Incomes) model.Payment
 }
 
 type Timesheet struct {
@@ -16,10 +18,10 @@ type Timesheet struct {
 func (timesheet Timesheet) CalculatePaymentSummary(member []model.Member, incomes []model.Incomes) []model.TransactionTimesheet {
 	var transactionTimesheetList []model.TransactionTimesheet
 	for _, member := range member {
-		coachingPaymentRate := CalculateTotalCoachingPaymentRate(incomes, member.Company)
-		trainingWage := CalculateTotalTrainingWage(incomes, member.Company)
-		otherWage := CalculateTotalOtherWage(incomes, member.Company, member.TravelExpense)
-		paymentWage := CalculateTotalPaymentWage(coachingPaymentRate, trainingWage, otherWage)
+		totalCoachingPaymentRate := CalculateTotalCoachingPaymentRate(incomes, member.Company)
+		totalTrainingWage := CalculateTotalTrainingWage(incomes, member.Company)
+		totalOtherWage := CalculateTotalOtherWage(incomes, member.Company, member.TravelExpense)
+		paymentWage := CalculateTotalPaymentWage(totalCoachingPaymentRate, totalTrainingWage, totalOtherWage)
 		netSalary := CalculateNetSalary(member.Salary, member.IncomeTax1, member.SocialSecurity)
 		wage := CalculateWage(paymentWage, member.Salary, member.Status)
 		incomeTax53 := CalculateIncomeTax53(wage, member.IncomeTax53Percentage)
@@ -29,9 +31,9 @@ func (timesheet Timesheet) CalculatePaymentSummary(member []model.Member, income
 			MemberID:              member.MemberID,
 			MemberNameTH:          member.MemberNameTH,
 			Company:               member.Company,
-			Coaching:              coachingPaymentRate,
-			Training:              trainingWage,
-			Other:                 otherWage,
+			Coaching:              totalCoachingPaymentRate,
+			Training:              totalTrainingWage,
+			Other:                 totalOtherWage,
 			TotalIncomes:          paymentWage,
 			Salary:                member.Salary,
 			IncomeTax1:            member.IncomeTax1,
@@ -47,6 +49,33 @@ func (timesheet Timesheet) CalculatePaymentSummary(member []model.Member, income
 	}
 
 	return transactionTimesheetList
+}
+
+func (timesheet Timesheet) CalculatePayment(incomes []model.Incomes) model.Payment {
+	totalHour := CalculateTotalHourPerDay(incomes)
+	totalCoachingCustomerCharging := CalculateTotalCoachingCustomerCharging(incomes)
+	totalCoachingPaymentRate := CalculateTotalCoachingPaymentRate(incomes, "")
+	totalTrainingWage := CalculateTotalTrainingWage(incomes, "")
+	totalOtherWage := CalculateTotalOtherWage(incomes, "", 0.00)
+	paymentWage := CalculateTotalPaymentWage(totalCoachingPaymentRate, totalTrainingWage, totalOtherWage)
+	return model.Payment{
+		TotalHoursHours:               totalHour.Hours,
+		TotalHoursMinutes:             totalHour.Minutes,
+		TotalHoursSeconds:             totalHour.Seconds,
+		TotalCoachingCustomerCharging: totalCoachingCustomerCharging,
+		TotalCoachingPaymentRate:      totalCoachingPaymentRate,
+		TotalTrainigWage:              totalTrainingWage,
+		TotalOtherWage:                totalOtherWage,
+		PaymentWage:                   paymentWage,
+	}
+}
+
+func CalculateTotalHourPerDay(incomes []model.Incomes) model.Time {
+	return model.Time{
+		Hours:   8,
+		Minutes: 0,
+		Seconds: 0,
+	}
 }
 
 func CalculateTotalPaymentWage(coachingPaymentRate, trainingWage, otherWage float64) float64 {
@@ -78,25 +107,12 @@ func CalculateNetTransfer(netSalary, netWage float64) float64 {
 	return netSalary + netWage
 }
 
-func CalculateTotalCoachingCustomerCharging(incomes []model.Incomes, company string) float64 {
+func CalculateTotalCoachingCustomerCharging(incomes []model.Incomes) float64 {
 	totalCoachingCustomerCharging := 0
-	if company == SiamChamnankitCompany {
-		for index := range incomes {
-			if incomes[index].Company == SiamChamnankitCompany {
-				totalCoachingCustomerCharging += incomes[index].CoachingCustomerCharging
-			}
-		}
-		return float64(totalCoachingCustomerCharging)
+	for index := range incomes {
+		totalCoachingCustomerCharging += incomes[index].CoachingCustomerCharging
 	}
-	if company == ShuhariCompany {
-		for index := range incomes {
-			if incomes[index].Company == ShuhariCompany {
-				totalCoachingCustomerCharging += incomes[index].CoachingCustomerCharging
-			}
-		}
-		return float64(totalCoachingCustomerCharging)
-	}
-	return 0
+	return float64(totalCoachingCustomerCharging)
 }
 
 func CalculateTotalOtherWage(incomes []model.Incomes, company string, travelExpense float64) float64 {
@@ -117,7 +133,12 @@ func CalculateTotalOtherWage(incomes []model.Incomes, company string, travelExpe
 		}
 		return float64(totalOtherWage) + travelExpense
 	}
-	return 0
+	for index := range incomes {
+		if incomes[index].Company == ShuhariCompany {
+			totalOtherWage += incomes[index].OtherWage
+		}
+	}
+	return float64(totalOtherWage) + travelExpense
 }
 
 func CalculateTotalCoachingPaymentRate(incomes []model.Incomes, company string) float64 {
@@ -138,7 +159,10 @@ func CalculateTotalCoachingPaymentRate(incomes []model.Incomes, company string) 
 		}
 		return float64(totalCoachingPaymentRate)
 	}
-	return 0
+	for index := range incomes {
+		totalCoachingPaymentRate += incomes[index].CoachingPaymentRate
+	}
+	return float64(totalCoachingPaymentRate)
 }
 
 func CalculateTotalTrainingWage(incomes []model.Incomes, company string) float64 {
@@ -159,5 +183,8 @@ func CalculateTotalTrainingWage(incomes []model.Incomes, company string) float64
 		}
 		return float64(totalCoachingTrainingWage)
 	}
-	return 0
+	for index := range incomes {
+		totalCoachingTrainingWage += incomes[index].TrainingWage
+	}
+	return float64(totalCoachingTrainingWage)
 }
