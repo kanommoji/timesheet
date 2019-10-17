@@ -259,15 +259,15 @@ func Test_CreateTimsheet_Input_Payment_MemberID_006_Should_Be_No_Error(t *testin
 	memberID := "006"
 	month := 2019
 	year := 12
-	timesheet := model.Payment{
+	payment := model.Payment{
 		TotalHoursHours:               120,
 		TotalHoursMinutes:             0,
 		TotalHoursSeconds:             0,
-		TotalCoachingCustomerCharging: 0,
-		TotalCoachingPaymentRate:      0,
-		TotalTrainigWage:              0,
-		TotalOtherWage:                0,
-		PaymentWage:                   0,
+		TotalCoachingCustomerCharging: 0.00,
+		TotalCoachingPaymentRate:      0.00,
+		TotalTrainigWage:              0.00,
+		TotalOtherWage:                0.00,
+		PaymentWage:                   0.00,
 	}
 
 	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
@@ -276,7 +276,33 @@ func Test_CreateTimsheet_Input_Payment_MemberID_006_Should_Be_No_Error(t *testin
 		DatabaseConnection: databaseConnection,
 	}
 
-	err := repository.CreateTimesheet(timesheet, memberID, year, month)
+	err := repository.CreateTimesheet(payment, memberID, year, month)
+
+	assert.Equal(t, nil, err)
+}
+
+func Test_UpdateTimsheet_Input_Payment_MemberID_007_Year_2019_Month_12_Should_Be_No_Error(t *testing.T) {
+	memberID := "007"
+	month := 2019
+	year := 12
+	payment := model.Payment{
+		TotalHoursHours:               120,
+		TotalHoursMinutes:             30,
+		TotalHoursSeconds:             0,
+		TotalCoachingCustomerCharging: 90000.00,
+		TotalCoachingPaymentRate:      0.00,
+		TotalTrainigWage:              0.00,
+		TotalOtherWage:                0.00,
+		PaymentWage:                   0.00,
+	}
+
+	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
+	defer databaseConnection.Close()
+	repository := TimesheetRepository{
+		DatabaseConnection: databaseConnection,
+	}
+
+	err := repository.UpdateTimesheet(payment, memberID, year, month)
 
 	assert.Equal(t, nil, err)
 }
