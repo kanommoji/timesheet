@@ -286,7 +286,7 @@ func Test_CalculateTotalPaymentWage_Input_CoachingPaymentRate_85000_TrainingWage
 	assert.Equal(t, expected, actual)
 }
 
-func Test_CalculateTotalCoachingCustomerCharging_Input_Incomes_Company_SiamChamnankit_Should_Be_60000(t *testing.T) {
+func Test_CalculateTotalCoachingCustomerCharging_Input_Incomes_Should_Be_60000(t *testing.T) {
 	expected := 60000.00
 	incomes := []model.Incomes{
 		{
@@ -373,22 +373,8 @@ func Test_CalculateTotalCoachingCustomerCharging_Input_Incomes_Company_SiamChamn
 
 func Test_CalculateTotalOtherWage_Input_Incomes_Company_Shuhari_TravelExpense_0_Should_Be_45000(t *testing.T) {
 	expected := 45000.00
-	member := model.Member{
-		MemberID:              "001",
-		Company:               "shuhari",
-		MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
-		MemberNameENG:         "Prathan Dansakulcharoenkit",
-		Email:                 "prathan@scrum123.com",
-		OvertimeRate:          0.00,
-		RatePerDay:            15000.00,
-		RatePerHour:           1875.00,
-		Salary:                0.00,
-		IncomeTax1:            0.00,
-		SocialSecurity:        0.00,
-		IncomeTax53Percentage: 10,
-		Status:                "",
-		TravelExpense:         0.00,
-	}
+	company := "shuhari"
+	travelExpense := 0.00
 	incomes := []model.Incomes{
 		{
 			Day:                      28,
@@ -467,29 +453,14 @@ func Test_CalculateTotalOtherWage_Input_Incomes_Company_Shuhari_TravelExpense_0_
 		},
 	}
 
-	actual := CalculateTotalOtherWage(incomes, member.Company, member.TravelExpense)
+	actual := CalculateTotalOtherWage(incomes, company, travelExpense)
 
 	assert.Equal(t, expected, actual)
 }
 
 func Test_CalculateTotalCoachingPaymentRate_Input_Incomes_Company_SiamChamnankit_Should_Be_10000(t *testing.T) {
 	expected := 10000.00
-	member := model.Member{
-		MemberID:              "001",
-		Company:               "siam_chamnankit",
-		MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
-		MemberNameENG:         "Prathan Dansakulcharoenkit",
-		Email:                 "prathan@scrum123.com",
-		OvertimeRate:          0.00,
-		RatePerDay:            15000.00,
-		RatePerHour:           1875.00,
-		Salary:                80000.00,
-		IncomeTax1:            5000.00,
-		SocialSecurity:        0.00,
-		IncomeTax53Percentage: 10,
-		Status:                "",
-		TravelExpense:         0.00,
-	}
+	company := "siam_chamnankit"
 	incomes := []model.Incomes{
 		{
 			Day:                      28,
@@ -568,29 +539,14 @@ func Test_CalculateTotalCoachingPaymentRate_Input_Incomes_Company_SiamChamnankit
 		},
 	}
 
-	actual := CalculateTotalCoachingPaymentRate(incomes, member.Company)
+	actual := CalculateTotalCoachingPaymentRate(incomes, company)
 
 	assert.Equal(t, expected, actual)
 }
 
 func Test_CalculateTotalTrainingWage_Input_Incomes_Company_Shuhari_Should_Be_20000(t *testing.T) {
 	expected := 20000.00
-	member := model.Member{
-		MemberID:              "001",
-		Company:               "shuhari",
-		MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
-		MemberNameENG:         "Prathan Dansakulcharoenkit",
-		Email:                 "prathan@scrum123.com",
-		OvertimeRate:          0.00,
-		RatePerDay:            15000.00,
-		RatePerHour:           1875.00,
-		Salary:                0.00,
-		IncomeTax1:            0.00,
-		SocialSecurity:        0.00,
-		IncomeTax53Percentage: 10,
-		Status:                "",
-		TravelExpense:         0.00,
-	}
+	company := "shuhari"
 	incomes := []model.Incomes{
 		{
 			Day:                      28,
@@ -669,7 +625,7 @@ func Test_CalculateTotalTrainingWage_Input_Incomes_Company_Shuhari_Should_Be_200
 		},
 	}
 
-	actual := CalculateTotalTrainingWage(incomes, member.Company)
+	actual := CalculateTotalTrainingWage(incomes, company)
 
 	assert.Equal(t, expected, actual)
 }
