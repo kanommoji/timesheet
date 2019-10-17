@@ -46,9 +46,8 @@ func Test_GetSummary_Input_Year_2018_Month_17_Should_Be_TransactionTimesheet(t *
 		DatabaseConnection: databaseConnection,
 	}
 
-	actual, err := repository.GetSummary(year, month)
+	actual, _ := repository.GetSummary(year, month)
 
-	assert.Equal(t, nil, err)
 	assert.Equal(t, expected, actual)
 }
 
@@ -137,9 +136,8 @@ func Test_GetMemberByID_Input_MemberID_001_Should_Be_Member(t *testing.T) {
 		DatabaseConnection: databaseConnection,
 	}
 
-	actual, err := repository.GetMemberByID(memberID)
+	actual, _ := repository.GetMemberByID(memberID)
 
-	assert.Equal(t, nil, err)
 	assert.Equal(t, expected, actual)
 }
 
@@ -212,9 +210,8 @@ func Test_GetIncomes_Input_MemberID_006_Year_2018_Month_12_Should_Be_Incomes_Day
 		DatabaseConnection: databaseConnection,
 	}
 
-	actual, err := repository.GetIncomes(memberID, year, month)
+	actual, _ := repository.GetIncomes(memberID, year, month)
 
-	assert.Equal(t, nil, err)
 	assert.Equal(t, expected, actual)
 }
 
