@@ -46,8 +46,9 @@ func Test_GetSummary_Input_Year_2018_Month_17_Should_Be_TransactionTimesheet(t *
 		DatabaseConnection: databaseConnection,
 	}
 
-	actual, _ := repository.GetSummary(year, month)
+	actual, err := repository.GetSummary(year, month)
 
+	assert.Equal(t, nil, err)
 	assert.Equal(t, expected, actual)
 }
 
@@ -136,8 +137,9 @@ func Test_GetMemberByID_Input_MemberID_001_Should_Be_Member(t *testing.T) {
 		DatabaseConnection: databaseConnection,
 	}
 
-	actual, _ := repository.GetMemberByID(memberID)
+	actual, err := repository.GetMemberByID(memberID)
 
+	assert.Equal(t, nil, err)
 	assert.Equal(t, expected, actual)
 }
 
@@ -210,8 +212,9 @@ func Test_GetIncomes_Input_MemberID_006_Year_2018_Month_12_Should_Be_Incomes_Day
 		DatabaseConnection: databaseConnection,
 	}
 
-	actual, _ := repository.GetIncomes(memberID, year, month)
+	actual, err := repository.GetIncomes(memberID, year, month)
 
+	assert.Equal(t, nil, err)
 	assert.Equal(t, expected, actual)
 }
 
@@ -248,34 +251,6 @@ func Test_UpdateTransactionTimsheet_Input_Transaction_MemberID_006_Should_Be_No_
 	}
 
 	err := repository.UpdateTransactionTimsheet(transactionTimesheet)
-
-	assert.Equal(t, nil, err)
-}
-
-func Test_UpdateTimsheetByID_Input_Timsheet_MemberID_006_Should_Be_No_Error(t *testing.T) {
-	timesheet := []model.Payment{
-		{
-			MemberID:                      "006",
-			Month:                         12,
-			Year:                          2019,
-			TotalHoursHours:               0,
-			TotalHoursMinutes:             0,
-			TotalHoursSeconds:             0,
-			TotalCoachingCustomerCharging: 0.00,
-			TotalCoachingPaymentRate:      0.00,
-			TotalTrainigWage:              10000.00,
-			TotalOtherWage:                0.00,
-			PaymentWage:                   10000.00,
-		},
-	}
-
-	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
-	defer databaseConnection.Close()
-	repository := TimesheetRepository{
-		DatabaseConnection: databaseConnection,
-	}
-
-	err := repository.UpdateTimsheetByID(timesheet)
 
 	assert.Equal(t, nil, err)
 }
