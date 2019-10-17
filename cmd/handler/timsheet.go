@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"log"
 	"net/http"
 	"timesheet/internal/model"
 	"timesheet/internal/repository"
@@ -64,17 +63,14 @@ func (api TimesheetAPI) CalculatePaymentHandler(context *gin.Context) {
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}
-
-	payments := api.Timesheet.CalculatePayment(incomes)
+	payments := api.Timesheet.CalculatePayment([]model.Incomes{})
 
 	err = api.TimesheetRepository.CreateTimesheet(payments, request.MemberID, request.Year, request.Month)
-	log.Print(err)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}
 
 	members, err := api.TimesheetRepository.GetMemberByID(request.MemberID)
-	log.Print(members)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}

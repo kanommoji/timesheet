@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"timesheet/cmd/handler"
 	"timesheet/internal/repository"
+	"timesheet/internal/timesheet"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -20,6 +21,7 @@ func main() {
 	defer databaseConnection.Close()
 
 	api := handler.TimesheetAPI{
+		Timesheet: timesheet.Timesheet{},
 		TimesheetRepository: repository.TimesheetRepository{
 			DatabaseConnection: databaseConnection,
 		},
