@@ -254,3 +254,31 @@ func Test_UpdateTransactionTimsheet_Input_Transaction_MemberID_006_Should_Be_No_
 
 	assert.Equal(t, nil, err)
 }
+
+func Test_CreateTimsheet_Input_Payment_MemberID_006_Should_Be_No_Error(t *testing.T) {
+	timesheet := []model.Payment{
+		{
+			MemberID:                      "006",
+			Month:                         2019,
+			Year:                          12,
+			TotalHoursHours:               120,
+			TotalHoursMinutes:             0,
+			TotalHoursSeconds:             0,
+			TotalCoachingCustomerCharging: 0,
+			TotalCoachingPaymentRate:      0,
+			TotalTrainigWage:              0,
+			TotalOtherWage:                0,
+			PaymentWage:                   0,
+		},
+	}
+
+	databaseConnection, _ := sql.Open("mysql", "root:root@tcp(localhost:3306)/timesheet")
+	defer databaseConnection.Close()
+	repository := TimesheetRepository{
+		DatabaseConnection: databaseConnection,
+	}
+
+	err := repository.CreateTimsheet(timesheet)
+
+	assert.Equal(t, nil, err)
+}
