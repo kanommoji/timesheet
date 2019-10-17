@@ -5,6 +5,8 @@ import "timesheet/internal/model"
 const (
 	SiamChamnankitCompany = "siam_chamnankit"
 	ShuhariCompany        = "shuhari"
+	OneMinute             = 60
+	OneHour               = 60
 )
 
 type TimesheetGateways interface {
@@ -52,7 +54,7 @@ func (timesheet Timesheet) CalculatePaymentSummary(member []model.Member, income
 }
 
 func (timesheet Timesheet) CalculatePayment(incomes []model.Incomes) model.Payment {
-	totalHour := CalculateTotalHourPerDay(incomes)
+	totalHour := CalculateTotalHour(incomes)
 	totalCoachingCustomerCharging := CalculateTotalCoachingCustomerCharging(incomes)
 	totalCoachingPaymentRate := CalculateTotalCoachingPaymentRate(incomes, "")
 	totalTrainingWage := CalculateTotalTrainingWage(incomes, "")
@@ -70,11 +72,29 @@ func (timesheet Timesheet) CalculatePayment(incomes []model.Incomes) model.Payme
 	}
 }
 
-func CalculateTotalHourPerDay(incomes []model.Incomes) model.Time {
+func CalculateTotalHour(incomes []model.Incomes) model.Time {
+	var hours, minutes, seconds int
+	for _, income := range incomes {
+		hours += income.EndTimeAMHours - income.StartTimeAMHours
+		hours += income.EndTimePMHours - income.StartTimePMHours
+		hours += income.Overtime
+		minutes += income.EndTimeAMMinutes - income.StartTimeAMMinutes
+		minutes += income.EndTimePMMinutes - income.StartTimePMMinutes
+		seconds += income.EndTimeAMSeconds - income.StartTimeAMSeconds
+		seconds += income.EndTimePMSeconds - income.StartTimePMSeconds
+	}
+	if seconds >= OneMinute {
+		minutes += seconds / OneMinute
+		seconds %= OneMinute
+	}
+	if minutes >= OneHour {
+		hours += minutes / OneHour
+		minutes %= OneHour
+	}
 	return model.Time{
-		Hours:   8,
-		Minutes: 0,
-		Seconds: 0,
+		Hours:   hours,
+		Minutes: minutes,
+		Seconds: seconds,
 	}
 }
 
