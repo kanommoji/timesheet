@@ -181,6 +181,31 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 	mockRepository := new(mockapi.MockRepository)
 	mockRepository.On("GetIncomes", "001", 2018, 12).Return([]model.Incomes{
 		{
+			Day:                      19,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 0.00,
+			CoachingPaymentRate:      0.00,
+			TrainingWage:             40000.00,
+			OtherWage:                0.00,
+			Company:                  "shuhari",
+			Description:              "[IMC]GSB: Agile Project Mgmt",
+		},
+		{
 			Day:                      28,
 			StartTimeAMHours:         9,
 			StartTimeAMMinutes:       0,
@@ -198,10 +223,10 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 			TotalHoursHours:          8,
 			TotalHoursMinutes:        0,
 			TotalHoursSeconds:        0,
-			CoachingCustomerCharging: 15000.00,
-			CoachingPaymentRate:      10000.00,
-			TrainingWage:             0.00,
-			OtherWage:                0.00,
+			CoachingCustomerCharging: 130000.00,
+			CoachingPaymentRate:      85000.00,
+			TrainingWage:             30000.00,
+			OtherWage:                40000.00,
 			Company:                  "siam_chamnankit",
 			Description:              "[KBTG] 2 Days Agile Project Management",
 		},
@@ -209,14 +234,14 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 
 	mockTimesheet := new(mockapi.MockTimesheet)
 	mockTimesheet.On("CalculatePayment", mock.Anything).Return(model.Payment{
-		TotalHoursHours:               8,
+		TotalHoursHours:               16,
 		TotalHoursMinutes:             0,
 		TotalHoursSeconds:             0,
-		TotalCoachingCustomerCharging: 15000.00,
-		TotalCoachingPaymentRate:      10000.00,
-		TotalTrainigWage:              0.00,
-		TotalOtherWage:                0.00,
-		PaymentWage:                   10000.00,
+		TotalCoachingCustomerCharging: 130000.00,
+		TotalCoachingPaymentRate:      85000.00,
+		TotalTrainigWage:              70000.00,
+		TotalOtherWage:                40000.00,
+		PaymentWage:                   195000.00,
 	})
 
 	mockRepository.On("UpdateTimesheet").Return(nil)
@@ -298,7 +323,7 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 		},
 	})
 
-	mockRepository.On("UpdateTransaction", mock.Anything).Return(nil)
+	mockRepository.On("CreateTransactionTimsheet", mock.Anything).Return(nil)
 
 	api := TimesheetAPI{}
 
