@@ -184,3 +184,28 @@ func (repository TimesheetRepository) UpdateTransactionTimsheet(transactionTimes
 	}
 	return nil
 }
+
+func (repository TimesheetRepository) UpdateTimsheetByID(timesheet []model.Payment) error {
+	for index := range timesheet {
+		statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO timesheets (member_id, month, year, total_hours_hours, total_hours_minutes, total_hours_seconds, total_coaching_customer_charging, total_coaching_payment_rate, total_training_wage, total_other_wage, payment_wage) VALUES ( ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? )`)
+		if err != nil {
+			return err
+		}
+		_, err = statement.Exec(
+			timesheet[index].MemberID,
+			timesheet[index].Month,
+			timesheet[index].Year,
+			timesheet[index].TotalHoursHours,
+			timesheet[index].TotalHoursMinutes,
+			timesheet[index].TotalHoursSeconds,
+			timesheet[index].TotalCoachingCustomerCharging,
+			timesheet[index].TotalCoachingPaymentRate,
+			timesheet[index].TotalTrainigWage,
+			timesheet[index].TotalOtherWage,
+			timesheet[index].PaymentWage)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
