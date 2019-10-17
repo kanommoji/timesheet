@@ -17,7 +17,7 @@ import (
 )
 
 func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *testing.T) {
-	expected := `[{"id":1,"member_id":"001","member_name_th":"ประธาน ด่านสกุลเจริญกิจ","month":12,"year":2018,"company":"siam_chamnankit","coaching":85000,"training":30000,"other":40000,"total_incomes":155000,"salary":80000,"income_tax_1":5000,"social_security":0,"net_salary":75000,"wage":75000,"income_tax_53_percentage":10,"income_tax_53":7500,"net_wage":67500,"net_transfer":142500,"status_checking_transfer":"รอการตรวจสอบ","date_transfer":"","comment":""},{"id":3,"member_id":"001","member_name_th":"ประธาน ด่านสกุลเจริญกิจ","month":12,"year":2018,"company":"shuhari","coaching":0,"training":40000,"other":0,"total_incomes":40000,"salary":0,"income_tax_1":0,"social_security":0,"net_salary":0,"wage":40000,"income_tax_53_percentage":10,"income_tax_53":4000,"net_wage":36000,"net_transfer":36000,"status_checking_transfer":"รอการตรวจสอบ","date_transfer":"","comment":""}]`
+	expected := `[{"id":"001201812siam_chamnankit","member_id":"001","member_name_th":"ประธาน ด่านสกุลเจริญกิจ","month":12,"year":2018,"company":"siam_chamnankit","coaching":85000,"training":30000,"other":40000,"total_incomes":155000,"salary":80000,"income_tax_1":5000,"social_security":0,"net_salary":75000,"wage":75000,"income_tax_53_percentage":10,"income_tax_53":7500,"net_wage":67500,"net_transfer":142500,"status_checking_transfer":"รอการตรวจสอบ","date_transfer":"","comment":""},{"id":"001201812shuhari","member_id":"001","member_name_th":"ประธาน ด่านสกุลเจริญกิจ","month":12,"year":2018,"company":"shuhari","coaching":0,"training":40000,"other":0,"total_incomes":40000,"salary":0,"income_tax_1":0,"social_security":0,"net_salary":0,"wage":40000,"income_tax_53_percentage":10,"income_tax_53":4000,"net_wage":36000,"net_transfer":36000,"status_checking_transfer":"รอการตรวจสอบ","date_transfer":"","comment":""}]`
 	date := Date{
 		Year:  2018,
 		Month: 12,
@@ -29,7 +29,7 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 	mockRepository := new(mockapi.MockRepository)
 	mockRepository.On("GetSummary", 2018, 12).Return([]model.TransactionTimesheet{
 		{
-			ID:                     1,
+			ID:                     "001201812siam_chamnankit",
 			MemberID:               "001",
 			MemberNameTH:           "ประธาน ด่านสกุลเจริญกิจ",
 			Month:                  12,
@@ -52,7 +52,7 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 			DateTransfer:           "",
 			Comment:                "",
 		}, {
-			ID:                     3,
+			ID:                     "001201812shuhari",
 			MemberID:               "001",
 			MemberNameTH:           "ประธาน ด่านสกุลเจริญกิจ",
 			Month:                  12,
@@ -244,7 +244,7 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 		PaymentWage:                   195000.00,
 	})
 
-	mockRepository.On("CreateTimesheet", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(nil)
+	mockRepository.On("VerifyTimesheet", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(nil)
 
 	mockRepository.On("GetMemberByID", "001").Return([]model.Member{
 		{
@@ -325,7 +325,7 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 		},
 	})
 
-	mockRepository.On("CreateTransactionTimsheet", mock.Anything).Return(nil)
+	mockRepository.On("VerifyTransactionTimsheet", mock.Anything).Return(nil)
 
 	api := TimesheetAPI{
 		Timesheet:           mockTimesheet,
