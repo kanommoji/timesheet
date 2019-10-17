@@ -9,7 +9,9 @@ type TimesheetRepositoryGateways interface {
 	GetSummary(year, month int) ([]model.TransactionTimesheet, error)
 	GetMemberByID(memberID string) ([]model.Member, error)
 	GetIncomes(memberID string, year, month int) ([]model.Incomes, error)
-	UpdateIncomeByID(year, month int, memberID string, income model.Incomes) error
+	CreateIncome(year, month int, memberID string, income model.Incomes) error
+	CreateTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error
+	CreateTimsheet(timesheet []model.Payment) error
 }
 
 type TimesheetRepository struct {
@@ -57,7 +59,7 @@ func (repository TimesheetRepository) GetSummary(year, month int) ([]model.Trans
 	return transactionTimesheetList, nil
 }
 
-func (repository TimesheetRepository) UpdateIncomeByID(year, month int, memberID string, income model.Incomes) error {
+func (repository TimesheetRepository) CreateIncome(year, month int, memberID string, income model.Incomes) error {
 	statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO incomes (member_id, month, year, day, start_time_am_hours, start_time_am_minutes, start_time_am_seconds, end_time_am_hours, end_time_am_minutes, end_time_am_seconds, start_time_pm_hours, start_time_pm_minutes, start_time_pm_seconds, end_time_pm_hours, end_time_pm_minutes, end_time_pm_seconds, overtime, total_hours_hours, total_hours_minutes, total_hours_seconds, coaching_customer_charging, coaching_payment_rate, training_wage, other_wage, company, description) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? )`)
 	if err != nil {
 		return err
@@ -149,7 +151,7 @@ func (repository TimesheetRepository) GetIncomes(memberID string, year, month in
 	return incomeList, nil
 }
 
-func (repository TimesheetRepository) UpdateTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error {
+func (repository TimesheetRepository) CreateTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error {
 	for index := range transactionTimesheet {
 		statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO transactions (member_id, month, year, company, member_name_th, coaching, training, other, total_incomes, salary, income_tax_1, social_security, net_salary, wage, income_tax_53_percentage, income_tax_53, net_wage, net_transfer, status_checking_transfer, date_transfer, comment) VALUES ( ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? , ? )`)
 		if err != nil {
@@ -184,7 +186,7 @@ func (repository TimesheetRepository) UpdateTransactionTimsheet(transactionTimes
 	return nil
 }
 
-func (repository TimesheetRepository) UpdateTimsheetByID(timesheet []model.Payment) error {
+func (repository TimesheetRepository) CreateTimsheet(timesheet []model.Payment) error {
 	for index := range timesheet {
 		statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO timesheets (member_id, month, year, total_hours_hours, total_hours_minutes, total_hours_seconds, total_coaching_customer_charging, total_coaching_payment_rate, total_training_wage, total_other_wage, payment_wage) VALUES ( ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? )`)
 		if err != nil {

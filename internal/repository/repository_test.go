@@ -88,7 +88,7 @@ func Test_UpdateIncomeByID_Input_Year_2018_Month_12_MemberID_001_Income_Should_B
 		DatabaseConnection: databaseConnection,
 	}
 
-	err := repository.UpdateIncomeByID(year, month, memberID, incomes)
+	err := repository.CreateIncome(year, month, memberID, incomes)
 
 	assert.Equal(t, nil, err)
 }
@@ -250,7 +250,7 @@ func Test_UpdateTransactionTimsheet_Input_Transaction_MemberID_006_Should_Be_No_
 		DatabaseConnection: databaseConnection,
 	}
 
-	err := repository.UpdateTransactionTimsheet(transactionTimesheet)
+	err := repository.CreateTransactionTimsheet(transactionTimesheet)
 
 	assert.Equal(t, nil, err)
 }
