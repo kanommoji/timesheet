@@ -156,7 +156,7 @@ func (repository TimesheetRepository) VerifyTransactionTimsheet(transactionTimes
 	var err error
 	for _, transactionTimesheet := range transactionTimesheet {
 		var count int
-		statement, err := repository.DatabaseConnection.Prepare(`SELECT COUNT(id) FROM transactions WHERE id = ?`)
+		statement, err := repository.DatabaseConnection.Prepare(`SELECT COUNT(id) FROM timesheet.transactions WHERE id LIKE ?`)
 		if err != nil {
 			return err
 		}
@@ -165,10 +165,11 @@ func (repository TimesheetRepository) VerifyTransactionTimsheet(transactionTimes
 		if err != nil {
 			return err
 		}
-		if count == 0 {
+		if count != 0 {
+			err = repository.UpdateTransactionTimsheet(transactionTimesheet, transactionID)
+		} else {
 			err = repository.CreateTransactionTimsheet(transactionTimesheet, transactionID)
 		}
-		err = repository.UpdateTransactionTimsheet(transactionTimesheet, transactionID)
 	}
 	return err
 }

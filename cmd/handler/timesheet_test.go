@@ -283,7 +283,7 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 		},
 	}, nil)
 
-	mockTimesheet.On("CalculatePaymentSummary", mock.Anything, mock.Anything).Return([]model.TransactionTimesheet{
+	mockTimesheet.On("CalculatePaymentSummary", mock.Anything, mock.Anything, 2018, 12).Return([]model.TransactionTimesheet{
 		{
 			MemberID:              "001",
 			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
