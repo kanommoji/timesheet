@@ -221,7 +221,24 @@ func (repository TimesheetRepository) UpdateTransactionTimsheet(transactionTimes
 	return nil
 }
 
-func (repository TimesheetRepository) CreateTimesheet(timesheet model.Payment, timesheetID, memberID string, year int, month int) error {
+func (repository TimesheetRepository) VerifyTimesheet(payment model.Payment, memberID string, year int, month int) error {
+	var count int
+	timesheetID := memberID + strconv.Itoa(year) + strconv.Itoa(month)
+	statement, err := repository.DatabaseConnection.Prepare(`SELECT COUNT(id) FROM timesheets WHERE id = ?`)
+	if err != nil {
+		return err
+	}
+	err = statement.QueryRow(timesheetID).Scan(&count)
+	if err != nil {
+		return err
+	}
+	if count == 0 {
+		return repository.CreateTimesheet(payment, timesheetID, memberID, year, month)
+	}
+	return repository.UpdateTimesheet(payment, timesheetID)
+}
+
+func (repository TimesheetRepository) CreateTimesheet(payment model.Payment, timesheetID, memberID string, year int, month int) error {
 	statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO timesheets (id, member_id, month, year, total_hours_hours, total_hours_minutes, total_hours_seconds, total_coaching_customer_charging, total_coaching_payment_rate, total_training_wage, total_other_wage, payment_wage) VALUES ( ? , ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? )`)
 	if err != nil {
 		return err
@@ -231,34 +248,34 @@ func (repository TimesheetRepository) CreateTimesheet(timesheet model.Payment, t
 		memberID,
 		month,
 		year,
-		timesheet.TotalHoursHours,
-		timesheet.TotalHoursMinutes,
-		timesheet.TotalHoursSeconds,
-		timesheet.TotalCoachingCustomerCharging,
-		timesheet.TotalCoachingPaymentRate,
-		timesheet.TotalTrainigWage,
-		timesheet.TotalOtherWage,
-		timesheet.PaymentWage)
+		payment.TotalHoursHours,
+		payment.TotalHoursMinutes,
+		payment.TotalHoursSeconds,
+		payment.TotalCoachingCustomerCharging,
+		payment.TotalCoachingPaymentRate,
+		payment.TotalTrainigWage,
+		payment.TotalOtherWage,
+		payment.PaymentWage)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (repository TimesheetRepository) UpdateTimesheet(timesheet model.Payment, timesheetID string) error {
+func (repository TimesheetRepository) UpdateTimesheet(payment model.Payment, timesheetID string) error {
 	statement, err := repository.DatabaseConnection.Prepare(`UPDATE timesheets SET total_hours_hours = ?, total_hours_minutes = ?, total_hours_seconds = ?, total_coaching_customer_charging = ?, total_coaching_payment_rate = ?, total_training_wage = ?, total_other_wage = ?, payment_wage = ? WHERE id = ?`)
 	if err != nil {
 		return err
 	}
 	_, err = statement.Exec(
-		timesheet.TotalHoursHours,
-		timesheet.TotalHoursMinutes,
-		timesheet.TotalHoursSeconds,
-		timesheet.TotalCoachingCustomerCharging,
-		timesheet.TotalCoachingPaymentRate,
-		timesheet.TotalTrainigWage,
-		timesheet.TotalOtherWage,
-		timesheet.PaymentWage,
+		payment.TotalHoursHours,
+		payment.TotalHoursMinutes,
+		payment.TotalHoursSeconds,
+		payment.TotalCoachingCustomerCharging,
+		payment.TotalCoachingPaymentRate,
+		payment.TotalTrainigWage,
+		payment.TotalOtherWage,
+		payment.PaymentWage,
 		timesheetID)
 	if err != nil {
 		return err
