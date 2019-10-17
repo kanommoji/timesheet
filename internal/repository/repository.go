@@ -186,12 +186,45 @@ func (repository TimesheetRepository) CreateTransactionTimsheet(transactionTimes
 	return nil
 }
 
-func (repository TimesheetRepository) CreateTimesheet(timesheet model.Payment, memberID string, year int, month int) error {
-	statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO timesheets (member_id, month, year, total_hours_hours, total_hours_minutes, total_hours_seconds, total_coaching_customer_charging, total_coaching_payment_rate, total_training_wage, total_other_wage, payment_wage) VALUES ( ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? )`)
+func (repository TimesheetRepository) CreateTimesheet(timesheet model.Payment, timesheetID, memberID string, year int, month int) error {
+	statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO timesheets (id, member_id, month, year, total_hours_hours, total_hours_minutes, total_hours_seconds, total_coaching_customer_charging, total_coaching_payment_rate, total_training_wage, total_other_wage, payment_wage) VALUES ( ? , ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? )`)
 	if err != nil {
 		return err
 	}
-	_, err = statement.Exec(memberID, month, year, timesheet.TotalHoursHours, timesheet.TotalHoursMinutes, timesheet.TotalHoursSeconds, timesheet.TotalCoachingCustomerCharging, timesheet.TotalCoachingPaymentRate, timesheet.TotalTrainigWage, timesheet.TotalOtherWage, timesheet.PaymentWage)
+	_, err = statement.Exec(
+		timesheetID,
+		memberID,
+		month,
+		year,
+		timesheet.TotalHoursHours,
+		timesheet.TotalHoursMinutes,
+		timesheet.TotalHoursSeconds,
+		timesheet.TotalCoachingCustomerCharging,
+		timesheet.TotalCoachingPaymentRate,
+		timesheet.TotalTrainigWage,
+		timesheet.TotalOtherWage,
+		timesheet.PaymentWage)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (repository TimesheetRepository) UpdateTimesheet(timesheet model.Payment, timesheetID string) error {
+	statement, err := repository.DatabaseConnection.Prepare(`UPDATE timesheets SET total_hours_hours = ?, total_hours_minutes = ?, total_hours_seconds = ?, total_coaching_customer_charging = ?, total_coaching_payment_rate = ?, total_training_wage = ?, total_other_wage = ?, payment_wage = ? WHERE id = ?`)
+	if err != nil {
+		return err
+	}
+	_, err = statement.Exec(
+		timesheet.TotalHoursHours,
+		timesheet.TotalHoursMinutes,
+		timesheet.TotalHoursSeconds,
+		timesheet.TotalCoachingCustomerCharging,
+		timesheet.TotalCoachingPaymentRate,
+		timesheet.TotalTrainigWage,
+		timesheet.TotalOtherWage,
+		timesheet.PaymentWage,
+		timesheetID)
 	if err != nil {
 		return err
 	}
