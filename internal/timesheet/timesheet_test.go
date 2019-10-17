@@ -502,6 +502,93 @@ func Test_CalculateTotalOtherWage_Input_Incomes_Company_Shuhari_TravelExpense_0_
 	assert.Equal(t, expected, actual)
 }
 
+func Test_CalculateTotalOtherWage_Input_Incomes_TravelExpense_0_Should_Be_55000(t *testing.T) {
+	expected := 55000.00
+	company := ""
+	travelExpense := 0.00
+	incomes := []model.Incomes{
+		{
+			Day:                      28,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 0.00,
+			CoachingPaymentRate:      0.00,
+			TrainingWage:             155000.00,
+			OtherWage:                10000.00,
+			Company:                  "siam_chamnankit",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+		{
+			Day:                      29,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 15000.00,
+			CoachingPaymentRate:      0.00,
+			TrainingWage:             0.00,
+			OtherWage:                25000.00,
+			Company:                  "shuhari",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+		{
+			Day:                      30,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 45000.00,
+			CoachingPaymentRate:      0.00,
+			TrainingWage:             0.00,
+			OtherWage:                20000.00,
+			Company:                  "shuhari",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+	}
+
+	actual := CalculateTotalOtherWage(incomes, company, travelExpense)
+
+	assert.Equal(t, expected, actual)
+}
+
 func Test_CalculateTotalCoachingPaymentRate_Input_Incomes_Company_SiamChamnankit_Should_Be_10000(t *testing.T) {
 	expected := 10000.00
 	company := "siam_chamnankit"
@@ -588,9 +675,181 @@ func Test_CalculateTotalCoachingPaymentRate_Input_Incomes_Company_SiamChamnankit
 	assert.Equal(t, expected, actual)
 }
 
+func Test_CalculateTotalCoachingPaymentRate_Input_Incomes_Should_Be_20000(t *testing.T) {
+	expected := 20000.00
+	company := ""
+	incomes := []model.Incomes{
+		{
+			Day:                      28,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 0.00,
+			CoachingPaymentRate:      0.00,
+			TrainingWage:             155000.00,
+			OtherWage:                0.00,
+			Company:                  "siam_chamnankit",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+		{
+			Day:                      29,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 15000.00,
+			CoachingPaymentRate:      10000.00,
+			TrainingWage:             0.00,
+			OtherWage:                0.00,
+			Company:                  "siam_chamnankit",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+		{
+			Day:                      30,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 45000.00,
+			CoachingPaymentRate:      10000.00,
+			TrainingWage:             0.00,
+			OtherWage:                0.00,
+			Company:                  "shuhari",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+	}
+
+	actual := CalculateTotalCoachingPaymentRate(incomes, company)
+
+	assert.Equal(t, expected, actual)
+}
+
 func Test_CalculateTotalTrainingWage_Input_Incomes_Company_Shuhari_Should_Be_20000(t *testing.T) {
 	expected := 20000.00
 	company := "shuhari"
+	incomes := []model.Incomes{
+		{
+			Day:                      28,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 0.00,
+			CoachingPaymentRate:      0.00,
+			TrainingWage:             10000.00,
+			OtherWage:                0.00,
+			Company:                  "siam_chamnankit",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+		{
+			Day:                      29,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 0.00,
+			CoachingPaymentRate:      0.00,
+			TrainingWage:             10000.00,
+			OtherWage:                0.00,
+			Company:                  "shuhari",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+		{
+			Day:                      30,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 0.00,
+			CoachingPaymentRate:      0.00,
+			TrainingWage:             10000.00,
+			OtherWage:                0.00,
+			Company:                  "shuhari",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+	}
+
+	actual := CalculateTotalTrainingWage(incomes, company)
+
+	assert.Equal(t, expected, actual)
+}
+
+func Test_CalculateTotalTrainingWage_Input_Incomes_Should_Be_30000(t *testing.T) {
+	expected := 30000.00
+	company := ""
 	incomes := []model.Incomes{
 		{
 			Day:                      28,
