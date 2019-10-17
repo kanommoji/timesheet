@@ -56,14 +56,17 @@ type Incomes struct {
 }
 
 type Payment struct {
-	TotalHoursHours               int
-	TotalHoursMinutes             int
-	TotalHoursSeconds             int
-	TotalCoachingCustomerCharging float64
-	TotalCoachingPaymentRate      float64
-	TotalTrainigWage              float64
-	TotalOtherWage                float64
-	PaymentWage                   float64
+	MemberID                      string  `json:"member_id"`
+	Month                         int     `json:"month"`
+	Year                          int     `json:"year"`
+	TotalHoursHours               int     `json:"total_hours_hours"`
+	TotalHoursMinutes             int     `json:"total_hours_sinutes"`
+	TotalHoursSeconds             int     `json:"total_hours_seconds"`
+	TotalCoachingCustomerCharging float64 `json:"total_coaching_customer_charging"`
+	TotalCoachingPaymentRate      float64 `json:"total_coaching_payment_rate"`
+	TotalTrainigWage              float64 `json:"total_trainig_wage"`
+	TotalOtherWage                float64 `json:"total_other_wage"`
+	PaymentWage                   float64 `json:"payment_wage"`
 }
 
 type Member struct {
