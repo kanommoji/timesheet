@@ -140,6 +140,76 @@ func Test_CalculatePaymentSummary_Input_Member_MemberID_001_Should_Be_Transactio
 	assert.Equal(t, expected, actual)
 }
 
+func Test_CalculatePayment_Input_Income_CoachingCustomerCharging_15000_CoachingPaymentRate_10000_TrainigWage_20000_Should_Be_Payment(t *testing.T) {
+	expected := model.Payment{
+		TotalHoursHours:               8,
+		TotalHoursMinutes:             0,
+		TotalHoursSeconds:             0,
+		TotalCoachingCustomerCharging: 15000.00,
+		TotalCoachingPaymentRate:      10000.00,
+		TotalTrainigWage:              20000.00,
+		TotalOtherWage:                0.00,
+		PaymentWage:                   30000.00,
+	}
+	incomes := []model.Incomes{
+		{
+			Day:                      28,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 15000.00,
+			CoachingPaymentRate:      10000.00,
+			TrainingWage:             0.00,
+			OtherWage:                0.00,
+			Company:                  "siam_chamnankit",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+		{
+			Day:                      3,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 0.00,
+			CoachingPaymentRate:      0.00,
+			TrainingWage:             20000.00,
+			OtherWage:                0.00,
+			Company:                  "shuhari",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+	}
+	timesheet := Timesheet{}
+
+	actual := timesheet.CalculatePayment(incomes)
+
+	assert.Equal(t, expected, actual)
+}
+
 func Test_CalculateNetSalary_Input_Salary_80000_IncomeTax1_5000_SocialSecurity_0_Should_Be_75000(t *testing.T) {
 	expected := 75000.00
 	salary := 80000.00
@@ -216,24 +286,8 @@ func Test_CalculateTotalPaymentWage_Input_CoachingPaymentRate_85000_TrainingWage
 	assert.Equal(t, expected, actual)
 }
 
-func Test_CalculateTotalCoachingCustomerCharging_Input_Incomes_Company_SiamChamnankit_Should_Be_15000(t *testing.T) {
-	expected := 15000.00
-	member := model.Member{
-		MemberID:              "001",
-		Company:               "siam_chamnankit",
-		MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
-		MemberNameENG:         "Prathan Dansakulcharoenkit",
-		Email:                 "prathan@scrum123.com",
-		OvertimeRate:          0.00,
-		RatePerDay:            15000.00,
-		RatePerHour:           1875.00,
-		Salary:                80000.00,
-		IncomeTax1:            5000.00,
-		SocialSecurity:        0.00,
-		IncomeTax53Percentage: 10,
-		Status:                "",
-		TravelExpense:         0.00,
-	}
+func Test_CalculateTotalCoachingCustomerCharging_Input_Incomes_Company_SiamChamnankit_Should_Be_60000(t *testing.T) {
+	expected := 60000.00
 	incomes := []model.Incomes{
 		{
 			Day:                      28,
@@ -312,7 +366,7 @@ func Test_CalculateTotalCoachingCustomerCharging_Input_Incomes_Company_SiamChamn
 		},
 	}
 
-	actual := CalculateTotalCoachingCustomerCharging(incomes, member.Company)
+	actual := CalculateTotalCoachingCustomerCharging(incomes)
 
 	assert.Equal(t, expected, actual)
 }
