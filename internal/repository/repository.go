@@ -152,71 +152,86 @@ func (repository TimesheetRepository) GetIncomes(memberID string, year, month in
 	return incomeList, nil
 }
 
-func (repository TimesheetRepository) CreateTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error {
+func (repository TimesheetRepository) VerifyTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error {
+	var err error
 	for _, transactionTimesheet := range transactionTimesheet {
-		statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO transactions (id, member_id, month, year, company, member_name_th, coaching, training, other, total_incomes, salary, income_tax_1, social_security, net_salary, wage, income_tax_53_percentage, income_tax_53, net_wage, net_transfer, status_checking_transfer, date_transfer, comment) VALUES ( ? , ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? , ? )`)
+		var count int
+		statement, err := repository.DatabaseConnection.Prepare(`SELECT COUNT(id) FROM transactions WHERE id = ?`)
 		if err != nil {
 			return err
 		}
 		transactionID := transactionTimesheet.MemberID + strconv.Itoa(transactionTimesheet.Year) + strconv.Itoa(transactionTimesheet.Month) + transactionTimesheet.Company
-		_, err = statement.Exec(
-			transactionID,
-			transactionTimesheet.MemberID,
-			transactionTimesheet.Month,
-			transactionTimesheet.Year,
-			transactionTimesheet.Company,
-			transactionTimesheet.MemberNameTH,
-			transactionTimesheet.Coaching,
-			transactionTimesheet.Training,
-			transactionTimesheet.Other,
-			transactionTimesheet.TotalIncomes,
-			transactionTimesheet.Salary,
-			transactionTimesheet.IncomeTax1,
-			transactionTimesheet.SocialSecurity,
-			transactionTimesheet.NetSalary,
-			transactionTimesheet.Wage,
-			transactionTimesheet.IncomeTax53Percentage,
-			transactionTimesheet.IncomeTax53,
-			transactionTimesheet.NetWage,
-			transactionTimesheet.NetTransfer,
-			transactionTimesheet.StatusCheckingTransfer,
-			transactionTimesheet.DateTransfer,
-			transactionTimesheet.Comment)
+		err = statement.QueryRow(transactionID).Scan(&count)
 		if err != nil {
 			return err
 		}
+		if count == 0 {
+			err = repository.CreateTransactionTimsheet(transactionTimesheet, transactionID)
+		}
+		err = repository.UpdateTransactionTimsheet(transactionTimesheet, transactionID)
+	}
+	return err
+}
+
+func (repository TimesheetRepository) CreateTransactionTimsheet(transactionTimesheet model.TransactionTimesheet, transactionID string) error {
+	statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO transactions (id, member_id, month, year, company, member_name_th, coaching, training, other, total_incomes, salary, income_tax_1, social_security, net_salary, wage, income_tax_53_percentage, income_tax_53, net_wage, net_transfer, status_checking_transfer, date_transfer, comment) VALUES ( ? , ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? , ? )`)
+	if err != nil {
+		return err
+	}
+	_, err = statement.Exec(
+		transactionID,
+		transactionTimesheet.MemberID,
+		transactionTimesheet.Month,
+		transactionTimesheet.Year,
+		transactionTimesheet.Company,
+		transactionTimesheet.MemberNameTH,
+		transactionTimesheet.Coaching,
+		transactionTimesheet.Training,
+		transactionTimesheet.Other,
+		transactionTimesheet.TotalIncomes,
+		transactionTimesheet.Salary,
+		transactionTimesheet.IncomeTax1,
+		transactionTimesheet.SocialSecurity,
+		transactionTimesheet.NetSalary,
+		transactionTimesheet.Wage,
+		transactionTimesheet.IncomeTax53Percentage,
+		transactionTimesheet.IncomeTax53,
+		transactionTimesheet.NetWage,
+		transactionTimesheet.NetTransfer,
+		transactionTimesheet.StatusCheckingTransfer,
+		transactionTimesheet.DateTransfer,
+		transactionTimesheet.Comment)
+	if err != nil {
+		return err
 	}
 	return nil
 }
 
-func (repository TimesheetRepository) UpdateTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error {
-	for _, transactionTimesheet := range transactionTimesheet {
-		statement, err := repository.DatabaseConnection.Prepare(`UPDATE transactions SET coaching = ?, training = ?, other = ?, total_incomes = ?, salary = ?, income_tax_1 = ?, social_security = ?, net_salary = ?, wage = ?, income_tax_53_percentage = ?, income_tax_53 = ?, net_wage = ?, net_transfer = ?, status_checking_transfer = ?, date_transfer = ?, comment = ? WHERE id = ?`)
-		if err != nil {
-			return err
-		}
-		timesheetID := transactionTimesheet.MemberID + strconv.Itoa(transactionTimesheet.Year) + strconv.Itoa(transactionTimesheet.Month) + transactionTimesheet.Company
-		_, err = statement.Exec(
-			transactionTimesheet.Coaching,
-			transactionTimesheet.Training,
-			transactionTimesheet.Other,
-			transactionTimesheet.TotalIncomes,
-			transactionTimesheet.Salary,
-			transactionTimesheet.IncomeTax1,
-			transactionTimesheet.SocialSecurity,
-			transactionTimesheet.NetSalary,
-			transactionTimesheet.Wage,
-			transactionTimesheet.IncomeTax53Percentage,
-			transactionTimesheet.IncomeTax53,
-			transactionTimesheet.NetWage,
-			transactionTimesheet.NetTransfer,
-			transactionTimesheet.StatusCheckingTransfer,
-			transactionTimesheet.DateTransfer,
-			transactionTimesheet.Comment,
-			timesheetID)
-		if err != nil {
-			return err
-		}
+func (repository TimesheetRepository) UpdateTransactionTimsheet(transactionTimesheet model.TransactionTimesheet, transactionID string) error {
+	statement, err := repository.DatabaseConnection.Prepare(`UPDATE transactions SET coaching = ?, training = ?, other = ?, total_incomes = ?, salary = ?, income_tax_1 = ?, social_security = ?, net_salary = ?, wage = ?, income_tax_53_percentage = ?, income_tax_53 = ?, net_wage = ?, net_transfer = ?, status_checking_transfer = ?, date_transfer = ?, comment = ? WHERE id = ?`)
+	if err != nil {
+		return err
+	}
+	_, err = statement.Exec(
+		transactionTimesheet.Coaching,
+		transactionTimesheet.Training,
+		transactionTimesheet.Other,
+		transactionTimesheet.TotalIncomes,
+		transactionTimesheet.Salary,
+		transactionTimesheet.IncomeTax1,
+		transactionTimesheet.SocialSecurity,
+		transactionTimesheet.NetSalary,
+		transactionTimesheet.Wage,
+		transactionTimesheet.IncomeTax53Percentage,
+		transactionTimesheet.IncomeTax53,
+		transactionTimesheet.NetWage,
+		transactionTimesheet.NetTransfer,
+		transactionTimesheet.StatusCheckingTransfer,
+		transactionTimesheet.DateTransfer,
+		transactionTimesheet.Comment,
+		transactionID)
+	if err != nil {
+		return err
 	}
 	return nil
 }
