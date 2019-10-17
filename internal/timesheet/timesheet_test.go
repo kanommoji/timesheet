@@ -13,6 +13,8 @@ func Test_CalculatePaymentSummary_Input_Member_MemberID_001_Should_Be_Transactio
 		{
 			MemberID:              "001",
 			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+			Year:                  2018,
+			Month:                 12,
 			Company:               "siam_chamnankit",
 			Coaching:              0.00,
 			Training:              155000.00,
@@ -31,6 +33,8 @@ func Test_CalculatePaymentSummary_Input_Member_MemberID_001_Should_Be_Transactio
 		{
 			MemberID:              "001",
 			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+			Year:                  2018,
+			Month:                 12,
 			Company:               "shuhari",
 			Coaching:              0.00,
 			Training:              20000.00,
@@ -133,9 +137,11 @@ func Test_CalculatePaymentSummary_Input_Member_MemberID_001_Should_Be_Transactio
 			Description:              "[KBTG] 2 Days Agile Project Management",
 		},
 	}
+	year := 2018
+	month := 12
 
 	timesheet := Timesheet{}
-	actual := timesheet.CalculatePaymentSummary(member, incomes)
+	actual := timesheet.CalculatePaymentSummary(member, incomes, year, month)
 
 	assert.Equal(t, expected, actual)
 }

@@ -49,7 +49,7 @@ func (mock MockTimesheet) CalculatePayment(incomes []model.Incomes) model.Paymen
 	return argument.Get(0).(model.Payment)
 }
 
-func (mock MockTimesheet) CalculatePaymentSummary(member []model.Member, incomes []model.Incomes) []model.TransactionTimesheet {
-	argument := mock.Called(member, incomes)
+func (mock MockTimesheet) CalculatePaymentSummary(member []model.Member, incomes []model.Incomes, year, month int) []model.TransactionTimesheet {
+	argument := mock.Called(member, incomes, year, month)
 	return argument.Get(0).([]model.TransactionTimesheet)
 }

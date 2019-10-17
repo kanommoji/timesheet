@@ -10,14 +10,14 @@ const (
 )
 
 type TimesheetGateways interface {
-	CalculatePaymentSummary(member []model.Member, incomes []model.Incomes) []model.TransactionTimesheet
+	CalculatePaymentSummary(member []model.Member, incomes []model.Incomes, year, month int) []model.TransactionTimesheet
 	CalculatePayment(incomes []model.Incomes) model.Payment
 }
 
 type Timesheet struct {
 }
 
-func (timesheet Timesheet) CalculatePaymentSummary(member []model.Member, incomes []model.Incomes) []model.TransactionTimesheet {
+func (timesheet Timesheet) CalculatePaymentSummary(member []model.Member, incomes []model.Incomes, year, month int) []model.TransactionTimesheet {
 	var transactionTimesheetList []model.TransactionTimesheet
 	for _, member := range member {
 		totalCoachingPaymentRate := CalculateTotalCoachingPaymentRate(incomes, member.Company)
@@ -31,6 +31,8 @@ func (timesheet Timesheet) CalculatePaymentSummary(member []model.Member, income
 		netTransfer := CalculateNetTransfer(netSalary, netWage)
 		transactionTimesheet := model.TransactionTimesheet{
 			MemberID:              member.MemberID,
+			Month:                 month,
+			Year:                  year,
 			MemberNameTH:          member.MemberNameTH,
 			Company:               member.Company,
 			Coaching:              totalCoachingPaymentRate,
