@@ -175,7 +175,7 @@ func (repository TimesheetRepository) VerifyTransactionTimsheet(transactionTimes
 }
 
 func (repository TimesheetRepository) CreateTransactionTimsheet(transactionTimesheet model.TransactionTimesheet, transactionID string) error {
-	statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO transactions (id, member_id, month, year, company, member_name_th, coaching, training, other, total_incomes, salary, income_tax_1, social_security, net_salary, wage, income_tax_53_percentage, income_tax_53, net_wage, net_transfer, status_checking_transfer, date_transfer, comment) VALUES ( ? , ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? , ? )`)
+	statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO transactions (id, member_id, month, year, company, member_name_th, coaching, training, other, total_incomes, salary, income_tax_1, social_security, net_salary, wage, income_tax_53_percentage, income_tax_53, net_wage, net_transfer) VALUES ( ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? , ? , ? )`)
 	if err != nil {
 		return err
 	}
@@ -198,10 +198,7 @@ func (repository TimesheetRepository) CreateTransactionTimsheet(transactionTimes
 		transactionTimesheet.IncomeTax53Percentage,
 		transactionTimesheet.IncomeTax53,
 		transactionTimesheet.NetWage,
-		transactionTimesheet.NetTransfer,
-		transactionTimesheet.StatusCheckingTransfer,
-		transactionTimesheet.DateTransfer,
-		transactionTimesheet.Comment)
+		transactionTimesheet.NetTransfer)
 	if err != nil {
 		return err
 	}
@@ -209,7 +206,7 @@ func (repository TimesheetRepository) CreateTransactionTimsheet(transactionTimes
 }
 
 func (repository TimesheetRepository) UpdateTransactionTimsheet(transactionTimesheet model.TransactionTimesheet, transactionID string) error {
-	statement, err := repository.DatabaseConnection.Prepare(`UPDATE transactions SET coaching = ?, training = ?, other = ?, total_incomes = ?, salary = ?, income_tax_1 = ?, social_security = ?, net_salary = ?, wage = ?, income_tax_53_percentage = ?, income_tax_53 = ?, net_wage = ?, net_transfer = ?, status_checking_transfer = ?, date_transfer = ?, comment = ? WHERE id = ?`)
+	statement, err := repository.DatabaseConnection.Prepare(`UPDATE transactions SET coaching = ?, training = ?, other = ?, total_incomes = ?, salary = ?, income_tax_1 = ?, social_security = ?, net_salary = ?, wage = ?, income_tax_53_percentage = ?, income_tax_53 = ?, net_wage = ?, net_transfer = ? WHERE id = ?`)
 	if err != nil {
 		return err
 	}
@@ -227,9 +224,6 @@ func (repository TimesheetRepository) UpdateTransactionTimsheet(transactionTimes
 		transactionTimesheet.IncomeTax53,
 		transactionTimesheet.NetWage,
 		transactionTimesheet.NetTransfer,
-		transactionTimesheet.StatusCheckingTransfer,
-		transactionTimesheet.DateTransfer,
-		transactionTimesheet.Comment,
 		transactionID)
 	if err != nil {
 		return err
