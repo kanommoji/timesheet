@@ -52,7 +52,7 @@ func Test_GetSummary_Input_Year_2017_Month_12_Should_Be_TransactionTimesheet(t *
 	assert.Equal(t, expected, actual)
 }
 
-func Test_UpdateIncomeByID_Input_Year_2017_Month_12_MemberID_001_Income_Should_Be_No_Error(t *testing.T) {
+func Test_CreateIncome_Input_Year_2017_Month_12_MemberID_001_Income_Should_Be_No_Error(t *testing.T) {
 	year := 2017
 	month := 12
 	memberID := "001"
