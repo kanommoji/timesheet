@@ -54,8 +54,7 @@ func (repository TimesheetRepository) GetSummary(year, month int) ([]model.Trans
 		)
 		transactionTimesheetList = append(transactionTimesheetList, transactionTimesheet)
 	}
-
-	return transactionTimesheetList, nil
+	return transactionTimesheetList, err
 }
 
 func (repository TimesheetRepository) UpdateIncomeByID(year, month int, memberID string, income model.Incomes) error {
@@ -101,7 +100,7 @@ func (repository TimesheetRepository) GetMemberByID(memberID string) ([]model.Me
 		)
 		memberList = append(memberList, member)
 	}
-	return memberList, nil
+	return memberList, err
 }
 
 func (repository TimesheetRepository) GetIncomes(memberID string, year, month int) ([]model.Incomes, error) {
@@ -147,7 +146,7 @@ func (repository TimesheetRepository) GetIncomes(memberID string, year, month in
 		)
 		incomeList = append(incomeList, income)
 	}
-	return incomeList, nil
+	return incomeList, err
 }
 
 func (repository TimesheetRepository) UpdateTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error {
