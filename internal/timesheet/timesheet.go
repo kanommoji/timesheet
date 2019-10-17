@@ -154,9 +154,7 @@ func CalculateTotalOtherWage(incomes []model.Incomes, company string, travelExpe
 		return float64(totalOtherWage) + travelExpense
 	}
 	for index := range incomes {
-		if incomes[index].Company == ShuhariCompany {
-			totalOtherWage += incomes[index].OtherWage
-		}
+		totalOtherWage += incomes[index].OtherWage
 	}
 	return float64(totalOtherWage) + travelExpense
 }
