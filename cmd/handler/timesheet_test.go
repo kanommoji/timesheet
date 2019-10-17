@@ -128,7 +128,7 @@ func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Shoul
 	writer := httptest.NewRecorder()
 
 	mockRepository := new(mockapi.MockRepository)
-	mockRepository.On("UpdateIncomeByID", 2018, 12, "001", model.Incomes{
+	mockRepository.On("CreateIncome", 2018, 12, "001", model.Incomes{
 		Day:                      28,
 		StartTimeAMHours:         9,
 		StartTimeAMMinutes:       0,
@@ -230,7 +230,7 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 			Company:                  "siam_chamnankit",
 			Description:              "[KBTG] 2 Days Agile Project Management",
 		},
-	})
+	}, nil)
 
 	mockTimesheet := new(mockapi.MockTimesheet)
 	mockTimesheet.On("CalculatePayment", mock.Anything).Return(model.Payment{
@@ -244,11 +244,11 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 		PaymentWage:                   195000.00,
 	})
 
-	mockRepository.On("UpdateTimesheet").Return(nil)
+	mockRepository.On("CreateTimesheet", mock.Anything).Return(nil)
 
-	mockMember := new(mockapi.MockRepository)
-	mockMember.On("GetMemberByID", "001").Return([]model.Member{
+	mockRepository.On("GetMemberByID", "001").Return([]model.Member{
 		{
+			ID:                    1,
 			MemberID:              "001",
 			Company:               "siam_chamnankit",
 			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
@@ -263,7 +263,9 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 			IncomeTax53Percentage: 10,
 			Status:                "",
 			TravelExpense:         0.00,
-		}, {
+		},
+		{
+			ID:                    2,
 			MemberID:              "001",
 			Company:               "shuhari",
 			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
@@ -279,7 +281,7 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 			Status:                "",
 			TravelExpense:         0.00,
 		},
-	})
+	}, nil)
 
 	mockTimesheet.On("CalculatePaymentSummary", mock.Anything, mock.Anything).Return([]model.TransactionTimesheet{
 		{
@@ -325,7 +327,10 @@ func Test_CalculatePaymentHandler_Input_MemberID_001_Year_2018_Month_12_Should_B
 
 	mockRepository.On("CreateTransactionTimsheet", mock.Anything).Return(nil)
 
-	api := TimesheetAPI{}
+	api := TimesheetAPI{
+		Timesheet:           mockTimesheet,
+		TimesheetRepository: mockRepository,
+	}
 
 	testRoute := gin.Default()
 	testRoute.POST("/calculatePayment", api.CalculatePaymentHandler)

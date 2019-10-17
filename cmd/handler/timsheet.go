@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log"
 	"net/http"
 	"timesheet/internal/model"
 	"timesheet/internal/repository"
@@ -33,18 +34,18 @@ type TimesheetAPI struct {
 }
 
 func (api TimesheetAPI) GetSummaryHandler(context *gin.Context) {
-	var date Date
-	err := context.ShouldBindJSON(&date)
+	var request Date
+	err := context.ShouldBindJSON(&request)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
-	transactionTimesheet, _ := api.TimesheetRepository.GetSummary(date.Year, date.Month)
+	transactionTimesheet, _ := api.TimesheetRepository.GetSummary(request.Year, request.Month)
 	context.JSON(http.StatusOK, transactionTimesheet)
 }
 
 func (api TimesheetAPI) UpdateIncomeHandler(context *gin.Context) {
-	var requestIncome IncomeRequest
-	err := context.ShouldBindJSON(&requestIncome)
+	var request IncomeRequest
+	err := context.ShouldBindJSON(&request)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
@@ -53,5 +54,33 @@ func (api TimesheetAPI) UpdateIncomeHandler(context *gin.Context) {
 }
 
 func (api TimesheetAPI) CalculatePaymentHandler(context *gin.Context) {
+	var request CalculatePaymentRequest
+	err := context.ShouldBindJSON(&request)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
 
+	incomes, err := api.TimesheetRepository.GetIncomes(request.MemberID, request.Year, request.Month)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
+
+	payments := api.Timesheet.CalculatePayment(incomes)
+
+	err = api.TimesheetRepository.CreateTimesheet(payments)
+	log.Print(err)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
+
+	members, err := api.TimesheetRepository.GetMemberByID(request.MemberID)
+	log.Print(members)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
+	transactionTimesheet := api.Timesheet.CalculatePaymentSummary(members, incomes)
+	err = api.TimesheetRepository.CreateTransactionTimsheet(transactionTimesheet)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
 }

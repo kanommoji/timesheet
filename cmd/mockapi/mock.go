@@ -35,7 +35,7 @@ func (mock MockRepository) CreateTransactionTimsheet(transactionTimesheet []mode
 	return argument.Error(0)
 }
 
-func (mock MockRepository) CreateTimsheet(timesheet []model.Payment) error {
+func (mock MockRepository) CreateTimesheet(timesheet model.Payment) error {
 	argument := mock.Called(timesheet)
 	return argument.Error(0)
 }
@@ -49,7 +49,7 @@ func (mock MockTimesheet) CalculatePayment(incomes []model.Incomes) model.Paymen
 	return argument.Get(0).(model.Payment)
 }
 
-func (mock MockTimesheet) CalculatePaymentSummary(member model.Member, incomes []model.Incomes) []model.TransactionTimesheet {
-	argument := mock.Called(member)
+func (mock MockTimesheet) CalculatePaymentSummary(member []model.Member, incomes []model.Incomes) []model.TransactionTimesheet {
+	argument := mock.Called(member, incomes)
 	return argument.Get(0).([]model.TransactionTimesheet)
 }

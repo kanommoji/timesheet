@@ -276,7 +276,7 @@ func Test_CreateTimsheet_Input_Payment_MemberID_006_Should_Be_No_Error(t *testin
 		DatabaseConnection: databaseConnection,
 	}
 
-	err := repository.CreateTimsheet(timesheet)
+	err := repository.CreateTimesheet(timesheet)
 
 	assert.Equal(t, nil, err)
 }

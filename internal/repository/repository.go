@@ -11,7 +11,7 @@ type TimesheetRepositoryGateways interface {
 	GetIncomes(memberID string, year, month int) ([]model.Incomes, error)
 	CreateIncome(year, month int, memberID string, income model.Incomes) error
 	CreateTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error
-	CreateTimsheet(timesheet []model.Payment) error
+	CreateTimesheet(timesheet model.Payment) error
 }
 
 type TimesheetRepository struct {
@@ -186,7 +186,7 @@ func (repository TimesheetRepository) CreateTransactionTimsheet(transactionTimes
 	return nil
 }
 
-func (repository TimesheetRepository) CreateTimsheet(timesheet model.Payment) error {
+func (repository TimesheetRepository) CreateTimesheet(timesheet model.Payment) error {
 	statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO timesheets (member_id, month, year, total_hours_hours, total_hours_minutes, total_hours_seconds, total_coaching_customer_charging, total_coaching_payment_rate, total_training_wage, total_other_wage, payment_wage) VALUES ( ? , ? ,? , ? ,? , ? ,? , ? ,? , ? ,? )`)
 	if err != nil {
 		return err
