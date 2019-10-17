@@ -35,8 +35,8 @@ func (mock MockRepository) CreateTransactionTimsheet(transactionTimesheet []mode
 	return argument.Error(0)
 }
 
-func (mock MockRepository) CreateTimesheet(timesheet model.Payment) error {
-	argument := mock.Called(timesheet)
+func (mock MockRepository) CreateTimesheet(timesheet model.Payment, memberID string, year int, month int) error {
+	argument := mock.Called(timesheet, memberID, year, month)
 	return argument.Error(0)
 }
 
