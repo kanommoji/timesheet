@@ -12,7 +12,7 @@ type TimesheetRepositoryGateways interface {
 	GetIncomes(memberID string, year, month int) ([]model.Incomes, error)
 	CreateIncome(year, month int, memberID string, income model.Incomes) error
 	CreateTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error
-	CreateTimesheet(timesheet model.Payment, memberID string, year int, month int) error
+	CreateTimesheet(timesheet model.Payment, timesheetID, memberID string, year int, month int) error
 }
 
 type TimesheetRepository struct {

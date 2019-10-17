@@ -14,7 +14,7 @@ import (
 func Test_GetSummary_Input_Year_2017_Month_12_Should_Be_TransactionTimesheet(t *testing.T) {
 	expected := []model.TransactionTimesheet{
 		{
-			ID:                     1,
+			ID:                     "001201712siam_chamnankit",
 			MemberID:               "001",
 			MemberNameTH:           "ประธาน ด่านสกุลเจริญกิจ",
 			Month:                  12,
