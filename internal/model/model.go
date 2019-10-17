@@ -83,3 +83,9 @@ type Member struct {
 	Status                string  `json:"status"`
 	TravelExpense         float64 `json:"travel_expense"`
 }
+
+type Time struct {
+	Hours   int
+	Minutes int
+	Seconds int
+}
