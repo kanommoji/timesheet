@@ -51,6 +51,33 @@ func (timesheet Timesheet) CalculatePaymentSummary(member []model.Member, income
 	return transactionTimesheetList
 }
 
+func (timesheet Timesheet) CalculatePayment(incomes []model.Incomes) model.Payment {
+	totalHour := CalculateTotalHourPerDay(incomes)
+	totalCoachingCustomerCharging := CalculateTotalCoachingCustomerCharging(incomes)
+	totalCoachingPaymentRate := CalculateTotalCoachingPaymentRate(incomes, "")
+	totalTrainingWage := CalculateTotalTrainingWage(incomes, "")
+	totalOtherWage := CalculateTotalOtherWage(incomes, "", 0.00)
+	paymentWage := CalculateTotalPaymentWage(totalCoachingPaymentRate, totalTrainingWage, totalOtherWage)
+	return model.Payment{
+		TotalHoursHours:               totalHour.Hours,
+		TotalHoursMinutes:             totalHour.Minutes,
+		TotalHoursSeconds:             totalHour.Seconds,
+		TotalCoachingCustomerCharging: totalCoachingCustomerCharging,
+		TotalCoachingPaymentRate:      totalCoachingPaymentRate,
+		TotalTrainigWage:              totalTrainingWage,
+		TotalOtherWage:                totalOtherWage,
+		PaymentWage:                   paymentWage,
+	}
+}
+
+func CalculateTotalHourPerDay(incomes []model.Incomes) model.Time {
+	return model.Time{
+		Hours:   8,
+		Minutes: 0,
+		Seconds: 0,
+	}
+}
+
 func CalculateTotalPaymentWage(coachingPaymentRate, trainingWage, otherWage float64) float64 {
 	return coachingPaymentRate + trainingWage + otherWage
 }
@@ -106,7 +133,12 @@ func CalculateTotalOtherWage(incomes []model.Incomes, company string, travelExpe
 		}
 		return float64(totalOtherWage) + travelExpense
 	}
-	return 0
+	for index := range incomes {
+		if incomes[index].Company == ShuhariCompany {
+			totalOtherWage += incomes[index].OtherWage
+		}
+	}
+	return float64(totalOtherWage) + travelExpense
 }
 
 func CalculateTotalCoachingPaymentRate(incomes []model.Incomes, company string) float64 {
@@ -127,7 +159,10 @@ func CalculateTotalCoachingPaymentRate(incomes []model.Incomes, company string) 
 		}
 		return float64(totalCoachingPaymentRate)
 	}
-	return 0
+	for index := range incomes {
+		totalCoachingPaymentRate += incomes[index].CoachingPaymentRate
+	}
+	return float64(totalCoachingPaymentRate)
 }
 
 func CalculateTotalTrainingWage(incomes []model.Incomes, company string) float64 {
@@ -148,5 +183,8 @@ func CalculateTotalTrainingWage(incomes []model.Incomes, company string) float64
 		}
 		return float64(totalCoachingTrainingWage)
 	}
-	return 0
+	for index := range incomes {
+		totalCoachingTrainingWage += incomes[index].TrainingWage
+	}
+	return float64(totalCoachingTrainingWage)
 }
