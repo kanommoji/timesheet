@@ -1,7 +1,7 @@
 package model
 
 type TransactionTimesheet struct {
-	ID                     int     `json:"id"`
+	ID                     string  `json:"id"`
 	MemberID               string  `json:"member_id"`
 	MemberNameTH           string  `json:"member_name_th"`
 	Month                  int     `json:"month"`
