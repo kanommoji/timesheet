@@ -49,7 +49,10 @@ func (api TimesheetAPI) UpdateIncomeHandler(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
-	context.JSON(http.StatusOK, nil)
+	err = api.TimesheetRepository.CreateIncome(request.Year, request.Month, request.MemberID, request.Incomes)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
 }
 
 func (api TimesheetAPI) CalculatePaymentHandler(context *gin.Context) {
