@@ -204,5 +204,20 @@ function addIncomeToTimesheet(){
     request.open("POST", url, true);
     request.setRequestHeader("Content-Type", "application/json");
     var data = JSON.stringify({"year":year,"month":month,"member_id":memberID,"incomes":{"day":day,"start_time_am_hours":startTimeAmHours,"start_time_am_minutes":startTimeAmMinutes,"start_time_am_seconds":startTimeAmSeconds,"end_time_am_hours":endTimeAmHours,"end_time_am_minutes":endTimeAmMinutes,"end_time_am_seconds":endTimeAmSeconds,"start_time_pm_hours":startTimePmHours,"start_time_pm_minutes":startTimePmMinutes,"start_time_pm_seconds":startTimePmSeconds,"end_time_pm_hours":endTimePmHours,"end_time_pm_minutes":endTimePmMinutes,"end_time_pm_seconds":endTimePmSeconds,"overtime":overtime,"total_hours_hours":totalHoursHours,"total_hours_minutes":totalHoursMinutes,"total_hours_seconds":totalHoursSeconds,"coaching_customer_charging":coachingCustomerCharging,"coaching_payment_rate":coachingPaymentRate,"training_wage":trainingWage,"other_wage":otherWage,"company":company,"description":description}});
-    request.send(data);    
+    request.send(data);   
+    calculatePayment(memberID,year,month)    
+}
+
+function calculatePayment(memberID,year,month) {
+    console.log(memberID,year,month);  
+    var request = new XMLHttpRequest();
+    var url = "/calculatePayment";
+    request.open("POST", url, true);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+        }
+    }
+    var data = JSON.stringify({"member_id":memberID,"year":year,"month":month});
+    request.send(data);   
 }
