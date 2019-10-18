@@ -49,9 +49,10 @@ func (timesheet Timesheet) CalculatePaymentSummary(member []model.Member, income
 			NetWage:               netWage,
 			NetTransfer:           netTransfer,
 		}
-		transactionTimesheetList = append(transactionTimesheetList, transactionTimesheet)
+		if netTransfer > 0 {
+			transactionTimesheetList = append(transactionTimesheetList, transactionTimesheet)
+		}
 	}
-
 	return transactionTimesheetList
 }
 
