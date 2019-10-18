@@ -8,11 +8,11 @@ import (
 )
 
 type DatabaseConfig struct {
-	Username string `yamal: "username"`
-	Password string `yamal: "password"`
-	Host     string `yamal: "host"`
-	Port     string `yamal: "port"`
-	Database string `yamal: "database"`
+	Username string `yamal:"username"`
+	Password string `yamal:"password"`
+	Host     string `yamal:"host"`
+	Port     string `yamal:"port"`
+	Database string `yamal:"database"`
 }
 
 func (databaseConfig DatabaseConfig) GetURI() string {
