@@ -17,7 +17,7 @@ integration_test:
 	
 acceptance_test:
 	docker-compose up -d
-	newman run atdd/api/timesheetSuccess.json
+	newman run atdd/api/showSummaryTimesheetSuccess.json.json
 	robot atdd/ui/timesheet.robot
 	docker-compose down
 
