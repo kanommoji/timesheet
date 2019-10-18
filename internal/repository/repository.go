@@ -163,23 +163,9 @@ func (repository TimesheetRepository) GetIncomes(memberID string, year, month in
 
 func (repository TimesheetRepository) VerifyTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error {
 	for _, transactionTimesheet := range transactionTimesheet {
-		var count int
-		statement, err := repository.DatabaseConnection.Prepare(`SELECT COUNT(id) FROM timesheet.transactions WHERE id LIKE ?`)
-		if err != nil {
-			return err
-		}
 		transactionID := transactionTimesheet.MemberID + strconv.Itoa(transactionTimesheet.Year) + strconv.Itoa(transactionTimesheet.Month) + transactionTimesheet.Company
-		err = statement.QueryRow(transactionID).Scan(&count)
-		if err != nil {
-			return err
-		}
-		if count != 0 {
-			err = repository.UpdateTransactionTimsheet(transactionTimesheet, transactionID)
-		} else {
-			err = repository.CreateTransactionTimsheet(transactionTimesheet, transactionID)
-		}
-		if err != nil {
-			return err
+		if repository.CreateTransactionTimsheet(transactionTimesheet, transactionID) != nil {
+			_ = repository.UpdateTransactionTimsheet(transactionTimesheet, transactionID)
 		}
 	}
 	return nil
@@ -210,10 +196,7 @@ func (repository TimesheetRepository) CreateTransactionTimsheet(transactionTimes
 		transactionTimesheet.IncomeTax53,
 		transactionTimesheet.NetWage,
 		transactionTimesheet.NetTransfer)
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
 
 func (repository TimesheetRepository) UpdateTransactionTimsheet(transactionTimesheet model.TransactionTimesheet, transactionID string) error {
@@ -243,20 +226,11 @@ func (repository TimesheetRepository) UpdateTransactionTimsheet(transactionTimes
 }
 
 func (repository TimesheetRepository) VerifyTimesheet(payment model.Payment, memberID string, year int, month int) error {
-	var count int
 	timesheetID := memberID + strconv.Itoa(year) + strconv.Itoa(month)
-	statement, err := repository.DatabaseConnection.Prepare(`SELECT COUNT(id) FROM timesheets WHERE id = ?`)
-	if err != nil {
-		return err
+	if repository.CreateTimesheet(payment, timesheetID, memberID, year, month) != nil {
+		return repository.UpdateTimesheet(payment, timesheetID)
 	}
-	err = statement.QueryRow(timesheetID).Scan(&count)
-	if err != nil {
-		return err
-	}
-	if count == 0 {
-		return repository.CreateTimesheet(payment, timesheetID, memberID, year, month)
-	}
-	return repository.UpdateTimesheet(payment, timesheetID)
+	return nil
 }
 
 func (repository TimesheetRepository) CreateTimesheet(payment model.Payment, timesheetID, memberID string, year int, month int) error {
