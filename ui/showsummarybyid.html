@@ -8,23 +8,71 @@
 <script src="js/timesheet.js"></script>
 <script src="js/jquery-3.4.1.min.js"></script>
 <body>
-    <form action="/addIncomeItem" method="POST">
-        <input type="number" value="day">
-        <input type="time" value="start_time_am">
-        <input type="time" value="end_time_am">
-        <input type="time" value="start_time_pm">
-        <input type="time" value="end_time_pm">
-        <input type="number" value="overtime">
-        <input type="number" value="total_hours">
-        <input type="number" value="coaching_payment_rate">
-        <input type="number" value="training_wage">
-        <input type="number" value="other_wage">
-        <select name="company">
-            <option value="siam_chamnankit">Siam Chamnankit</option>
-            <option value="shuhari">Shuhari</option>
-        </select>
-        <input type="text" value="description">
-        <input type="submit" value="ยืนยัน">
+    <form action="/">
+        <input type="submit" value="Payment"/><br><br>
     </form>
+
+        <table border="1">
+            <tr>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Overtime</th>
+                <th>Total Hours</th>
+                <th>Coaching Customer Charging (THB)</th>
+                <th>Coaching Payment Rate (THB)</th>
+                <th>Training Wage (THB)</th>
+                <th>Other Wage (THB)</th>
+                <th>Company</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td><input type="date" id="date"></td>
+                <td><input type="time" step="1" id="start_time_am" value=09:00:00 placeholder="Start Time AM"></td>
+                <td><input type="time"  step="1" id="end_time_am" value=12:00:00 placeholder="End Time AM"></td>
+                <td><input type="time" step="1" id="start_time_pm" value=13:00:00 placeholder="Start Time PM"></td>
+                <td><input type="time"  step="1" id="end_time_pm" value=18:00:00 placeholder="End Time PM"></td>
+                <td><input type="number" id="overtime" value=0 placeholder="Overtime"></td>
+                <td><input type="time" step="1" id="total_hours" value=08:00:00 placeholder="Total Hours"></td>
+                <td><select id="coaching_customer_charging" value=0.00>
+                    <option value=0.00>฿ 0.00</option>
+                    <option value=5000.00>฿ 5,000.00</option>
+                    <option value=7500.00>฿ 7,500.00</option>
+                    <option value=10000.00>฿ 10,000.00</option>
+                    <option value=15000.00>฿ 15,000.00</option>
+                </select></td>
+                <td><select id="coaching_payment_rate" value=0.00>
+                    <option value=0.00>฿ 0.00</option>
+                    <option value=5000.00>฿ 5,000.00</option>
+                    <option value=7500.00>฿ 7,500.00</option>
+                    <option value=10000.00>฿ 10,000.00</option>
+                    <option value=15000.00>฿ 15,000.00</option>
+                </select></td>
+                <td><select id="training_wage" value=0.00>
+                    <option value=0.00>฿ 0.00</option>
+                    <option value=1000.00>฿ 1,000.00</option>
+                    <option value=2000.00>฿ 2,000.00</option>
+                    <option value=3000.00>฿ 3,000.00</option>
+                    <option value=5000.00>฿ 5,000.00</option>
+                    <option value=10000.00>฿ 10,000.00</option>
+                </select></td>
+                <td><select id="other_wage" value=0.00>
+                    <option value=0.00>฿ 0.00</option>
+                    <option value=2000.00>฿ 2,000.00</option>
+                    <option value=5000.00>฿ 5,000.00</option>
+                    <option value=7500.00>฿ 7,500.00</option>
+                    <option value=10000.00>฿ 10,000.00</option>
+                </select></td>
+                <td><select id="company">
+                    <option value="siam_chamnankit">Siam Chamnankit</option>
+                    <option value="shuhari">Shuhari</option>
+                </select></td>
+                <td><input type="text" id="description" placeholder="Description" ></td>
+                <td><input type="submit" value="ยืนยัน" onclick="addIncomeToTimesheet()"/></td>
+            </tr>
+        </table>
 </body>
 </html>
