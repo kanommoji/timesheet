@@ -146,6 +146,98 @@ func Test_CalculatePaymentSummary_Input_Member_MemberID_001_Should_Be_Transactio
 	assert.Equal(t, expected, actual)
 }
 
+func Test_CalculatePaymentSummary_Input_Member_MemberID_001_Should_Be_Append_One_TransactionTimesheet(t *testing.T) {
+	expected := []model.TransactionTimesheet{
+		{
+			MemberID:              "001",
+			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+			Year:                  2018,
+			Month:                 12,
+			Company:               "siam_chamnankit",
+			Coaching:              0.00,
+			Training:              155000.00,
+			Other:                 0.00,
+			TotalIncomes:          155000.00,
+			Salary:                80000.00,
+			IncomeTax1:            5000.00,
+			SocialSecurity:        0.00,
+			NetSalary:             75000.00,
+			Wage:                  75000.00,
+			IncomeTax53Percentage: 10,
+			IncomeTax53:           7500.00,
+			NetWage:               67500.00,
+			NetTransfer:           142500.00,
+		},
+	}
+	member := []model.Member{
+		{
+			MemberID:              "001",
+			Company:               "siam_chamnankit",
+			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+			MemberNameENG:         "Prathan Dansakulcharoenkit",
+			Email:                 "prathan@scrum123.com",
+			OvertimeRate:          0.00,
+			RatePerDay:            15000.00,
+			RatePerHour:           1875.00,
+			Salary:                80000.00,
+			IncomeTax1:            5000.00,
+			SocialSecurity:        0.00,
+			IncomeTax53Percentage: 10,
+			Status:                "",
+			TravelExpense:         0.00,
+		},
+		{
+			MemberID:              "001",
+			Company:               "shuhari",
+			MemberNameTH:          "ประธาน ด่านสกุลเจริญกิจ",
+			MemberNameENG:         "Prathan Dansakulcharoenkit",
+			Email:                 "prathan@scrum123.com",
+			OvertimeRate:          0.00,
+			RatePerDay:            15000.00,
+			RatePerHour:           1875.00,
+			Salary:                0.00,
+			IncomeTax1:            0.00,
+			SocialSecurity:        0.00,
+			IncomeTax53Percentage: 10,
+			Status:                "",
+			TravelExpense:         0.00,
+		},
+	}
+	incomes := []model.Incomes{
+		{
+			Day:                      28,
+			StartTimeAMHours:         9,
+			StartTimeAMMinutes:       0,
+			StartTimeAMSeconds:       0,
+			EndTimeAMHours:           12,
+			EndTimeAMMinutes:         0,
+			EndTimeAMSeconds:         0,
+			StartTimePMHours:         13,
+			StartTimePMMinutes:       0,
+			StartTimePMSeconds:       0,
+			EndTimePMHours:           18,
+			EndTimePMMinutes:         0,
+			EndTimePMSeconds:         0,
+			Overtime:                 0,
+			TotalHoursHours:          8,
+			TotalHoursMinutes:        0,
+			TotalHoursSeconds:        0,
+			CoachingCustomerCharging: 0.00,
+			CoachingPaymentRate:      0.00,
+			TrainingWage:             155000.00,
+			OtherWage:                0.00,
+			Company:                  "siam_chamnankit",
+			Description:              "[KBTG] 2 Days Agile Project Management",
+		},
+	}
+	year := 2018
+	month := 12
+
+	timesheet := Timesheet{}
+	actual := timesheet.CalculatePaymentSummary(member, incomes, year, month)
+
+	assert.Equal(t, expected, actual)
+}
 func Test_CalculatePayment_Input_Income_CoachingCustomerCharging_15000_CoachingPaymentRate_10000_TrainigWage_20000_Should_Be_Payment(t *testing.T) {
 	expected := model.Payment{
 		TotalHoursHours:               16,
