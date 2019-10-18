@@ -1,0 +1,920 @@
+{
+	"info": {
+		"_postman_id": "caa2783b-859f-4445-ae35-9d3b475ec9b2",
+		"name": "ShowSummaryTimesheetSuccess",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add income member ID 001 and Show summary timesheet success",
+			"item": [
+				{
+					"name": "Show summary timesheet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3e0ce5fb-1695-497e-ac13-7677bd7ee93c",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Member ID should be 001\", function () {",
+									"    pm.expect(jsonData[0].member_id).to.eql(\"001\");",
+									"});",
+									"",
+									"pm.test(\"Member thai name should be ประธาน ด่านสกุลเจริญกิจ\", function () {",
+									"    pm.expect(jsonData[0].member_name_th).to.eql(\"ประธาน ด่านสกุลเจริญกิจ\");",
+									"});",
+									"",
+									"pm.test(\"Year should be 2018\", function () {",
+									"    pm.expect(jsonData[0].year).to.eql(2018);",
+									"});",
+									"",
+									"pm.test(\"Month should be 12\", function () {",
+									"    pm.expect(jsonData[0].month).to.eql(12);",
+									"});",
+									"",
+									"pm.test(\"Company should be siam_chamnankit\", function () {",
+									"    pm.expect(jsonData[0].company).to.eql(\"siam_chamnankit\");",
+									"});",
+									"",
+									"pm.test(\"Coaching should be 75000\", function () {",
+									"    pm.expect(jsonData[0].coaching).to.eql(75000);",
+									"});",
+									"",
+									"pm.test(\"Training should be 30000\", function () {",
+									"    pm.expect(jsonData[0].training).to.eql(30000);",
+									"});",
+									"",
+									"pm.test(\"Other should be 40000\", function () {",
+									"    pm.expect(jsonData[0].other).to.eql(40000);",
+									"});",
+									"",
+									"pm.test(\"Total income should be 145000\", function () {",
+									"    pm.expect(jsonData[0].total_incomes).to.eql(145000);",
+									"});",
+									"",
+									"pm.test(\"Salary should be 80000\", function () {",
+									"    pm.expect(jsonData[0].salary).to.eql(80000);",
+									"});",
+									"",
+									"pm.test(\"Income tax 1 should be 5000\", function () {",
+									"    pm.expect(jsonData[0].income_tax_1).to.eql(5000);",
+									"});",
+									"",
+									"pm.test(\"Social security should be 0\", function () {",
+									"    pm.expect(jsonData[0].social_security).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Net salary should be 75000\", function () {",
+									"    pm.expect(jsonData[0].net_salary).to.eql(75000);",
+									"});",
+									"",
+									"pm.test(\"Wage should be 65000\", function () {",
+									"    pm.expect(jsonData[0].wage).to.eql(65000);",
+									"});",
+									"",
+									"pm.test(\"Income tax 53 percentage should be 10\", function () {",
+									"    pm.expect(jsonData[0].income_tax_53_percentage).to.eql(10);",
+									"});",
+									"",
+									"pm.test(\"Income tax 53 should be 6500\", function () {",
+									"    pm.expect(jsonData[0].income_tax_53).to.eql(6500);",
+									"});",
+									"",
+									"pm.test(\"Net wage should be 58500\", function () {",
+									"    pm.expect(jsonData[0].net_wage).to.eql(58500);",
+									"});",
+									"",
+									"pm.test(\"Net transfer should be 133500\", function () {",
+									"    pm.expect(jsonData[0].net_transfer).to.eql(133500);",
+									"});",
+									"",
+									"pm.test(\"Status checking transfer should be รอการตรวจสอบ\", function () {",
+									"    pm.expect(jsonData[0].status_checking_transfer).to.eql(\"รอการตรวจสอบ\");",
+									"});",
+									"",
+									"pm.test(\"Date transfer should be \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].date_transfer).to.eql(\"\");",
+									"});",
+									"",
+									"pm.test(\"Comment should be \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].comment).to.eql(\"\");",
+									"});",
+									"",
+									"pm.test(\"Member ID should be 001\", function () {",
+									"    pm.expect(jsonData[1].member_id).to.eql(\"001\");",
+									"});",
+									"",
+									"pm.test(\"Member thai name should be ประธาน ด่านสกุลเจริญกิจ\", function () {",
+									"    pm.expect(jsonData[1].member_name_th).to.eql(\"ประธาน ด่านสกุลเจริญกิจ\");",
+									"});",
+									"",
+									"pm.test(\"Year should be 2018\", function () {",
+									"    pm.expect(jsonData[1].year).to.eql(2018);",
+									"});",
+									"",
+									"pm.test(\"Month should be 12\", function () {",
+									"    pm.expect(jsonData[1].month).to.eql(12);",
+									"});",
+									"",
+									"pm.test(\"Company should be shuhari\", function () {",
+									"    pm.expect(jsonData[1].company).to.eql(\"shuhari\");",
+									"});",
+									"",
+									"pm.test(\"Coaching should be 0\", function () {",
+									"    pm.expect(jsonData[1].coaching).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Training should be 40000\", function () {",
+									"    pm.expect(jsonData[1].training).to.eql(40000);",
+									"});",
+									"",
+									"pm.test(\"Other should be 0\", function () {",
+									"    pm.expect(jsonData[1].other).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Total income should be 40000\", function () {",
+									"    pm.expect(jsonData[1].total_incomes).to.eql(40000);",
+									"});",
+									"",
+									"pm.test(\"Salary should be 0\", function () {",
+									"    pm.expect(jsonData[1].salary).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Income tax 1 should be 0\", function () {",
+									"    pm.expect(jsonData[1].income_tax_1).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Social security should be 0\", function () {",
+									"    pm.expect(jsonData[1].social_security).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Net salary should be 0\", function () {",
+									"    pm.expect(jsonData[1].net_salary).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Wage should be 40000\", function () {",
+									"    pm.expect(jsonData[1].wage).to.eql(40000);",
+									"});",
+									"",
+									"pm.test(\"Income tax 53 percentage should be 10\", function () {",
+									"    pm.expect(jsonData[1].income_tax_53_percentage).to.eql(10);",
+									"});",
+									"",
+									"pm.test(\"Income tax 53 should be 4000\", function () {",
+									"    pm.expect(jsonData[1].income_tax_53).to.eql(4000);",
+									"});",
+									"",
+									"pm.test(\"Net wage should be 36000\", function () {",
+									"    pm.expect(jsonData[1].net_wage).to.eql(36000);",
+									"});",
+									"",
+									"pm.test(\"Net transfer should be 36000\", function () {",
+									"    pm.expect(jsonData[1].net_transfer).to.eql(36000);",
+									"});",
+									"",
+									"pm.test(\"Status checking transfer should be รอการตรวจสอบ\", function () {",
+									"    pm.expect(jsonData[1].status_checking_transfer).to.eql(\"รอการตรวจสอบ\");",
+									"});",
+									"",
+									"pm.test(\"Date transfer should be \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[1].date_transfer).to.eql(\"\");",
+									"});",
+									"",
+									"pm.test(\"Comment should be \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[1].comment).to.eql(\"\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/showSummaryTimesheet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"showSummaryTimesheet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add income item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"001\",\n\t\"incomes\":{\n\t\t\"day\":28,\n\t\t\"start_time_am_hours\":9,\n\t\t\"start_time_am_minutes\":0,\n\t\t\"start_time_am_seconds\":0,\n\t\t\"end_time_am_hours\":12,\n\t\t\"end_time_am_minutes\":0,\n\t\t\"end_time_am_seconds\":0,\n\t\t\"start_time_pm_hours\":13,\n\t\t\"start_time_pm_minutes\":0,\n\t\t\"start_time_pm_seconds\":0,\n\t\t\"end_time_pm_hours\":18,\n\t\t\"end_time_pm_minutes\":0,\n\t\t\"end_time_pm_seconds\":0,\n\t\t\"overtime\":0,\n\t\t\"total_hours_hours\":8,\n\t\t\"total_hours_minutes\":0,\n\t\t\"total_hours_seconds\":0,\n\t\t\"coaching_customer_charging\":15000,\n\t\t\"coaching_payment_rate\":10000,\n\t\t\"training_wage\":0,\n\t\t\"other_wage\":0,\n\t\t\"company\":\"siam_chamnankit\",\n\t\t\"description\":\"[KBTG] 2 Days Agile Project Management\"}\n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/addIncomeItem",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"addIncomeItem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calculate payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"member_id\":\"001\",\n\t\"year\":2018,\n\t\"month\":12\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/calculatePayment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"calculatePayment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show summary timesheet after add income item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3e0ce5fb-1695-497e-ac13-7677bd7ee93c",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Member ID should be 001\", function () {",
+									"    pm.expect(jsonData[0].member_id).to.eql(\"001\");",
+									"});",
+									"",
+									"pm.test(\"Member thai name should be ประธาน ด่านสกุลเจริญกิจ\", function () {",
+									"    pm.expect(jsonData[0].member_name_th).to.eql(\"ประธาน ด่านสกุลเจริญกิจ\");",
+									"});",
+									"",
+									"pm.test(\"Year should be 2018\", function () {",
+									"    pm.expect(jsonData[0].year).to.eql(2018);",
+									"});",
+									"",
+									"pm.test(\"Month should be 12\", function () {",
+									"    pm.expect(jsonData[0].month).to.eql(12);",
+									"});",
+									"",
+									"pm.test(\"Company should be siam_chamnankit\", function () {",
+									"    pm.expect(jsonData[0].company).to.eql(\"siam_chamnankit\");",
+									"});",
+									"",
+									"pm.test(\"Coaching should be 85000\", function () {",
+									"    pm.expect(jsonData[0].coaching).to.eql(85000);",
+									"});",
+									"",
+									"pm.test(\"Training should be 30000\", function () {",
+									"    pm.expect(jsonData[0].training).to.eql(30000);",
+									"});",
+									"",
+									"pm.test(\"Other should be 40000\", function () {",
+									"    pm.expect(jsonData[0].other).to.eql(40000);",
+									"});",
+									"",
+									"pm.test(\"Total income should be 155000\", function () {",
+									"    pm.expect(jsonData[0].total_incomes).to.eql(155000);",
+									"});",
+									"",
+									"pm.test(\"Salary should be 80000\", function () {",
+									"    pm.expect(jsonData[0].salary).to.eql(80000);",
+									"});",
+									"",
+									"pm.test(\"Income tax 1 should be 5000\", function () {",
+									"    pm.expect(jsonData[0].income_tax_1).to.eql(5000);",
+									"});",
+									"",
+									"pm.test(\"Social security should be 0\", function () {",
+									"    pm.expect(jsonData[0].social_security).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Net salary should be 75000\", function () {",
+									"    pm.expect(jsonData[0].net_salary).to.eql(75000);",
+									"});",
+									"",
+									"pm.test(\"Wage should be 75000\", function () {",
+									"    pm.expect(jsonData[0].wage).to.eql(75000);",
+									"});",
+									"",
+									"pm.test(\"Income tax 53 percentage should be 10\", function () {",
+									"    pm.expect(jsonData[0].income_tax_53_percentage).to.eql(10);",
+									"});",
+									"",
+									"pm.test(\"Income tax 53 should be 7500\", function () {",
+									"    pm.expect(jsonData[0].income_tax_53).to.eql(7500);",
+									"});",
+									"",
+									"pm.test(\"Net wage should be 67500\", function () {",
+									"    pm.expect(jsonData[0].net_wage).to.eql(67500);",
+									"});",
+									"",
+									"pm.test(\"Net transfer should be 142500\", function () {",
+									"    pm.expect(jsonData[0].net_transfer).to.eql(142500);",
+									"});",
+									"",
+									"pm.test(\"Status checking transfer should be รอการตรวจสอบ\", function () {",
+									"    pm.expect(jsonData[0].status_checking_transfer).to.eql(\"รอการตรวจสอบ\");",
+									"});",
+									"",
+									"pm.test(\"Date transfer should be \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].date_transfer).to.eql(\"\");",
+									"});",
+									"",
+									"pm.test(\"Comment should be \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].comment).to.eql(\"\");",
+									"});",
+									"",
+									"pm.test(\"Member ID should be 001\", function () {",
+									"    pm.expect(jsonData[1].member_id).to.eql(\"001\");",
+									"});",
+									"",
+									"pm.test(\"Member thai name should be ประธาน ด่านสกุลเจริญกิจ\", function () {",
+									"    pm.expect(jsonData[1].member_name_th).to.eql(\"ประธาน ด่านสกุลเจริญกิจ\");",
+									"});",
+									"",
+									"pm.test(\"Year should be 2018\", function () {",
+									"    pm.expect(jsonData[1].year).to.eql(2018);",
+									"});",
+									"",
+									"pm.test(\"Month should be 12\", function () {",
+									"    pm.expect(jsonData[1].month).to.eql(12);",
+									"});",
+									"",
+									"pm.test(\"Company should be shuhari\", function () {",
+									"    pm.expect(jsonData[1].company).to.eql(\"shuhari\");",
+									"});",
+									"",
+									"pm.test(\"Coaching should be 0\", function () {",
+									"    pm.expect(jsonData[1].coaching).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Training should be 40000\", function () {",
+									"    pm.expect(jsonData[1].training).to.eql(40000);",
+									"});",
+									"",
+									"pm.test(\"Other should be 0\", function () {",
+									"    pm.expect(jsonData[1].other).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Total income should be 40000\", function () {",
+									"    pm.expect(jsonData[1].total_incomes).to.eql(40000);",
+									"});",
+									"",
+									"pm.test(\"Salary should be 0\", function () {",
+									"    pm.expect(jsonData[1].salary).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Income tax 1 should be 0\", function () {",
+									"    pm.expect(jsonData[1].income_tax_1).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Social security should be 0\", function () {",
+									"    pm.expect(jsonData[1].social_security).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Net salary should be 0\", function () {",
+									"    pm.expect(jsonData[1].net_salary).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Wage should be 40000\", function () {",
+									"    pm.expect(jsonData[1].wage).to.eql(40000);",
+									"});",
+									"",
+									"pm.test(\"Income tax 53 percentage should be 10\", function () {",
+									"    pm.expect(jsonData[1].income_tax_53_percentage).to.eql(10);",
+									"});",
+									"",
+									"pm.test(\"Income tax 53 should be 4000\", function () {",
+									"    pm.expect(jsonData[1].income_tax_53).to.eql(4000);",
+									"});",
+									"",
+									"pm.test(\"Net wage should be 36000\", function () {",
+									"    pm.expect(jsonData[1].net_wage).to.eql(36000);",
+									"});",
+									"",
+									"pm.test(\"Net transfer should be 36000\", function () {",
+									"    pm.expect(jsonData[1].net_transfer).to.eql(36000);",
+									"});",
+									"",
+									"pm.test(\"Status checking transfer should be รอการตรวจสอบ\", function () {",
+									"    pm.expect(jsonData[1].status_checking_transfer).to.eql(\"รอการตรวจสอบ\");",
+									"});",
+									"",
+									"pm.test(\"Date transfer should be \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[1].date_transfer).to.eql(\"\");",
+									"});",
+									"",
+									"pm.test(\"Comment should be \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[1].comment).to.eql(\"\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/showSummaryTimesheet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"showSummaryTimesheet"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Add income member ID 002 and Show summary timesheet success",
+			"item": [
+				{
+					"name": "Show summary timesheet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3e0ce5fb-1695-497e-ac13-7677bd7ee93c",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Member ID should be 002\", function () {",
+									"    pm.expect(jsonData[2].member_id).to.eql(\"002\");",
+									"});",
+									"",
+									"pm.test(\"Member thai name should be นารีนารถ เนรัญชร\", function () {",
+									"    pm.expect(jsonData[2].member_name_th).to.eql(\"นารีนารถ เนรัญชร\");",
+									"});",
+									"",
+									"pm.test(\"Year should be 2018\", function () {",
+									"    pm.expect(jsonData[2].year).to.eql(2018);",
+									"});",
+									"",
+									"pm.test(\"Month should be 12\", function () {",
+									"    pm.expect(jsonData[2].month).to.eql(12);",
+									"});",
+									"",
+									"pm.test(\"Company should be shuhari\", function () {",
+									"    pm.expect(jsonData[2].company).to.eql(\"shuhari\");",
+									"});",
+									"",
+									"pm.test(\"Coaching should be 0\", function () {",
+									"    pm.expect(jsonData[2].coaching).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Training should be 0\", function () {",
+									"    pm.expect(jsonData[2].training).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Other should be 6500\", function () {",
+									"    pm.expect(jsonData[2].other).to.eql(6500);",
+									"});",
+									"",
+									"pm.test(\"Total income should be 6500\", function () {",
+									"    pm.expect(jsonData[2].total_incomes).to.eql(6500);",
+									"});",
+									"",
+									"pm.test(\"Salary should be 25000\", function () {",
+									"    pm.expect(jsonData[2].salary).to.eql(25000);",
+									"});",
+									"",
+									"pm.test(\"Income tax 1 should be 0\", function () {",
+									"    pm.expect(jsonData[2].income_tax_1).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Social security should be 750\", function () {",
+									"    pm.expect(jsonData[2].social_security).to.eql(750);",
+									"});",
+									"",
+									"pm.test(\"Net salary should be 24250\", function () {",
+									"    pm.expect(jsonData[2].net_salary).to.eql(24250);",
+									"});",
+									"",
+									"pm.test(\"Wage should be 6500\", function () {",
+									"    pm.expect(jsonData[2].wage).to.eql(6500);",
+									"});",
+									"",
+									"pm.test(\"Income tax 53 percentage should be 5\", function () {",
+									"    pm.expect(jsonData[2].income_tax_53_percentage).to.eql(5);",
+									"});",
+									"",
+									"pm.test(\"Income tax 53 should be 325\", function () {",
+									"    pm.expect(jsonData[2].income_tax_53).to.eql(325);",
+									"});",
+									"",
+									"pm.test(\"Net wage should be 6175\", function () {",
+									"    pm.expect(jsonData[2].net_wage).to.eql(6175);",
+									"});",
+									"",
+									"pm.test(\"Net transfer should be 30425\", function () {",
+									"    pm.expect(jsonData[2].net_transfer).to.eql(30425);",
+									"});",
+									"",
+									"pm.test(\"Status checking transfer should be รอการตรวจสอบ\", function () {",
+									"    pm.expect(jsonData[2].status_checking_transfer).to.eql(\"รอการตรวจสอบ\");",
+									"});",
+									"",
+									"pm.test(\"Date transfer should be \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[2].date_transfer).to.eql(\"\");",
+									"});",
+									"",
+									"pm.test(\"Comment should be \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[2].comment).to.eql(\"\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/showSummaryTimesheet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"showSummaryTimesheet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add income item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"002\",\n\t\"incomes\":{\n\t\t\"day\":28,\n\t\t\"start_time_am_hours\":9,\n\t\t\"start_time_am_minutes\":0,\n\t\t\"start_time_am_seconds\":0,\n\t\t\"end_time_am_hours\":12,\n\t\t\"end_time_am_minutes\":0,\n\t\t\"end_time_am_seconds\":0,\n\t\t\"start_time_pm_hours\":13,\n\t\t\"start_time_pm_minutes\":0,\n\t\t\"start_time_pm_seconds\":0,\n\t\t\"end_time_pm_hours\":18,\n\t\t\"end_time_pm_minutes\":0,\n\t\t\"end_time_pm_seconds\":0,\n\t\t\"overtime\":0,\n\t\t\"total_hours_hours\":8,\n\t\t\"total_hours_minutes\":0,\n\t\t\"total_hours_seconds\":0,\n\t\t\"coaching_customer_charging\":0,\n\t\t\"coaching_payment_rate\":0,\n\t\t\"training_wage\":0,\n\t\t\"other_wage\":0,\n\t\t\"company\":\"shuhari\",\n\t\t\"description\":\"work at TN\"}\n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/addIncomeItem",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"addIncomeItem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calculate payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"member_id\":\"002\",\n\t\"year\":2018,\n\t\"month\":12\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/calculatePayment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"calculatePayment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show summary timesheet after add income item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3e0ce5fb-1695-497e-ac13-7677bd7ee93c",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Member ID should be 002\", function () {",
+									"    pm.expect(jsonData[2].member_id).to.eql(\"002\");",
+									"});",
+									"",
+									"pm.test(\"Member thai name should be นารีนารถ เนรัญชร\", function () {",
+									"    pm.expect(jsonData[2].member_name_th).to.eql(\"นารีนารถ เนรัญชร\");",
+									"});",
+									"",
+									"pm.test(\"Year should be 2018\", function () {",
+									"    pm.expect(jsonData[2].year).to.eql(2018);",
+									"});",
+									"",
+									"pm.test(\"Month should be 12\", function () {",
+									"    pm.expect(jsonData[2].month).to.eql(12);",
+									"});",
+									"",
+									"pm.test(\"Company should be shuhari\", function () {",
+									"    pm.expect(jsonData[2].company).to.eql(\"shuhari\");",
+									"});",
+									"",
+									"pm.test(\"Coaching should be 0\", function () {",
+									"    pm.expect(jsonData[2].coaching).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Training should be 0\", function () {",
+									"    pm.expect(jsonData[2].training).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Other should be 6500\", function () {",
+									"    pm.expect(jsonData[2].other).to.eql(6500);",
+									"});",
+									"",
+									"pm.test(\"Total income should be 6500\", function () {",
+									"    pm.expect(jsonData[2].total_incomes).to.eql(6500);",
+									"});",
+									"",
+									"pm.test(\"Salary should be 25000\", function () {",
+									"    pm.expect(jsonData[2].salary).to.eql(25000);",
+									"});",
+									"",
+									"pm.test(\"Income tax 1 should be 0\", function () {",
+									"    pm.expect(jsonData[2].income_tax_1).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Social security should be 750\", function () {",
+									"    pm.expect(jsonData[2].social_security).to.eql(750);",
+									"});",
+									"",
+									"pm.test(\"Net salary should be 24250\", function () {",
+									"    pm.expect(jsonData[2].net_salary).to.eql(24250);",
+									"});",
+									"",
+									"pm.test(\"Wage should be 6500\", function () {",
+									"    pm.expect(jsonData[2].wage).to.eql(6500);",
+									"});",
+									"",
+									"pm.test(\"Income tax 53 percentage should be 5\", function () {",
+									"    pm.expect(jsonData[2].income_tax_53_percentage).to.eql(5);",
+									"});",
+									"",
+									"pm.test(\"Income tax 53 should be 325\", function () {",
+									"    pm.expect(jsonData[2].income_tax_53).to.eql(325);",
+									"});",
+									"",
+									"pm.test(\"Net wage should be 6175\", function () {",
+									"    pm.expect(jsonData[2].net_wage).to.eql(6175);",
+									"});",
+									"",
+									"pm.test(\"Net transfer should be 30425\", function () {",
+									"    pm.expect(jsonData[2].net_transfer).to.eql(30425);",
+									"});",
+									"",
+									"pm.test(\"Status checking transfer should be รอการตรวจสอบ\", function () {",
+									"    pm.expect(jsonData[2].status_checking_transfer).to.eql(\"รอการตรวจสอบ\");",
+									"});",
+									"",
+									"pm.test(\"Date transfer should be \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[2].date_transfer).to.eql(\"\");",
+									"});",
+									"",
+									"pm.test(\"Comment should be \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[2].comment).to.eql(\"\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/showSummaryTimesheet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"showSummaryTimesheet"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "bc21cdf1-b4df-4201-9f11-babf7a9f8088",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8ea410d0-e97f-46f2-90b8-b811e283e5fb",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

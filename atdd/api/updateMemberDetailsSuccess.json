@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "f47d461e-f323-4034-8e08-458e6160fa38",
+		"name": "UpdateMemberDetailsSuccess",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Update member details member ID 006 and Show timesheet by ID success",
+			"item": [
+				{
+					"name": "Show timesheet by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Member english name should be Panumars Seanto\", function () {",
+									"    pm.expect(jsonData.member_name_eng).to.eql(\"Panumars Seanto\");",
+									"});",
+									"",
+									"pm.test(\"Email should be panumars@scrum123.com\", function () {",
+									"    pm.expect(jsonData.email).to.eql(\"panumars@scrum123.com\");",
+									"});",
+									"",
+									"pm.test(\"Overtime rate should be 0\", function () {",
+									"    pm.expect(jsonData.overtime_rate).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Rate per day should be 0\", function () {",
+									"    pm.expect(jsonData.rate_per_day).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Rate per hour should be 0\", function () {",
+									"    pm.expect(jsonData.rate_per_hour).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Month should be 12\", function () {",
+									"    pm.expect(jsonData.month).to.eql(\"12\");",
+									"});",
+									"",
+									"pm.test(\"Year should be 2018\", function () {",
+									"    pm.expect(jsonData.year).to.eql(\"2018\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"006\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/showTimesheetByID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"showTimesheetByID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update member details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"member_id\":\"006\",\n\t\"member_name_th\":\"ภาณุมาศ แสนโท\",\n\t\"member_name_eng\":\"Panumars Seanto\",\n\t\"email\":\"panumars@scrum123.com\",\n\t\"rate_per_day\":15000,\n\t\"rate_per_hour\":1875,\n\t\"overtime_rate\":0,\n\t\"companies\":[{\n\t\t\"company\":\"shuhari\",\n\t\t\"salary\":25000,\n\t\t\"income_tax_1\":0,\n\t\t\"social_security\":750,\n\t\t\"income_tax_53_percentage\":5,\n\t\t\"travel_expense\":1500,\n\t\t\"status\":\"Salary\"\n\t}]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/updateMemberDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"updateMemberDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show timesheet by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "85f5ed22-b649-4061-a1a2-63f85c1daaff",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Member english name should be Panumars Seanto\", function () {",
+									"    pm.expect(jsonData.member_name_eng).to.eql(\"Panumars Seanto\");",
+									"});",
+									"",
+									"pm.test(\"Email should be panumars@scrum123.com\", function () {",
+									"    pm.expect(jsonData.email).to.eql(\"panumars@scrum123.com\");",
+									"});",
+									"",
+									"pm.test(\"Overtime rate should be 0\", function () {",
+									"    pm.expect(jsonData.overtime_rate).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Rate per day should be 15000\", function () {",
+									"    pm.expect(jsonData.rate_per_day).to.eql(15000);",
+									"});",
+									"",
+									"pm.test(\"Rate per hour should be 1875\", function () {",
+									"    pm.expect(jsonData.rate_per_hour).to.eql(1875);",
+									"});",
+									"",
+									"pm.test(\"Month should be 12\", function () {",
+									"    pm.expect(jsonData.month).to.eql(\"12\");",
+									"});",
+									"",
+									"pm.test(\"Year should be 2018\", function () {",
+									"    pm.expect(jsonData.year).to.eql(\"2018\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"year\":2018,\n\t\"month\":12,\n\t\"member_id\":\"006\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/showTimesheetByID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"showTimesheetByID"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
