@@ -55,6 +55,9 @@ func (repository TimesheetRepository) GetSummary(year, month int) ([]model.Trans
 			&transactionTimesheet.DateTransfer,
 			&transactionTimesheet.Comment,
 		)
+		if row.Err() != nil {
+			return nil, err
+		}
 		transactionTimesheetList = append(transactionTimesheetList, transactionTimesheet)
 	}
 	return transactionTimesheetList, nil
@@ -101,6 +104,9 @@ func (repository TimesheetRepository) GetMemberByID(memberID string) ([]model.Me
 			&member.Status,
 			&member.TravelExpense,
 		)
+		if row.Err() != nil {
+			return nil, err
+		}
 		memberList = append(memberList, member)
 	}
 	return memberList, nil
@@ -111,11 +117,11 @@ func (repository TimesheetRepository) GetIncomes(memberID string, year, month in
 	var income model.Incomes
 	statement, err := repository.DatabaseConnection.Prepare(`SELECT * FROM timesheet.incomes WHERE member_id = ? AND year = ? AND month = ?`)
 	if err != nil {
-		return incomeList, err
+		return nil, err
 	}
 	row, err := statement.Query(memberID, year, month)
 	if err != nil {
-		return incomeList, err
+		return nil, err
 	}
 	for row.Next() {
 		err = row.Scan(
@@ -147,13 +153,15 @@ func (repository TimesheetRepository) GetIncomes(memberID string, year, month in
 			&income.Company,
 			&income.Description,
 		)
+		if row.Err() != nil {
+			return nil, err
+		}
 		incomeList = append(incomeList, income)
 	}
 	return incomeList, nil
 }
 
 func (repository TimesheetRepository) VerifyTransactionTimsheet(transactionTimesheet []model.TransactionTimesheet) error {
-	var err error
 	for _, transactionTimesheet := range transactionTimesheet {
 		var count int
 		statement, err := repository.DatabaseConnection.Prepare(`SELECT COUNT(id) FROM timesheet.transactions WHERE id LIKE ?`)
@@ -170,8 +178,11 @@ func (repository TimesheetRepository) VerifyTransactionTimsheet(transactionTimes
 		} else {
 			err = repository.CreateTransactionTimsheet(transactionTimesheet, transactionID)
 		}
+		if err != nil {
+			return err
+		}
 	}
-	return err
+	return nil
 }
 
 func (repository TimesheetRepository) CreateTransactionTimsheet(transactionTimesheet model.TransactionTimesheet, transactionID string) error {
