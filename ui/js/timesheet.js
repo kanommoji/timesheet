@@ -1,9 +1,7 @@
 function showSummary(){
     var year = parseInt($("#year").val());
     var month = parseInt($("#month").val());
-    
-    console.log(year);
-    console.log(month);
+
     var request = new XMLHttpRequest();
     var url = "/showSummaryTimesheet";
     request.open("POST", url, true);
@@ -142,10 +140,69 @@ function showSummary(){
         }
     };
     var data = JSON.stringify({"year":year, "month": month});
-    console.log(data);
     request.send(data);
 }
 
-function addTimsheet(){
+function addIncomeToTimesheet(){
+    var urlString = window.location.href
+    var url = new URL(urlString);
+    var memberID = url.searchParams.get("id");
+
+    var fullDate = $("#date").val();
+    var date = new Date(fullDate);
+    var year = date.getFullYear();
+    var month = date.getMonth()+1;
+    var day = date.getDate();
+
+    var fullStartTimeAm = $("#start_time_am").val();
+    var startTimeAm = new Date("January 02, 2006 "+fullStartTimeAm);
+    var startTimeAmHours = startTimeAm.getHours();
+    var startTimeAmMinutes = startTimeAm.getMinutes();
+    var startTimeAmSeconds = startTimeAm.getSeconds();
+
+    var fullEndTimeAm = $("#end_time_am").val();
+    var endTimeAm = new Date("January 02, 2006 "+fullEndTimeAm);
+    var endTimeAmHours = endTimeAm.getHours();
+    var endTimeAmMinutes = endTimeAm.getMinutes();
+    var endTimeAmSeconds = endTimeAm.getSeconds();
+
+    var fullStartTimePm = $("#start_time_pm").val();
+    var startTimePm = new Date("January 02, 2006 "+fullStartTimePm);
+    var startTimePmHours = startTimePm.getHours();
+    var startTimePmMinutes = startTimePm.getMinutes();
+    var startTimePmSeconds = startTimePm.getSeconds();
+
+    var fullEndTimePm = $("#end_time_pm").val();
+    var endTimePm = new Date("January 02, 2006 "+fullEndTimePm);
+    var endTimePmHours = endTimePm.getHours();
+    var endTimePmMinutes = endTimePm.getMinutes();
+    var endTimePmSeconds = endTimePm.getSeconds();
+
+    var overtime = parseInt($("#overtime").val());
+
+    var fullTotalHours = $("#total_hours").val();
+    var totalHours = new Date("January 02, 2006 "+fullTotalHours);
+    var totalHoursHours = totalHours.getHours();
+    var totalHoursMinutes = totalHours.getMinutes();
+    var totalHoursSeconds = totalHours.getSeconds();
+       
+
+    var coachingCustomerCharging = parseFloat($("#coaching_customer_charging").val());
+
+    var coachingPaymentRate = parseFloat($("#coaching_payment_rate").val());
     
+    var trainingWage = parseFloat($("#training_wage").val());
+
+    var otherWage = parseFloat($("#other_wage").val());
+
+    var company = $("#company").val();
+
+    var description = $("#description").val();
+    
+    var request = new XMLHttpRequest();
+    var url = "/addIncomeItem";
+    request.open("POST", url, true);
+    request.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"year":year,"month":month,"member_id":memberID,"incomes":{"day":day,"start_time_am_hours":startTimeAmHours,"start_time_am_minutes":startTimeAmMinutes,"start_time_am_seconds":startTimeAmSeconds,"end_time_am_hours":endTimeAmHours,"end_time_am_minutes":endTimeAmMinutes,"end_time_am_seconds":endTimeAmSeconds,"start_time_pm_hours":startTimePmHours,"start_time_pm_minutes":startTimePmMinutes,"start_time_pm_seconds":startTimePmSeconds,"end_time_pm_hours":endTimePmHours,"end_time_pm_minutes":endTimePmMinutes,"end_time_pm_seconds":endTimePmSeconds,"overtime":overtime,"total_hours_hours":totalHoursHours,"total_hours_minutes":totalHoursMinutes,"total_hours_seconds":totalHoursSeconds,"coaching_customer_charging":coachingCustomerCharging,"coaching_payment_rate":coachingPaymentRate,"training_wage":trainingWage,"other_wage":otherWage,"company":company,"description":description}});
+    request.send(data);    
 }
