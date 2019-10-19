@@ -1,12 +1,14 @@
 version: '3'
 services:
-  # my-timesheet:
-  #   container_name: my-timesheet
-  #   image: timesheet:1
-  #   build:
-  #     context: .
-  #   ports:
-  #   - 8080:8080
+  my-timesheet:
+    container_name: my-timesheet
+    image: timesheet:1
+    build:
+      context: .
+    depends_on:
+      - my-mariadb
+    ports:
+    - 8080:8080
 
   my-mariadb:
     container_name: my-mariadb
@@ -19,3 +21,4 @@ services:
       MYSQL_PASSWORD: root
     ports:
     - 3306:3306
+    

@@ -1,5 +1,5 @@
 username: root
 password: root
-host: localhost
+host: my-mariadb
 port: '3306'
 database: timesheet

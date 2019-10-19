@@ -20,6 +20,7 @@ acceptance_test:
 	docker-compose up -d
 	sleep 30
 	docker exec -i my-mariadb mysql --user=root --password=root timesheet < atdd/data/prepare_timesheet.sql
+	sleep 10
 	newman run atdd/api/timesheetSuccess.json
 	docker-compose down
 
