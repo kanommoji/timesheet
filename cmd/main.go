@@ -16,7 +16,7 @@ import (
 
 func main() {
 	var databaseConfigPath string
-	flag.StringVar(&databaseConfigPath, "config", "../timesheet/config/database.yml", "Database config path")
+	flag.StringVar(&databaseConfigPath, "config", "./config/database.yml", "Database config path")
 	flag.Parse()
 
 	databaseConfig, err := config.SetupDatabaseConfig(databaseConfigPath)
