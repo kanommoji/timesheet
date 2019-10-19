@@ -1,23 +1,21 @@
 version: '3'
 services:
-  my-timesheet:
-    container_name: my-timesheet
-    image: timesheet:1
-    build:
-      context: .
-    ports:
-    - 8080:8080
+  # my-timesheet:
+  #   container_name: my-timesheet
+  #   image: timesheet:1
+  #   build:
+  #     context: .
+  #   ports:
+  #   - 8080:8080
 
   my-mariadb:
     container_name: my-mariadb
     image: mariadb:10.4.7
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_ROOT_HOST: localhost
       MYSQL_DATABASE: timesheet
       MYSQL_USER: root
       MYSQL_PASSWORD: root
-    build:
-      context: .
     ports:
     - 3306:3306

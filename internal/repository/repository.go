@@ -64,7 +64,15 @@ func (repository TimesheetRepository) GetSummary(year, month int) ([]model.Trans
 }
 
 func (repository TimesheetRepository) CreateIncome(year, month int, memberID string, income model.Incomes) error {
-	statement, err := repository.DatabaseConnection.Prepare(`INSERT INTO incomes (member_id, month, year, day, start_time_am_hours, start_time_am_minutes, start_time_am_seconds, end_time_am_hours, end_time_am_minutes, end_time_am_seconds, start_time_pm_hours, start_time_pm_minutes, start_time_pm_seconds, end_time_pm_hours, end_time_pm_minutes, end_time_pm_seconds, overtime, total_hours_hours, total_hours_minutes, total_hours_seconds, coaching_customer_charging, coaching_payment_rate, training_wage, other_wage, company, description) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? )`)
+	statement, err := repository.DatabaseConnection.Prepare(
+		`INSERT INTO incomes (member_id, month, year, day, start_time_am_hours, 
+		start_time_am_minutes, start_time_am_seconds, end_time_am_hours, end_time_am_minutes, 
+		end_time_am_seconds, start_time_pm_hours, start_time_pm_minutes, start_time_pm_seconds, 
+		end_time_pm_hours, end_time_pm_minutes, end_time_pm_seconds, overtime, total_hours_hours, 
+		total_hours_minutes, total_hours_seconds, coaching_customer_charging, coaching_payment_rate, 
+		training_wage, other_wage, company, description) 
+		VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?, ? , ? , 
+			?, ? , ? , ?, ? , ? , ?, ? , ? , ?, ? )`)
 	if err != nil {
 		return err
 	}
