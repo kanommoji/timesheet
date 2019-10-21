@@ -91,7 +91,7 @@ func Test_GetSummaryHandler_Input_Year_2018_Month_12_Should_Be_Timesheet(t *test
 	assert.Equal(t, expected, string(actual))
 }
 
-func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Should_Be_Status_200(t *testing.T) {
+func Test_CreateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Should_Be_Status_200(t *testing.T) {
 	expectedStatus := http.StatusOK
 	requestIncome := IncomeRequest{
 		Year:     2018,
@@ -159,7 +159,7 @@ func Test_UpdateIncomeHandler_Input_Year_2018_Month_12_MemberID_001_Income_Shoul
 	}
 
 	testRoute := gin.Default()
-	testRoute.POST("/addIncomeItem", api.UpdateIncomeHandler)
+	testRoute.POST("/addIncomeItem", api.CreateIncomeHandler)
 	testRoute.ServeHTTP(writer, request)
 
 	response := writer.Result()
