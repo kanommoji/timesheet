@@ -40,7 +40,7 @@ func main() {
 	router := gin.Default()
 
 	router.POST("/showSummaryTimesheet", api.GetSummaryHandler)
-	router.POST("/addIncomeItem", api.UpdateIncomeHandler)
+	router.POST("/addIncomeItem", api.CreateIncomeHandler)
 	router.POST("/calculatePayment", api.CalculatePaymentHandler)
 	router.StaticFS("/", http.Dir("ui"))
 	log.Fatal(router.Run())
